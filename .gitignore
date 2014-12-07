@@ -1,0 +1,10 @@
+*~
+.DS_Store
+_site
+.jekyll
+.bundle
+.sass-cache
+Gemfile
+Gemfile.lock
+node_modules
+bower_components
