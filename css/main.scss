@@ -1,0 +1,113 @@
+---
+---
+
+
+/**************
+! CONFIGURATION
+***************/
+
+/* font settings */
+$font-family-normal: "Source Sans Pro", "Myriad Pro", Helvetica, Tahoma, "Nimbus Sans", Arial, sans-serif !default;
+$font-family-headings: "Raelway", Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif !default;
+$font-family-monospace: "Source Code Pro", Consolas, "Andale Mono", "Lucida Console", "Nimbus Mono", "Courier New", monospace !default;
+$font-size: 16px;
+$font-size-mobile: 14px;
+$font-line-height: 24px;
+
+
+/**************
+! IMPORT STYLES
+***************/
+
+@import "global";
+@import "functions";
+@import "base";
+@import "grid";
+@import "effects";
+@import "animations";
+@import "modal";
+
+
+/*************
+! GRID OPTIONS
+**************/
+
+@include grid($block-size: 10em, $columns: 12, $gutter: 1.5em);
+
+
+/*************
+ ! BASE STYLES
+ *************/
+
+html, body { height: 100%; }
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    margin-bottom: .5em;
+}
+
+ul, ol { margin-left: 1em; }
+
+li { padding: .5em; }
+
+p { margin-bottom: 1em; }
+
+
+/*******
+! FOOTER
+********/
+
+footer {
+    border-top: 1px solid darken($light-color, 5%);
+    color: lighten($dark-color, 30%);
+    text-align: center;
+    font-size: .9em;
+
+    a { color: lighten($dark-color, 30%); }
+}
+
+
+/**************
+! COMMON STYLES
+***************/
+
+.container {
+    max-width: 60em;
+    margin: auto;
+    padding: 2em;
+}
+
+.cover {
+    height: 100%;
+
+    .container {
+        width: 100%;
+        height: 100%;
+        display: table;
+        table-layout: fixed;
+
+        .content {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+    }
+}
+
+.larger { font-size: 1.5em; }
+
+.avatar {
+    border: 4px solid #eee;
+    border-radius: 50%;
+}
+
+.social {
+    padding: 1em;
+
+    a {
+        padding: .5em;
+        opacity: 0.5;
+
+        &:focus, &:hover, &:active { opacity: 1; }
+    }
+}

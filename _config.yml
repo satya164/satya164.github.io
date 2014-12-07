@@ -1,0 +1,49 @@
+# Build settings
+markdown: kramdown
+highlighter: pygments
+
+# Site settings
+title: "Satyajit Sahoo"
+description: "My online portfolio."
+
+email: support@scrollback.io
+
+url: "https://satya164.github.io/" # the base hostname & protocol for your site
+baseurl: ""
+
+analytics: ""
+
+# sass options
+sass:
+  sass_dir: lace/src/scss
+  style: :compressed
+
+# social icons and sharing options
+social:
+  - icon: twitter
+    url: https://twitter.com/satya164
+    desc: Follow me on Twitter
+    share_url: http://twitter.com/share
+    share_title: ?text=
+    share_link: "&amp;url="
+
+  - icon: facebook
+    url: https://facebook.com/satya164
+    desc: Connect with me on Facebook
+    share_url: //www.facebook.com/sharer.php
+    share_title: ?t=
+    share_link: "&amp;u="
+
+  - icon:	github
+    url:	https://github.com/satya164
+    desc:	See my profile on Github
+    share_url:
+    share_title:
+    share_link:
+
+  - icon:	google-plus
+    url:	https://plus.google.com/u/0/+SatyajitSahoo
+    desc:	Follow me on Google+
+    share_url:
+    share_title:
+    share_link:
