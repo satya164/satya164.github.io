@@ -1,0 +1,51 @@
+{
+  "name": "satya164.github.io",
+  "description": "Personal blog of satya164",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "git@github.com:satya164/satya164.github.io.git",
+  "author": "Satyajit Sahoo <satyajit.happy@gmail.com>",
+  "license": "CC BY-NC-SA",
+  "private": true,
+  "packageManager": "yarn@4.0.1",
+  "scripts": {
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "typecheck": "tsc --noEmit",
+    "dev": "next dev",
+    "build": "next build"
+  },
+  "dependencies": {
+    "next": "^14.0.1",
+    "nextra": "^2.13.2",
+    "nextra-theme-blog": "^2.13.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@evilmartians/lefthook": "^1.5.2",
+    "@types/node": "^20.8.10",
+    "eslint": "^8.52.0",
+    "eslint-config-satya164": "^3.2.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
+  },
+  "eslintConfig": {
+    "extends": "satya164",
+    "rules": {
+      "react/react-in-jsx-scope": "off"
+    }
+  },
+  "eslintIgnore": [
+    ".next/",
+    ".yarn/",
+    "node_modules/",
+    "out/"
+  ],
+  "prettier": {
+    "quoteProps": "consistent",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  }
+}
