@@ -1,0 +1,50 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  gap: 1rem;
+  min-height: 100vh;
+  max-width: 30rem;
+  margin: auto;
+  text-align: center;
+}
+
+.avatar {
+  width: 15rem;
+  max-width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  margin: 0 auto;
+  display: block;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.links {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.links a {
+  display: block;
+  width: 15rem;
+  max-width: 100%;
+  padding: .5rem 1rem;
+  border-radius: 5px;
+  background-color: #eee;
+  transition: all .15s ease;
+}
+
+.links a:hover {
+  transform: scale(1.05);
+}

@@ -27,13 +27,11 @@
     "eslint": "^8.52.0",
     "eslint-config-satya164": "^3.2.0",
     "prettier": "^3.0.3",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "typescript-plugin-css-modules": "^5.0.2"
   },
   "eslintConfig": {
-    "extends": "satya164",
-    "rules": {
-      "react/react-in-jsx-scope": "off"
-    }
+    "extends": "satya164"
   },
   "eslintIgnore": [
     ".next/",

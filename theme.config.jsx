@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 export default {
   head: ({ meta }) => (
     <>
@@ -15,6 +17,12 @@ export default {
     </p>
   ),
   readMore: 'Read More →',
+  navs: [
+    {
+      url: '/',
+      name: 'About',
+    },
+  ],
   postFooter: null,
   darkMode: false,
 };
