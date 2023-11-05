@@ -3,11 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
-  gap: 1rem;
-  min-height: 100vh;
-  max-width: 30rem;
-  margin: auto;
   text-align: center;
 }
 
@@ -16,33 +11,28 @@
   max-width: 100%;
   aspect-ratio: 1;
   border-radius: 50%;
-  object-fit: cover;
-  object-position: center;
-  margin: 0 auto;
-  display: block;
-}
-
-.title {
-  font-size: 2rem;
-  font-weight: 600;
 }
 
 .links {
-  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: .5rem;
+  list-style: none;
 }
 
 .links a {
   display: block;
   width: 15rem;
   max-width: 100%;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 5px;
-  background-color: #eee;
-  transition: all .15s ease;
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: all 0.15s ease;
+}
+
+html:global(.dark) .links a {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .links a:hover {

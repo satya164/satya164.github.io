@@ -1,6 +1,8 @@
 import * as React from 'react';
 
+/** @type {import('nextra-theme-blog').NextraBlogTheme} */
 export default {
+  titleSuffix: " • @satya164's blog",
   head: ({ meta }) => (
     <>
       {meta.description && (
@@ -17,12 +19,6 @@ export default {
     </p>
   ),
   readMore: 'Read More →',
-  navs: [
-    {
-      url: '/',
-      name: 'About',
-    },
-  ],
   postFooter: null,
-  darkMode: false,
+  darkMode: true,
 };
