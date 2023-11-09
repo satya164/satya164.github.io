@@ -1,37 +1,57 @@
 {
   "name": "satya164.github.io",
   "description": "Personal blog of satya164",
-  "version": "0.0.1",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
   "repository": "git@github.com:satya164/satya164.github.io.git",
   "author": "Satyajit Sahoo <satyajit.happy@gmail.com>",
   "license": "CC BY-NC-SA",
-  "private": true,
-  "packageManager": "yarn@4.0.1",
   "scripts": {
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "typecheck": "tsc --noEmit",
     "dev": "next dev",
-    "build": "next build"
+    "build": "next build",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "typecheck": "tsc --noEmit"
   },
+  "packageManager": "yarn@4.0.1",
   "dependencies": {
-    "next": "^14.0.1",
-    "nextra": "^2.13.2",
-    "nextra-theme-blog": "^2.13.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@mdx-js/react": "^3.0.0",
+    "@next/mdx": "^14.0.1",
+    "front-matter": "^4.0.2",
+    "next": "14.0.1",
+    "react": "^18",
+    "react-dom": "^18",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@evilmartians/lefthook": "^1.5.2",
-    "@types/node": "^20.8.10",
-    "eslint": "^8.52.0",
+    "@mdx-js/loader": "^3.0.0",
+    "@types/mdx": "^2.0.10",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8.53.0",
+    "eslint-config-next": "14.0.1",
     "eslint-config-satya164": "^3.2.0",
     "prettier": "^3.0.3",
-    "typescript": "^5.2.2",
-    "typescript-plugin-css-modules": "^5.0.2"
+    "rehype-pretty-code": "^0.10.2",
+    "rehype-stringify": "^10.0.0",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.0",
+    "remark-mdx-frontmatter": "^4.0.0",
+    "shiki": "^0.14.5",
+    "typescript": "^5.2.2"
+  },
+  "resolutions": {
+    "eslint-plugin-react-hooks": "5.0.0-canary-7118f5dd7-20230705"
   },
   "eslintConfig": {
-    "extends": "satya164"
+    "extends": [
+      "next/core-web-vitals",
+      "satya164"
+    ],
+    "rules": {
+      "react/react-in-jsx-scope": "off"
+    }
   },
   "eslintIgnore": [
     ".next/",
@@ -41,9 +61,9 @@
   ],
   "prettier": {
     "quoteProps": "consistent",
-    "singleQuote": true,
     "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
+    "useTabs": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
   }
 }

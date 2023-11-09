@@ -1,10 +1,9 @@
 ---
 title: Automated Release on GitHub Actions
-date: 2023-11-02
-description: A guide to automatically release npm packages on GitHub Actions using release-it.
-tag: Tooling
-author: Satyajit Sahoo
+description: Releasing an npm package usually has a lot of steps. This is a guide to setting up automated releases for npm packages on GitHub Actions using release-it.
 ---
+
+# Automated Release on GitHub Actions
 
 [Release It!](https://github.com/release-it/release-it) is a tool to automate releases for npm packages. It can be used to automatically bump the version, generate changelog based, create a git tag, push the changes to the repository, and publish the package to npm.
 
@@ -22,7 +21,7 @@ yarn add --dev release-it @release-it/conventional-changelog
 
 Configure `release-it` in the `package.json` file:
 
-```js filename=package.json
+```js filename="package.json"
 {
   ...
   "release-it": {
@@ -70,7 +69,7 @@ This token will be used to authenticate with NPM to publish the package.
 
 ## Step 3
 
-Create a GitHub personal access token with the `repo` scope. You can create one at <https://github.com/settings/tokens/new?scopes=repo&description=release-it>.
+Create a GitHub personal access token with the `repo` scope. You can create one [here](https://github.com/settings/tokens/new?scopes=repo&description=release-it).
 
 Then the token needs to be added as a secret in the GitHub repository:
 
@@ -89,7 +88,7 @@ If there are no branch protection rules in the repository, then the `GITHUB_TOKE
 
 Create a GitHub Actions workflow file in `.github/workflows/release.yml` with the following contents:
 
-```yml filename=.github/workflows/release.yml
+```yml filename=".github/workflows/release.yml"
 name: Release package
 on:
   workflow_run:

@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import styles from './About.module.css';
+import styles from './page.module.css';
+import avatar from '../../assets/images/avatar.jpg';
 
 import * as React from 'react';
 
@@ -41,31 +42,22 @@ const projects = [
   },
 ];
 
-export function About() {
+export default function About() {
   return (
     <main className={styles.content}>
-      <Image
-        src={require('../../assets/images/avatar.jpg')}
-        alt="Satyajit Sahoo"
-        className={styles.avatar}
-      />
+      <Image src={avatar} alt="Satyajit Sahoo" className={styles.avatar} />
       <h1 className={styles.title}>Satyajit Sahoo</h1>
       <p>
         I&apos;m a frontend developer who specializes in JavaScript, TypeScript
         and React Native. I have created and maintained many open source
         libraries such as{' '}
         {projects.map((project) => (
-          <>
-            <a
-              key={project.href}
-              href={project.href}
-              target="_blank"
-              rel="noreferrer"
-            >
+          <React.Fragment key={project.href}>
+            <a href={project.href} target="_blank" rel="noreferrer">
               {project.title}
             </a>
             ,{' '}
-          </>
+          </React.Fragment>
         ))}
         etc. When not coding, I loves cooking and playing video games.
       </p>

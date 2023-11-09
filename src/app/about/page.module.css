@@ -8,8 +8,9 @@
 
 .avatar {
   width: 15rem;
-  max-width: 100%;
+  height: 15rem;
   aspect-ratio: 1;
+  max-width: 100%;
   border-radius: 50%;
 }
 
@@ -19,6 +20,7 @@
   align-items: center;
   gap: .5rem;
   list-style: none;
+  padding: 0;
 }
 
 .links a {
@@ -27,14 +29,16 @@
   max-width: 100%;
   padding: 0.5rem 1rem;
   border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color:  hsl(340, 82%, 97%);
   transition: all 0.15s ease;
-}
-
-html:global(.dark) .links a {
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .links a:hover {
   transform: scale(1.05);
+  filter: none;
+}
+
+
+.links a::before {
+  display: none;
 }

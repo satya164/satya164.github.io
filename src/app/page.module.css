@@ -1,0 +1,23 @@
+.posts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  text-decoration: none;
+  color: inherit;
+}
+
+.item:hover {
+  color: inherit;
+}
+
+.item:hover .more {
+  text-decoration: underline;
+  color: var(--color-primary);
+}
+
+.more {
+  font-weight: 700;
+}
