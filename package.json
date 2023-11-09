@@ -16,6 +16,7 @@
   "dependencies": {
     "@mdx-js/react": "^3.0.0",
     "@next/mdx": "^14.0.1",
+    "clsx": "^2.0.0",
     "front-matter": "^4.0.2",
     "next": "14.0.1",
     "react": "^18",

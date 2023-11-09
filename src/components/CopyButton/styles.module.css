@@ -1,0 +1,36 @@
+
+.button {
+  position: absolute;
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 1rem;
+  top: 0;
+  right: 0;
+  color: hsl(230deg, 18%, 72%);
+}
+
+.copy {
+  display: block;
+  width: 24px;
+  height: 24px;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.check {
+  position: absolute;
+  display: block;
+  width: 20px;
+  height: 20px;
+  top: 1.125rem;
+  right: 1.125rem;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.visible {
+  opacity: 1;
+}

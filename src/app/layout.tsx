@@ -1,7 +1,8 @@
-import { Arvo, Lato, Playfair_Display } from 'next/font/google';
-import './globals.css';
+import clsx from 'clsx';
+import { Arvo, Lato } from 'next/font/google';
 import Link from 'next/link';
 import ThemeSwitcher, { script } from '../components/ThemeSwitcher';
+import './globals.css';
 
 const arvo = Arvo({
   variable: '--font-arvo',
@@ -19,14 +20,6 @@ const lato = Lato({
   display: 'swap',
 });
 
-const playfair = Playfair_Display({
-  variable: '--font-playfair',
-  subsets: ['latin'],
-  weight: ['700', '900'],
-  style: ['italic', 'normal'],
-  display: 'swap',
-});
-
 export default function RootLayout({
   children,
 }: {
@@ -35,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${arvo.variable} ${lato.variable} ${playfair.variable}`}
+      className={clsx(arvo.variable, lato.variable)}
       suppressHydrationWarning // Necessary to preserve theme selection
     >
       <head>

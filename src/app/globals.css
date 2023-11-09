@@ -52,7 +52,7 @@ a {
 }
 
 blockquote {
-  font-family: var(--font-playfair);
+  font-family: var(--font-arvo);
   font-size: 1.43rem;
   font-style: italic;
   letter-spacing: -0.02rem;
@@ -77,13 +77,13 @@ code {
 
 pre {
   border-radius: 0.38rem;
-  overflow-x: auto;
 }
 
 pre code {
   font-size: 0.86rem;
   font-weight: 400;
   padding: 1rem 0;
+  overflow-x: auto;
 }
 
 pre code, [data-theme="dark"] pre code {

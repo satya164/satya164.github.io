@@ -7,6 +7,10 @@
   bottom: -3px;
 }
 
+[data-theme='dark'] .button {
+  bottom: -2px;
+}
+
 .button:focus-visible,
 .button:hover {
   color: var(--color-primary);
