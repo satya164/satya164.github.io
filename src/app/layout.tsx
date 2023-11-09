@@ -59,3 +59,8 @@ export default function RootLayout({
     </html>
   );
 }
+
+export const metadata = {
+  title: "@satya164's blog",
+  description: 'A blog about web development, react native, and open source',
+};

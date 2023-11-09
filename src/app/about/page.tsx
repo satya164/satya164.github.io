@@ -73,3 +73,8 @@ export default function About() {
     </main>
   );
 }
+
+export const metadata = {
+  title: 'About @satya164',
+  description: 'More about Satyajit Sahoo and social links',
+};
