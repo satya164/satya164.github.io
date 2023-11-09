@@ -29,7 +29,7 @@
   max-width: 100%;
   padding: 0.5rem 1rem;
   border-radius: 5px;
-  background-color:  hsl(340, 82%, 97%);
+  background-color:  hsla(340, 82%, 57%, 0.1);
   transition: all 0.15s ease;
 }
 
