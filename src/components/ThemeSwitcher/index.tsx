@@ -76,7 +76,7 @@ export default function ThemeSwitcher() {
 }
 
 function getCurrentTheme() {
-  const savedTheme = localStorage.getItem(LOCAL_STORAGE_KEY);
+  const savedTheme = localStorage.getItem('selected-theme'); // This function is stringified so can't refer outside scope
 
   if (savedTheme) {
     return savedTheme;
@@ -92,7 +92,6 @@ function getCurrentTheme() {
 export const script = `
   ${getCurrentTheme.toString()}
 
-  const LOCAL_STORAGE_KEY = '${LOCAL_STORAGE_KEY}';
   const theme = getCurrentTheme();
 
   document.documentElement.dataset.theme = theme;
