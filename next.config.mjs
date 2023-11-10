@@ -3,7 +3,6 @@ import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
 import rehypePrettyCode from 'rehype-pretty-code';
-import rehypeStringify from 'rehype-stringify';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -28,10 +27,7 @@ const withMDX = createMDX({
       remarkFrontmatter,
       [remarkMdxFrontmatter, { name: 'metadata' }],
     ],
-    rehypePlugins: [
-      [rehypePrettyCode, rehypePrettyCodeOptions],
-      rehypeStringify,
-    ],
+    rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
   },
 });
 

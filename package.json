@@ -39,7 +39,6 @@
     "postcss-preset-env": "^9.3.0",
     "prettier": "^3.0.3",
     "rehype-pretty-code": "^0.10.2",
-    "rehype-stringify": "^10.0.0",
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.0",
     "remark-mdx-frontmatter": "^4.0.0",

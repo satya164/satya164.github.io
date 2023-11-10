@@ -97,6 +97,7 @@ blockquote {
 }
 
 code {
+  font-family: var(--font-fira-code);
   font-size: 0.86rem;
   font-weight: 700;
   border-radius: 0.1rem;
@@ -129,6 +130,21 @@ pre code {
 
   [data-highlighted-line] {
     background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+[data-rehype-pretty-code-title] {
+  font-size: 0.86rem;
+  margin-top: 1rem;
+  background-color: hsl(231deg, 18%, 25%);
+  color: hsl(230deg, 18%, 72%);
+  border-radius: 0.38rem 0.38rem 0 0;
+  padding: 0.5rem 1rem;
+
+  & + pre {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
 }
 

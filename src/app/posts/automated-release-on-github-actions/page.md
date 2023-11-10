@@ -21,7 +21,7 @@ yarn add --dev release-it @release-it/conventional-changelog
 
 Configure `release-it` in the `package.json` file:
 
-```js filename="package.json"
+```js title="package.json"
 {
   ...
   "release-it": {
@@ -88,7 +88,7 @@ If there are no branch protection rules in the repository, then the `GITHUB_TOKE
 
 Create a GitHub Actions workflow file in `.github/workflows/release.yml` with the following contents:
 
-```yml filename=".github/workflows/release.yml"
+```yml title=".github/workflows/release.yml"
 name: Release package
 on:
   workflow_run:

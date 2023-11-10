@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Arvo, Lato } from 'next/font/google';
+import { Arvo, Lato, Fira_Code } from 'next/font/google';
 import Link from 'next/link';
 import { ThemeSwitcher, script } from '../components/ThemeSwitcher';
 import './globals.css';
@@ -20,6 +20,14 @@ const lato = Lato({
   display: 'swap',
 });
 
+const fira = Fira_Code({
+  variable: '--font-fira-code',
+  subsets: ['latin'],
+  weight: ['400'],
+  style: 'normal',
+  display: 'swap',
+});
+
 export default function RootLayout({
   children,
 }: {
@@ -28,7 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={clsx(arvo.variable, lato.variable)}
+      className={clsx(arvo.variable, lato.variable, fira.variable)}
       suppressHydrationWarning // Necessary to preserve theme selection
     >
       <head>
