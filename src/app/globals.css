@@ -8,10 +8,18 @@
   box-sizing: border-box;
 }
 
-html,
-body {
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
   margin: 0;
-  width: 100%;
+  padding: 0;
 }
 
 body {
@@ -19,22 +27,23 @@ body {
   color: hsl(222deg, 22%, 5%);
   font-size: 1rem;
   line-height: 1.75;
+  text-size-adjust: 100%;
   transition: background-color 0.15s ease-in-out;
 
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-text-size-adjust: 100%;
-}
 
-[data-theme='dark'] body {
-  color: hsl(230deg, 18%, 72%);
-  background-color: hsl(231deg, 18%, 15%);
+  [data-theme='dark'] & {
+    color: hsl(230deg, 18%, 72%);
+    background-color: hsl(231deg, 18%, 15%);
+  }
 }
 
 h1 {
   font-family: var(--font-arvo);
   font-size: 2.28rem;
-  text-align: left;
+  line-height: 1.53;
   margin-bottom: 0.5rem;
 }
 
@@ -42,16 +51,37 @@ h2 {
   font-family: var(--font-arvo);
   font-size: 1.64rem;
   font-weight: 700;
-  padding: 0;
+  line-height: 1.53;
   margin: 2.67rem 0 0rem -0.09rem;
-  text-align: left;
-  line-height: 1.64rem;
 }
 
 p,
-i,
-a {
+ul,
+ol {
   margin-top: 1rem;
+}
+
+:is(dl, ol, ul) :is(dl, ol, ul) {
+  font-size: 100%;
+}
+
+ul {
+  list-style-position: outside;
+  list-style-type: disc;
+  margin-left: 2rem;
+}
+
+ul ul {
+  list-style-type: circle;
+}
+
+ol {
+  list-style-position: outside;
+  margin-left: 2.5rem;
+}
+
+li::marker {
+  color: var(--color-primary);
 }
 
 blockquote {
@@ -72,10 +102,10 @@ code {
   border-radius: 0.1rem;
   padding: 0.14rem 0.24rem;
   background-color: rgba(0, 0, 0, 0.04);
-}
 
-[data-theme='dark'] code {
-  background-color: rgba(255, 255, 255, 0.1);
+  [data-theme='dark'] & {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 }
 
 pre {
@@ -87,29 +117,29 @@ pre code {
   font-weight: 400;
   padding: 1rem 0;
   overflow-x: auto;
-}
 
-pre code,
-[data-theme='dark'] pre code {
-  background-color: transparent;
-}
+  &,
+  [data-theme='dark'] & {
+    background-color: transparent;
+  }
 
-pre [data-line] {
-  padding: 0 1rem;
-}
+  [data-line] {
+    padding: 0 1rem;
+  }
 
-pre [data-highlighted-line] {
-  background-color: rgba(255, 255, 255, 0.1);
+  [data-highlighted-line] {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 }
 
 a {
   color: var(--color-primary);
   position: relative;
-}
 
-a:focus-visible,
-a:hover {
-  color: var(--color-primary);
+  &:focus-visible,
+  &:hover {
+    color: var(--color-primary);
+  }
 }
 
 main,
@@ -127,11 +157,8 @@ main,
 article {
   padding-top: 5rem;
   padding-bottom: 8rem;
-}
 
-@media (max-width: 43rem) {
-  main,
-  article {
+  @media (max-width: 43rem) {
     padding-top: 3rem;
     padding-bottom: 6rem;
   }

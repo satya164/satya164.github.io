@@ -7,17 +7,19 @@
 .item {
   text-decoration: none;
   color: inherit;
-}
 
-.item:hover {
-  color: inherit;
-}
+  &:focus-visible,
+  &:hover {
+    color: inherit;
 
-.item:hover .more {
-  text-decoration: underline;
-  color: var(--color-primary);
+    .more {
+      text-decoration: underline;
+      color: var(--color-primary);
+    }
+  }
 }
 
 .more {
+  margin-top: 1rem;
   font-weight: 700;
 }

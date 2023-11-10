@@ -12,33 +12,32 @@
   aspect-ratio: 1;
   max-width: 100%;
   border-radius: 50%;
+  margin: 1rem;
 }
 
 .links {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .5rem;
+  gap: 1rem;
   list-style: none;
   padding: 0;
-}
+  margin: 0;
+  margin-top: 2rem;
 
-.links a {
-  display: block;
-  width: 15rem;
-  max-width: 100%;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  background-color:  hsla(340, 82%, 57%, 0.1);
-  transition: all 0.15s ease;
-}
+  a {
+    display: block;
+    width: 15rem;
+    max-width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    background-color: hsla(340, 82%, 57%, 0.1);
+    transition: all 0.15s ease;
 
-.links a:hover {
-  transform: scale(1.05);
-  filter: none;
-}
-
-
-.links a::before {
-  display: none;
+    &:hover,
+    &:focus-visible {
+      transform: scale(1.05);
+      filter: none;
+    }
+  }
 }

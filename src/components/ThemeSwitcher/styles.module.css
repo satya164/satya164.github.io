@@ -7,22 +7,22 @@
   border: none;
   cursor: pointer;
   bottom: -3px;
-}
 
-.button:focus-visible,
-.button:hover {
-  color: var(--color-primary);
+  &:focus-visible,
+  &:hover {
+    color: var(--color-primary);
+  }
 }
 
 .icons {
   position: relative;
   height: 24px;
   width: 24px;
-}
 
-.icons svg {
-  height: 100%;
-  width: 100%;
+  svg {
+    height: 100%;
+    width: 100%;
+  }
 }
 
 .moon {
@@ -32,20 +32,20 @@
   opacity: 0;
   transform: translateY(-16px);
   transition: all 0.15s ease;
-}
 
-[data-theme='dark'] .moon {
-  opacity: 1;
-  transform: translateY(0);
+  [data-theme='dark'] & {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .sun {
   opacity: 1;
   transform: translateY(0);
   transition: all 0.15s ease;
-}
 
-[data-theme='dark'] .sun {
-  opacity: 0;
-  transform: translateY(16px);
+  [data-theme='dark'] & {
+    opacity: 0;
+    transform: translateY(16px);
+  }
 }
