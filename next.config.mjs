@@ -1,8 +1,10 @@
 import createMDX from '@next/mdx';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeSlug from 'rehype-slug';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
-import rehypePrettyCode from 'rehype-pretty-code';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -27,7 +29,11 @@ const withMDX = createMDX({
       remarkFrontmatter,
       [remarkMdxFrontmatter, { name: 'metadata' }],
     ],
-    rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
+    rehypePlugins: [
+      rehypeSlug,
+      [rehypeAutolinkHeadings, { behavior: 'wrap', test: 'h2' }],
+      [rehypePrettyCode, rehypePrettyCodeOptions],
+    ],
   },
 });
 
