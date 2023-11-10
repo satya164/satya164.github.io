@@ -1,0 +1,16 @@
+.social {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: rgba(0, 0, 0, 0.05);
+
+  [data-theme='dark'] & {
+    border-top-color: rgba(255, 255, 255, 0.05);
+  }
+}

@@ -1,7 +1,14 @@
+import { SocialLinks } from '../../components/SocialLinks';
+
 export default function PostLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <article>{children}</article>;
+  return (
+    <main>
+      <article>{children}</article>
+      <SocialLinks />
+    </main>
+  );
 }

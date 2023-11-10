@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Arvo, Lato } from 'next/font/google';
 import Link from 'next/link';
-import ThemeSwitcher, { script } from '../components/ThemeSwitcher';
+import { ThemeSwitcher, script } from '../components/ThemeSwitcher';
 import './globals.css';
 
 const arvo = Arvo({

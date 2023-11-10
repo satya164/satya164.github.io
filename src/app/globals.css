@@ -143,7 +143,6 @@ a {
 }
 
 main,
-article,
 nav,
 footer {
   max-width: 43rem;
@@ -153,8 +152,7 @@ footer {
   padding-right: 1.5rem;
 }
 
-main,
-article {
+main {
   padding-top: 5rem;
   padding-bottom: 8rem;
 

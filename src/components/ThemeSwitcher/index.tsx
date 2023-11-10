@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 
 const LOCAL_STORAGE_KEY = 'selected-theme';
 
-export default function ThemeSwitcher() {
+export function ThemeSwitcher() {
   const onClick = () => {
     const currentTheme = getCurrentTheme();
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
