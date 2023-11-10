@@ -20,11 +20,13 @@ body {
   font-size: 1rem;
   line-height: 1.75;
   transition: background-color 0.15s ease-in-out;
+
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-text-size-adjust: 100%;
 }
 
-[data-theme="dark"] body {
+[data-theme='dark'] body {
   color: hsl(230deg, 18%, 72%);
   background-color: hsl(231deg, 18%, 15%);
 }
@@ -72,7 +74,7 @@ code {
   background-color: rgba(0, 0, 0, 0.04);
 }
 
-[data-theme="dark"] code {
+[data-theme='dark'] code {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -87,7 +89,8 @@ pre code {
   overflow-x: auto;
 }
 
-pre code, [data-theme="dark"] pre code {
+pre code,
+[data-theme='dark'] pre code {
   background-color: transparent;
 }
 
@@ -109,7 +112,10 @@ a:hover {
   color: var(--color-primary);
 }
 
-main, article, nav, footer {
+main,
+article,
+nav,
+footer {
   max-width: 43rem;
   max-width: 75ch;
   margin: 0 auto;
@@ -136,7 +142,8 @@ nav {
   justify-content: flex-end;
 }
 
-nav a, nav button {
+nav a,
+nav button {
   font-size: 1.14rem;
   text-decoration: none;
   color: inherit;
