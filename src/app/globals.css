@@ -22,6 +22,14 @@ ul {
   padding: 0;
 }
 
+html {
+  color-scheme: light;
+
+  &[data-theme='dark'] {
+    color-scheme: dark;
+  }
+}
+
 body {
   font-family: var(--font-lato);
   color: hsl(222deg, 22%, 5%);

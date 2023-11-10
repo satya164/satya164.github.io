@@ -7,6 +7,7 @@
   border: none;
   cursor: pointer;
   bottom: -3px;
+  overflow: hidden;
 
   &:focus-visible,
   &:hover {
