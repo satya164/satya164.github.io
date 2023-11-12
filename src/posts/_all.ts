@@ -1,56 +1,92 @@
-const context = require.context('.', true, /\.mdx?$/);
+const context = require.context('.', false, /\.mdx?$/, 'lazy');
 
-type Frontmatter = {
+export type Frontmatter = {
   title: string;
   date: string;
   description: string;
 };
 
-type ReadingTime = {
+export type ReadingTime = {
   text: string;
   minutes: number;
   time: number;
   words: number;
 };
 
-export type Post = {
-  id: string;
-  content: React.ComponentType;
+type PostModule = {
+  default: React.ComponentType;
   frontmatter: Frontmatter;
   readingTime: ReadingTime;
 };
 
-const posts: Post[] = context
+export async function postsByOffset(offset: number, limit: number) {
+  const items = await Promise.all(
+    posts.slice(offset, offset + limit).map((post) => post.load())
+  );
+
+  return {
+    items,
+    limit,
+    offset,
+    total: posts.length,
+  };
+}
+
+export async function postById(id: string) {
+  const post = posts.find((post) => post.id === id);
+
+  if (!post) {
+    throw new Error(`Post not found: ${id}`);
+  }
+
+  return post.load();
+}
+
+export function allIds() {
+  return posts.map((post) => post.id);
+}
+
+const posts = context
   .keys()
   .filter((key) => key.startsWith('.'))
   .map((filename) => {
-    const {
-      default: content,
-      frontmatter,
-      readingTime,
-    } = context(filename) as {
-      default: React.ComponentType;
-      frontmatter: Frontmatter;
-      readingTime: ReadingTime;
-    };
+    const name = filename.replace(/^\.\//, '').replace(/\.mdx?$/, '');
+    const id = name.replace(/^\d+-/, '');
+    const index = Number(name.replace(/-.*$/, ''));
+
+    if (isNaN(index)) {
+      throw new Error(`Invalid index in filename: ${filename}`);
+    }
+
+    if (id === '') {
+      throw new Error(`Invalid id in filename: ${filename}`);
+    }
 
     return {
-      id: filename.replace(/\.mdx?$/, '').replace(/^.*\//, ''),
-      content,
-      frontmatter,
-      readingTime,
+      id,
+      index,
+      filename,
+      async load() {
+        const { default: Component, ...meta } = (await context(
+          filename
+        )) as PostModule;
+
+        return {
+          ...meta,
+          id,
+          Component,
+        };
+      },
     };
   })
-  .sort((a, b) => {
-    if (a.frontmatter.date < b.frontmatter.date) {
-      return 1;
-    }
+  .sort((a, b) => b.index - a.index);
 
-    if (a.frontmatter.date > b.frontmatter.date) {
-      return -1;
-    }
+posts.forEach((post, i) => {
+  if (posts.findIndex((p) => p.index === post.index) !== i) {
+    throw new Error(`Duplicate index: ${post.index} for ${post.filename}`);
+  }
 
-    return 0;
-  });
-
-export default posts;
+  if (posts.findIndex((p) => p.id === post.id) !== i) {
+    throw new Error(`Duplicate id: ${post.id} for ${post.filename}`);
+  }
+});

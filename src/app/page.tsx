@@ -1,18 +1,20 @@
 import Link from 'next/link';
-import posts from '../posts/_all';
-import styles from './page.module.css';
 import PostMeta from '../components/PostMeta';
+import { postsByOffset } from '../posts/_all';
+import styles from './page.module.css';
 
 export default async function PostsPage() {
+  const posts = await postsByOffset(0, 10);
+
   return (
     <main>
       <ul className={styles.posts}>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <Link href={`/posts/${post.id}`} className={styles.item}>
-              <h2>{post.frontmatter.title}</h2>
-              <p>{post.frontmatter.description}</p>
-              <PostMeta post={post} />
+        {posts.items.map(({ id, frontmatter, readingTime }) => (
+          <li key={id}>
+            <Link href={`/posts/${id}`} className={styles.item}>
+              <h2>{frontmatter.title}</h2>
+              <p>{frontmatter.description}</p>
+              <PostMeta date={frontmatter.date} readingTime={readingTime} />
               <div className={styles.more}>Read more</div>
             </Link>
           </li>
