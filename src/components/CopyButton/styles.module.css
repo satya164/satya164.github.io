@@ -9,7 +9,7 @@
   padding: 1rem;
   top: 0;
   right: 0;
-  color: hsl(230deg, 18%, 72%);
+  color: var(--color-text-dark);
 }
 
 .copy {

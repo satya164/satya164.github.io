@@ -1,5 +1,9 @@
 :root {
   --color-primary: hsl(340, 82%, 65%);
+  --color-background-light: hsl(0deg, 0%, 100%);
+  --color-background-dark: hsl(231deg, 18%, 15%);
+  --color-text-light: hsl(222deg, 22%, 5%);
+  --color-text-dark: hsl(230deg, 18%, 72%);
 }
 
 *,
@@ -32,10 +36,12 @@ html {
 
 body {
   font-family: var(--font-lato);
-  color: hsl(222deg, 22%, 5%);
+  color: var(--color-text-light);
+  background-color: var(--color-background-light);
   font-size: 1rem;
   line-height: 1.75;
   text-size-adjust: 100%;
+  overflow-wrap: break-word;
   transition: background-color 0.15s ease-in-out;
 
   -webkit-font-smoothing: antialiased;
@@ -43,8 +49,8 @@ body {
   -webkit-text-size-adjust: 100%;
 
   [data-theme='dark'] & {
-    color: hsl(230deg, 18%, 72%);
-    background-color: hsl(231deg, 18%, 15%);
+    color: var(--color-text-dark);
+    background-color: var(--color-background-dark);
   }
 }
 
@@ -124,6 +130,12 @@ code {
 
 pre {
   border-radius: 0.38rem;
+
+  @media (max-width: 75ch) {
+    border-radius: 0;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+  }
 }
 
 pre code {
@@ -159,6 +171,12 @@ pre code {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
+
+  @media (max-width: 75ch) {
+    border-radius: 0;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+  }
 }
 
 a {
@@ -173,7 +191,6 @@ a {
 main,
 nav,
 footer {
-  max-width: 43rem;
   max-width: 75ch;
   margin: 0 auto;
   padding-left: 1.5rem;
