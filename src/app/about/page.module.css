@@ -31,8 +31,13 @@
     max-width: 100%;
     padding: 0.5rem 1rem;
     border-radius: 5px;
-    background-color: hsla(340, 82%, 57%, 0.1);
-    transition: all 0.15s ease;
+    background-color: hsla(
+      var(--color-primary-hue),
+      var(--color-primary-saturation),
+      var(--color-primary-lightness),
+      0.1
+    );
+    transition: all 0.2s ease;
 
     &:hover,
     &:focus-visible {

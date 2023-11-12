@@ -1,11 +1,16 @@
 'use client';
 
+import clsx from 'clsx';
 import { useEffect } from 'react';
 import styles from './styles.module.css';
 
+type Props = {
+  className?: string;
+};
+
 const LOCAL_STORAGE_KEY = 'selected-theme';
 
-export function ThemeSwitcher() {
+export function ThemeSwitcher({ className }: Props) {
   const onClick = () => {
     const currentTheme = getCurrentTheme();
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -40,7 +45,7 @@ export function ThemeSwitcher() {
     <button
       type="button"
       title="Toggle theme"
-      className={styles.button}
+      className={clsx(styles.button, className)}
       onClick={onClick}
     >
       <span className={styles.icons}>

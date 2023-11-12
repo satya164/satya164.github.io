@@ -1,5 +1,15 @@
 :root {
   --color-primary: hsl(340, 82%, 60%);
+  --color-primary-hue: 340;
+  --color-primary-saturation: 82%;
+  --color-primary-lightness: 65%;
+
+  --color-primary: hsl(
+    var(--color-primary-hue),
+    var(--color-primary-saturation),
+    var(--color-primary-lightness)
+  );
+
   --color-background-light: hsl(0deg, 0%, 100%);
   --color-background-dark: hsl(231deg, 18%, 15%);
   --color-text-light: hsl(222deg, 22%, 5%);
@@ -42,7 +52,7 @@ body {
   line-height: 1.75;
   text-size-adjust: 100%;
   overflow-wrap: break-word;
-  transition: background-color 0.15s ease-in-out;
+  transition: all 0.2s ease-in-out;
 
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -68,7 +78,9 @@ h2 {
   line-height: 1.53;
   margin: 2.67rem 0 0rem -0.09rem;
 
-  a, a:hover, a:focus-visible {
+  a,
+  a:hover,
+  a:focus-visible {
     color: inherit;
     text-decoration: none;
   }
@@ -205,23 +217,6 @@ main {
     padding-top: 3rem;
     padding-bottom: 6rem;
   }
-}
-
-nav {
-  display: flex;
-  justify-content: flex-end;
-}
-
-nav a,
-nav button {
-  font-size: 1.14rem;
-  text-decoration: none;
-  color: inherit;
-  margin: 1rem 0.5rem 0 1.5rem;
-}
-
-nav a:hover {
-  text-decoration: underline;
 }
 
 footer {

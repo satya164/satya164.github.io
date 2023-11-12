@@ -1,7 +1,8 @@
 import clsx from 'clsx';
 import { Arvo, Fira_Code, Lato } from 'next/font/google';
 import Link from 'next/link';
-import { ThemeSwitcher, script } from '../components/ThemeSwitcher';
+import { NavBar } from '../components/NavBar';
+import { script } from '../components/ThemeSwitcher';
 import meta from '../metadata.json';
 import './globals.css';
 
@@ -47,12 +48,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <nav>
-          <Link href="/">Posts</Link>
-          <Link href="/about">About</Link>
-          <Link href="/rss.xml">RSS</Link>
-          <ThemeSwitcher />
-        </nav>
+        <NavBar />
         {children}
         <footer>
           Copyright © 2023 <Link href="/about">Satyajit Sahoo</Link>. All
