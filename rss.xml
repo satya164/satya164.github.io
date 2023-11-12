@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>satya164's blog</title>
+    <description>A blog about web development and open source</description>
     <link>https://satya164.page</link>
     <atom:link href="https://satya164.page/rss.xml" rel="self" type="application/rss+xml" />
-    <description>A blog about web development and open source</description>
 
     <item>
       <guid>https://satya164.page/automated-release-on-github-actions</guid>
