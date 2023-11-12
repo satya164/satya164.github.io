@@ -17,11 +17,9 @@
     "@mdx-js/react": "^3.0.0",
     "@next/mdx": "^14.0.1",
     "clsx": "^2.0.0",
-    "front-matter": "^4.0.2",
     "next": "14.0.1",
     "react": "^18",
-    "react-dom": "^18",
-    "zod": "^3.22.4"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@evilmartians/lefthook": "^1.5.2",
@@ -31,6 +29,7 @@
     "@types/postcss-flexbugs-fixes": "^5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/webpack-env": "^1.18.4",
     "eslint": "^8.53.0",
     "eslint-config-next": "14.0.1",
     "eslint-config-satya164": "^3.2.0",

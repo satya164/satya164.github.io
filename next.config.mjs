@@ -24,11 +24,7 @@ const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
     format: 'mdx',
-    remarkPlugins: [
-      remarkGfm,
-      remarkFrontmatter,
-      [remarkMdxFrontmatter, { name: 'metadata' }],
-    ],
+    remarkPlugins: [remarkGfm, remarkFrontmatter, remarkMdxFrontmatter],
     rehypePlugins: [
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: 'wrap', test: 'h2' }],
