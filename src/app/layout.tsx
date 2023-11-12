@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { Arvo, Fira_Code, Lato } from 'next/font/google';
 import Link from 'next/link';
 import { ThemeSwitcher, script } from '../components/ThemeSwitcher';
+import meta from '../metadata.json';
 import './globals.css';
 
 const arvo = Arvo({
@@ -49,6 +50,7 @@ export default function RootLayout({
         <nav>
           <Link href="/">Posts</Link>
           <Link href="/about">About</Link>
+          <Link href="/rss.xml">RSS</Link>
           <ThemeSwitcher />
         </nav>
         {children}
@@ -63,8 +65,8 @@ export default function RootLayout({
 
 export const metadata = {
   title: {
-    template: "%s · @satya164's blog",
-    default: "@satya164's blog",
+    template: `%s · ${meta.title}`,
+    default: meta.title,
   },
-  description: 'A blog about web development, react native, and open source',
+  description: meta.description,
 };
