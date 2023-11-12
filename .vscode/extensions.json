@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "editorconfig.editorconfig",
+    "csstools.postcss",
+    "clinyong.vscode-css-modules",
+    "stylelint.vscode-stylelint",
+    "vunguyentuan.vscode-css-variables",
+    "vunguyentuan.vscode-postcss",
+    "DavidAnson.vscode-markdownlint",
+    "unifiedjs.vscode-mdx"
+  ],
+  "unwantedRecommendations": []
+}
