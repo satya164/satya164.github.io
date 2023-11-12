@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import styles from './page.module.css';
 import avatar from '../../assets/images/avatar.jpg';
+import styles from './page.module.css';
 
 import * as React from 'react';
 
@@ -75,6 +75,6 @@ export default function About() {
 }
 
 export const metadata = {
-  title: 'About @satya164',
+  title: 'About',
   description: 'More about Satyajit Sahoo and social links',
 };

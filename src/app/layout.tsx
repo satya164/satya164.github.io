@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Arvo, Lato, Fira_Code } from 'next/font/google';
+import { Arvo, Fira_Code, Lato } from 'next/font/google';
 import Link from 'next/link';
 import { ThemeSwitcher, script } from '../components/ThemeSwitcher';
 import './globals.css';
@@ -62,6 +62,9 @@ export default function RootLayout({
 }
 
 export const metadata = {
-  title: "@satya164's blog",
+  title: {
+    template: "%s · @satya164's blog",
+    default: "@satya164's blog",
+  },
   description: 'A blog about web development, react native, and open source',
 };
