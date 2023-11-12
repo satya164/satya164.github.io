@@ -40,6 +40,17 @@ const posts: Post[] = context
       frontmatter,
       readingTime,
     };
+  })
+  .sort((a, b) => {
+    if (a.frontmatter.date < b.frontmatter.date) {
+      return 1;
+    }
+
+    if (a.frontmatter.date > b.frontmatter.date) {
+      return -1;
+    }
+
+    return 0;
   });
 
 export default posts;
