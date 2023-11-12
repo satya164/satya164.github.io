@@ -1,6 +1,7 @@
 ---
 title: Automated Release on GitHub Actions
 description: Releasing an npm package usually has a lot of steps. This is a guide to setting up automated releases for npm packages on GitHub Actions using release-it.
+date: 2023-11-02
 ---
 
 [Release It!](https://github.com/release-it/release-it) is a tool to automate releases for npm packages. It can be used to automatically bump the version, generate changelog, create a git tag, push the changes to the repository, and publish the package to npm.

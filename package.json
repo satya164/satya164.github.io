@@ -32,7 +32,7 @@
     "@types/webpack-env": "^1.18.4",
     "eslint": "^8.53.0",
     "eslint-config-next": "14.0.1",
-    "eslint-config-satya164": "^3.2.0",
+    "eslint-config-satya164": "^3.2.1",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-nesting": "^12.0.1",
     "postcss-preset-env": "^9.3.0",
@@ -43,6 +43,7 @@
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.0",
     "remark-mdx-frontmatter": "^4.0.0",
+    "remark-reading-time": "^2.0.1",
     "shiki": "^0.14.5",
     "typescript": "^5.2.2"
   },

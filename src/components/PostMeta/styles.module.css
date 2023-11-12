@@ -1,0 +1,10 @@
+.meta {
+  font-size: 0.86rem;
+  margin: 1rem 0;
+  opacity: 0.6;
+
+  > *:not(:last-child)::after {
+    content: '·';
+    margin: 0 0.5rem;
+  }
+}

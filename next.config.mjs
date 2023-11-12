@@ -5,6 +5,8 @@ import rehypeSlug from 'rehype-slug';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
+import readingTime from 'remark-reading-time';
+import readingTimeMdx from 'remark-reading-time/mdx.js';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -24,7 +26,13 @@ const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
     format: 'mdx',
-    remarkPlugins: [remarkGfm, remarkFrontmatter, remarkMdxFrontmatter],
+    remarkPlugins: [
+      remarkGfm,
+      remarkFrontmatter,
+      remarkMdxFrontmatter,
+      readingTime,
+      readingTimeMdx,
+    ],
     rehypePlugins: [
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: 'wrap', test: 'h2' }],

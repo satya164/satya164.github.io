@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { SocialLinks } from '../../../components/SocialLinks';
 import posts from '../../../posts/_all';
+import PostMeta from '../../../components/PostMeta';
 
 type Props = {
   params: {
@@ -21,6 +22,7 @@ export default function PostPage({ params }: Props) {
     <main>
       <article>
         <h1>{frontmatter.title}</h1>
+        <PostMeta post={post} />
         <PostContent />
       </article>
       <SocialLinks />
