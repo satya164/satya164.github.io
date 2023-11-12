@@ -68,7 +68,7 @@ This token will be used to authenticate with NPM to publish the package.
 
 ## Step 3
 
-Create a GitHub personal access token with the `repo` scope. You can create one [here](https://github.com/settings/tokens/new?scopes=repo&description=release-it).
+Create a GitHub personal access token with the `repo` scope. You can create one [under **Developer settings** in your profile settings](https://github.com/settings/tokens/new?scopes=repo&description=release-it).
 
 Then the token needs to be added as a secret in the GitHub repository:
 
