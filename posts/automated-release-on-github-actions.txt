@@ -3,7 +3,7 @@
 3:HL["/_next/static/media/cb0a9ee3a59e8bf7-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 4:HL["/_next/static/media/df99695897be762b-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 5:HL["/_next/static/css/f89778ee9686bbb1.css","style",{"crossOrigin":""}]
-0:["_VD4kAhGMcj0SE1mYLbPF",[[["",{"children":["posts",{"children":[["id","automated-release-on-github-actions","d"],{"children":["__PAGE__?{\"id\":\"automated-release-on-github-actions\"}",{}]}]}]},"$undefined","$undefined",true],"$L6",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/f89778ee9686bbb1.css","precedence":"next","crossOrigin":""}]],"$L7"]]]]
+0:["ulrc0yQQvZeBd1yS_OXSP",[[["",{"children":["posts",{"children":[["id","automated-release-on-github-actions","d"],{"children":["__PAGE__?{\"id\":\"automated-release-on-github-actions\"}",{}]}]}]},"$undefined","$undefined",true],"$L6",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/f89778ee9686bbb1.css","precedence":"next","crossOrigin":""}]],"$L7"]]]]
 8:HL["/_next/static/css/977a4ec834a27d6c.css","style",{"crossOrigin":""}]
 9:I[9095,["674","static/chunks/674-536ec6060786175e.js","185","static/chunks/app/layout-c1fd8ff935a988c7.js"],"script"]
 a:I[2832,["674","static/chunks/674-536ec6060786175e.js","185","static/chunks/app/layout-c1fd8ff935a988c7.js"],"NavBar"]
