@@ -37,7 +37,7 @@
       var(--color-primary-lightness),
       0.1
     );
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
 
     &:hover,
     &:focus-visible {

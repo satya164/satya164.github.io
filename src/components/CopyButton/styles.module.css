@@ -17,7 +17,7 @@
   width: 24px;
   height: 24px;
   opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.15s ease-in-out;
 }
 
 .check {
@@ -28,7 +28,7 @@
   top: 1.125rem;
   right: 1.125rem;
   opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.15s ease-in-out;
 }
 
 .visible {

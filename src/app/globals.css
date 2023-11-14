@@ -52,7 +52,7 @@ body {
   line-height: 1.75;
   text-size-adjust: 100%;
   overflow-wrap: break-word;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease-in-out;
 
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
