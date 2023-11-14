@@ -193,6 +193,7 @@ pre code {
 
 a {
   color: var(--color-primary);
+  text-underline-offset: 2px;
 
   &:focus-visible,
   &:hover {
