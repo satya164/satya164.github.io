@@ -10,7 +10,7 @@ const links = [
   { href: '/', label: 'Posts' },
   { href: '/about', label: 'About' },
   { href: '/rss.xml', label: 'RSS' },
-];
+] as const;
 
 export function NavBar() {
   const pathname = usePathname();

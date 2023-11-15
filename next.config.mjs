@@ -15,6 +15,9 @@ const nextConfig = {
   images: { unoptimized: true },
   cleanDistDir: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  experimental: {
+    typedRoutes: true,
+  },
 };
 
 /** @type {import('rehype-pretty-code').Options} */
