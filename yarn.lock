@@ -779,6 +779,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/mdast@npm:^3.0.0":
+  version: 3.0.15
+  resolution: "@types/mdast@npm:3.0.15"
+  dependencies:
+    "@types/unist": "npm:^2"
+  checksum: fcbf716c03d1ed5465deca60862e9691414f9c43597c288c7d2aefbe274552e1bbd7aeee91b88a02597e88a28c139c57863d0126fcf8416a95fdc681d054ee3d
+  languageName: node
+  linkType: hard
+
 "@types/mdast@npm:^4.0.0":
   version: 4.0.3
   resolution: "@types/mdast@npm:4.0.3"
@@ -5218,6 +5227,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"remark-mdx-images@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "remark-mdx-images@npm:2.0.0"
+  dependencies:
+    "@types/mdast": "npm:^3.0.0"
+    unified: "npm:^10.0.0"
+    unist-util-visit: "npm:^4.0.0"
+  checksum: 023faebae6e40bf70241d9657b40cd552e6d4d575db44f6d7b00d0c94055035b84cc75b8c32b3334d3f65a06c523b23a616f9fb9eb1401ffad10cffafeb66687
+  languageName: node
+  linkType: hard
+
 "remark-mdx@npm:^3.0.0":
   version: 3.0.0
   resolution: "remark-mdx@npm:3.0.0"
@@ -5432,6 +5452,7 @@ __metadata:
     remark-frontmatter: "npm:^5.0.0"
     remark-gfm: "npm:^4.0.0"
     remark-mdx-frontmatter: "npm:^4.0.0"
+    remark-mdx-images: "npm:^2.0.0"
     remark-reading-time: "npm:^2.0.1"
     shiki: "npm:^0.14.5"
     typescript: "npm:^5.2.2"

@@ -64,6 +64,12 @@ body {
   }
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 h1 {
   font-family: var(--font-arvo);
   font-size: 2.28rem;

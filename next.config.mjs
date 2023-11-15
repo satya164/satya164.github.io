@@ -5,6 +5,7 @@ import rehypeSlug from 'rehype-slug';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
+import remarkMdxImages from 'remark-mdx-images';
 import readingTime from 'remark-reading-time';
 import readingTimeMdx from 'remark-reading-time/mdx.js';
 
@@ -31,6 +32,7 @@ const withMDX = createMDX({
     format: 'mdx',
     remarkPlugins: [
       remarkGfm,
+      remarkMdxImages,
       remarkFrontmatter,
       remarkMdxFrontmatter,
       readingTime,
