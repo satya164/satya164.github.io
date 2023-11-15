@@ -4,11 +4,11 @@ description: Releasing an npm package usually has a lot of steps. This is a guid
 date: 2023-11-02
 ---
 
-[Release It!](https://github.com/release-it/release-it) is a tool to automate releases for npm packages. It can be used to automatically bump the version, generate changelog, create a git tag, push the changes to the repository, and publish the package to npm.
+There are many tools available to automate the release process for npm packages, such as [lerna-lite](https://github.com/lerna-lite/lerna-lite) for monorepos, [Release It!](https://github.com/release-it/release-it) for single packages etc. They can be used to automatically bump the version and generate changelog based on the commit messages using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), create a GitHub release, create a git tag, and publish the package to npm etc.
 
-The version bump and changelog generation is based on the commit messages. It uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) by default.
+Generally, the release process is triggered manually by running a command on local machine. But automating the release process on GitHub Actions can be more convenient.
 
-This guide documents how to configure GitHub Actions to automatically release npm packages on every commit using `release-it`.
+This guide documents how to configure GitHub Actions to automatically release npm packages on every commit using `release-it`. However, these steps can be adapted to other similar tools as well.
 
 ## Step 1
 
@@ -157,6 +157,27 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 ```
 
-This workflow will automatically publish a new version of the package on every commit to the `main` branch. Make sure to go through the workflow file and modify it according to your needs, especially the `workflows` list in the `on` section.
+There are 2 important things to note in this workflow:
 
-Alternatively, instead of publishing on every commit, the `workflow_dispatch` event can be used to manually trigger the workflow from the Actions tab in the repository. See the [documentation](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow) for more details.
+- The workflow runs on the `workflow_run` event. This event is triggered when another workflow is run. In this case, the `CI` workflow is run on every commit to the `main` branch. The `release` workflow is triggered when the `CI` workflow is completed. You may need to change the name according to the name of the workflow that runs tests, linting, etc. in your repository.
+- There are 2 jobs in the workflow. The first job checks if the commit message is a release commit. If it is, then the second job is skipped. This is to prevent an infinite loop of releases. The second job runs `release-it` to publish the package.
+
+After configuring, this workflow automatically publishes a new version of the package on every commit to the `main` branch after the `CI` workflow is successful.
+
+![Release workflow](./release-workflow.png)
+
+Instead of publishing on every commit, an alternative way could be to have the release workflow configured, and run the workflow manually from the **Actions** tab in the repository when a new release is needed. This can be done by using the `workflow_dispatch` event to the `on` section:
+
+```yml title=".github/workflows/release.yml"
+name: Release package
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # Same steps as before
+```
+
+See the GitHub documentation for [Manually running a workflow](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow) for more details.

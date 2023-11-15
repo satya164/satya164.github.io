@@ -1,4 +1,4 @@
-const context = require.context('.', false, /\.mdx?$/, 'lazy');
+const context = require.context('.', true, /page\.mdx?$/, 'lazy');
 
 export type Frontmatter = {
   title: string;
@@ -50,7 +50,7 @@ const posts = context
   .keys()
   .filter((key) => key.startsWith('.'))
   .map((filename) => {
-    const name = filename.replace(/^\.\//, '').replace(/\.mdx?$/, '');
+    const name = filename.replace(/^\.\//, '').replace(/\/page\.mdx?$/, '');
     const id = name.replace(/^\d+-/, '');
     const index = Number(name.replace(/-.*$/, ''));
 
