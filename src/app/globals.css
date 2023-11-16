@@ -82,7 +82,22 @@ h2 {
   font-size: 1.64rem;
   font-weight: 700;
   line-height: 1.53;
-  margin: 2.67rem 0 0rem -0.09rem;
+  margin: 2.67rem 0 0 -0.09rem;
+
+  a,
+  a:hover,
+  a:focus-visible {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+h3 {
+  font-family: var(--font-arvo);
+  font-size: 1.43rem;
+  font-weight: 700;
+  line-height: 1.53;
+  margin: 1.67rem 0 0 0;
 
   a,
   a:hover,
@@ -135,7 +150,7 @@ blockquote {
 
 code {
   font-family: var(--font-fira-code);
-  font-size: 0.86rem;
+  font-size: 0.86em; /* Use `em` to adapt to the context, e.g. `p` or `h2` */
   font-weight: 700;
   border-radius: 0.1rem;
   padding: 0.14rem 0.24rem;

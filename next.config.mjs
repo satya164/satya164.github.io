@@ -42,7 +42,7 @@ const withMDX = createMDX({
     rehypePlugins: [
       [rehypeCodeblockMeta, { match: { playground: true } }],
       rehypeSlug,
-      [rehypeAutolinkHeadings, { behavior: 'wrap', test: 'h2' }],
+      [rehypeAutolinkHeadings, { behavior: 'wrap', test: ['h2', 'h3'] }],
       [rehypePrettyCode, rehypePrettyCodeOptions],
     ],
   },
