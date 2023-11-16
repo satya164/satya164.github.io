@@ -5,11 +5,13 @@ import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 
 export function SocialLinks() {
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState<string | undefined>();
   const pathname = usePathname();
 
   useEffect(() => {
-    setTitle(document.title);
+    const title = document.title.split(' · ')[0];
+
+    setTitle(title);
   }, []);
 
   const url = `${process.env.NEXT_PUBLIC_SITE_URL}${pathname}`;
@@ -19,7 +21,7 @@ export function SocialLinks() {
       <li>
         <a
           href={`https://x.com/intent/tweet?text=${encodeURIComponent(
-            title
+            title ?? "satya164's blog"
           )}&url=${encodeURIComponent(url)}&via=satya164`}
           target="_blank"
           rel="noopener noreferrer"
