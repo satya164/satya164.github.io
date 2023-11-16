@@ -1,0 +1,16 @@
+.videos {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1rem;
+}
+
+.embed {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  border: none;
+  margin: 1rem 0;
+}
