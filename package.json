@@ -12,7 +12,7 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "typecheck": "tsc --noEmit"
   },
-  "packageManager": "yarn@4.0.1",
+  "packageManager": "yarn@4.0.2",
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.10.0",
     "@mdx-js/react": "^3.0.0",
