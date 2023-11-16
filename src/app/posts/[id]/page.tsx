@@ -31,7 +31,22 @@ export default async function PostPage({ params }: Props) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { frontmatter } = await postById(params.id);
 
-  return frontmatter;
+  return {
+    ...frontmatter,
+    openGraph: {
+      type: 'article',
+      title: frontmatter.title,
+      description: frontmatter.description,
+      publishedTime: new Date(frontmatter.date).toISOString(),
+      authors: ['Satyajit Sahoo'],
+    },
+    twitter: {
+      card: 'summary',
+      title: frontmatter.title,
+      description: frontmatter.description,
+      creator: '@satya164',
+    },
+  };
 }
 
 export async function generateStaticParams() {
