@@ -8,6 +8,7 @@ import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
 import remarkMdxImages from 'remark-mdx-images';
 import readingTime from 'remark-reading-time';
 import readingTimeMdx from 'remark-reading-time/mdx.js';
+import rehypeCodeblockMeta from './src/plugins/rehype-codeblock-meta.mjs';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -39,6 +40,7 @@ const withMDX = createMDX({
       readingTimeMdx,
     ],
     rehypePlugins: [
+      [rehypeCodeblockMeta, { match: { playground: true } }],
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: 'wrap', test: 'h2' }],
       [rehypePrettyCode, rehypePrettyCodeOptions],

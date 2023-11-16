@@ -5,6 +5,7 @@ import { NavBar } from '../components/NavBar';
 import { script } from '../components/ThemeSwitcher';
 import meta from '../metadata.json';
 import './globals.css';
+import StyleRegistry from './registry';
 
 const arvo = Arvo({
   variable: '--font-arvo',
@@ -46,6 +47,7 @@ export default function RootLayout({
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: script }}
         />
+        <StyleRegistry />
       </head>
       <body>
         <NavBar />

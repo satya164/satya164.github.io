@@ -6,7 +6,7 @@ type Props = {
   readingTime: ReadingTime;
 };
 
-export default function PostMeta({ date, readingTime }: Props) {
+export function PostMeta({ date, readingTime }: Props) {
   return (
     <div className={styles.meta}>
       <span>{readingTime.text}</span>

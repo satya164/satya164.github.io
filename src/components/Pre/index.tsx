@@ -3,6 +3,7 @@
 import clsx from 'clsx';
 import { useRef } from 'react';
 import { CopyButton } from '../CopyButton';
+import { Playground } from '../Playground';
 import styles from './styles.module.css';
 
 export function Pre({
@@ -14,6 +15,21 @@ export function Pre({
   HTMLPreElement
 >) {
   const ref = useRef<HTMLPreElement>(null);
+
+  if ('data-playground' in rest && rest['data-playground']) {
+    if (typeof children !== 'string') {
+      throw new Error(
+        'Playground pre children must be a string, but received ' +
+          typeof children
+      );
+    }
+
+    return (
+      <Playground className={className} {...rest}>
+        {children}
+      </Playground>
+    );
+  }
 
   return (
     <pre ref={ref} className={clsx(className, styles.pre)} {...rest}>

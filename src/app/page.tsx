@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import PostMeta from '../components/PostMeta';
+import { PostMeta } from '../components/PostMeta';
 import { postsByOffset } from '../posts/_all';
 import styles from './page.module.css';
 

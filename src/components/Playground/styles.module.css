@@ -1,0 +1,26 @@
+.container {
+  --editor-height: 50%;
+
+  margin: 1rem 0;
+  background-origin: border-box;
+  gap: 0 !important;
+
+  html:not([data-theme="dark"]) & {
+    border: 1px solid transparent !important;
+    background-image: linear-gradient(to bottom, #2a2d3d var(--editor-height), #eee var(--editor-height));
+  }
+
+  @media (max-width: 75ch) {
+    border-radius: 0 !important;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+  }
+}
+
+.pane {
+  min-width: 100%;
+}
+
+.editor {
+  height: var(--editor-height) !important;
+}

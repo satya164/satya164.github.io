@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PostMeta from '../../../components/PostMeta';
+import { PostMeta } from '../../../components/PostMeta';
 import { SocialLinks } from '../../../components/SocialLinks';
 import { allIds, postById } from '../../../posts/_all';
 
