@@ -1,5 +1,6 @@
 import createMDX from '@next/mdx';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeExternalLinks from 'rehype-external-links';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkFrontmatter from 'remark-frontmatter';
@@ -41,6 +42,7 @@ const withMDX = createMDX({
     ],
     rehypePlugins: [
       [rehypeCodeblockMeta, { match: { playground: true } }],
+      [rehypeExternalLinks, { target: '_blank' }],
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: 'wrap', test: ['h2', 'h3'] }],
       [rehypePrettyCode, rehypePrettyCodeOptions],

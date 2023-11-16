@@ -21,6 +21,7 @@
     "next": "14.0.1",
     "react": "^18",
     "react-dom": "^18",
+    "rehype-external-links": "^3.0.0",
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
