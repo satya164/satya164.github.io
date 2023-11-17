@@ -28,7 +28,7 @@ I got this idea from a library ([kueblc/LDT](https://github.com/kueblc/LDT)) aro
 
 Here is a demo editor with this approach:
 
-```js playground="react" dependencies="prismjs@1.29.0" height="500px"
+```js playground="react" dependencies="prismjs@1.29.0" editor-height="500px"
 import * as React from 'react';
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';

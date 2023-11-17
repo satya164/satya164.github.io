@@ -13,22 +13,28 @@ type Props = {
   'children': string;
   'className'?: string;
   'data-playground'?: unknown;
+  'data-preview'?: string;
   'data-dependencies'?: string;
-  'data-height'?: string;
+  'data-editor-height'?: string;
+  'data-preview-height'?: string;
 };
 
 export const Playground = ({
   className,
   children,
   'data-playground': playground,
+  'data-preview': preview,
   'data-dependencies': dependencies,
-  'data-height': height,
+  'data-editor-height': editorHeight,
+  'data-preview-height': previewHeight,
 }: Props) => {
   const template = playground === 'react' ? 'react' : 'vanilla';
   const filename = {
     react: 'App.js',
     vanilla: 'index.js',
   }[template];
+
+  const editorVisible = preview !== 'true';
 
   return (
     <SandpackProvider
@@ -49,11 +55,19 @@ export const Playground = ({
         className={clsx(className, styles.container)}
         style={{
           // @ts-expect-error the properties don't consider CSS variables
-          '--editor-height': height || '50%',
+          '--editor-height':
+            editorHeight || (editorVisible ? 'var(--sp-layout-height)' : '0'),
+          '--preview-height': previewHeight || 'var(--sp-layout-height)',
         }}
       >
-        <SandpackCodeEditor className={clsx(styles.pane, styles.editor)} />
-        <SandpackPreview className={styles.pane} />
+        {editorVisible && (
+          <SandpackCodeEditor className={clsx(styles.pane, styles.editor)} />
+        )}
+        <SandpackPreview
+          showOpenInCodeSandbox={editorVisible}
+          showRefreshButton={editorVisible}
+          className={clsx(styles.pane, styles.preview)}
+        />
       </SandpackLayout>
     </SandpackProvider>
   );
