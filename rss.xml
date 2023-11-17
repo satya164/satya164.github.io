@@ -7,16 +7,16 @@
     <atom:link href="https://satya164.page/rss.xml" rel="self" type="application/rss+xml" />
 
     <item>
-      <guid>https://satya164.page/how-to-write-a-minimal-code-editor</guid>
-      <link>https://satya164.page/how-to-write-a-minimal-code-editor</link>
+      <guid>https://satya164.page/posts/how-to-write-a-minimal-code-editor</guid>
+      <link>https://satya164.page/posts/how-to-write-a-minimal-code-editor</link>
       <title>How to write a minimal code editor</title>
       <description>Writing a code editor is a complex task. But what if there was an alternative approach for simpler use cases?</description>
       <pubDate>Thu, 16 Nov 2023 00:00:00 GMT</pubDate>
     </item>
 
     <item>
-      <guid>https://satya164.page/automated-release-on-github-actions</guid>
-      <link>https://satya164.page/automated-release-on-github-actions</link>
+      <guid>https://satya164.page/posts/automated-release-on-github-actions</guid>
+      <link>https://satya164.page/posts/automated-release-on-github-actions</link>
       <title>Automated Release on GitHub Actions</title>
       <description>Releasing an npm package usually has a lot of steps. This is a guide to setting up automated releases for npm packages on GitHub Actions using release-it.</description>
       <pubDate>Thu, 02 Nov 2023 00:00:00 GMT</pubDate>

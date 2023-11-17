@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://satya164.page/</loc>
+  </url>
+    
+  <url>
+    <loc>https://satya164.page/about</loc>
+  </url>
+    
+  <url>
+    <loc>https://satya164.page/talks</loc>
+  </url>
+    
+  <url>
+    <loc>https://satya164.page/posts/how-to-write-a-minimal-code-editor</loc>
+  </url>
+    
+  <url>
+    <loc>https://satya164.page/posts/automated-release-on-github-actions</loc>
+  </url>
+    
+</urlset>
