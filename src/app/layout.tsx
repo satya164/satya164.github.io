@@ -62,6 +62,7 @@ export default function RootLayout({
 }
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL!),
   title: {
     template: `%s · ${meta.title}`,
     default: meta.title,
