@@ -247,3 +247,12 @@ main {
 footer {
   margin-bottom: 3rem;
 }
+
+article {
+  text-wrap: pretty;
+
+  img {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

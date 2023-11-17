@@ -25,4 +25,5 @@
 
 .preview {
   height: var(--preview-height) !important;
+  background-color: white !important;
 }
