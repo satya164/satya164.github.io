@@ -18,8 +18,8 @@ ${posts.items
   .map((post) => {
     return `
     <item>
-      <guid>${url}/${post.id}</guid>
-      <link>${url}/${post.id}</link>
+      <guid>${url}/posts/${post.id}</guid>
+      <link>${url}/posts/${post.id}</link>
       <title>${post.frontmatter.title}</title>
       <description>${post.frontmatter.description}</description>
       <pubDate>${new Date(post.frontmatter.date).toUTCString()}</pubDate>
