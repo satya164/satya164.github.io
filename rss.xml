@@ -7,6 +7,14 @@
     <atom:link href="https://satya164.page/rss.xml" rel="self" type="application/rss+xml" />
 
     <item>
+      <guid>https://satya164.page/posts/stacking-context-in-css</guid>
+      <link>https://satya164.page/posts/stacking-context-in-css</link>
+      <title>Stacking context in CSS</title>
+      <description>How do you position an element on top of another element in CSS? Just use z-index, right? Right?? Turns out, there is a bit more to it.</description>
+      <pubDate>Sat, 18 Nov 2023 00:00:00 GMT</pubDate>
+    </item>
+
+    <item>
       <guid>https://satya164.page/posts/how-to-write-a-minimal-code-editor</guid>
       <link>https://satya164.page/posts/how-to-write-a-minimal-code-editor</link>
       <title>How to write a minimal code editor</title>
