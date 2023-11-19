@@ -1,5 +1,5 @@
 ---
-title: Stacking context in CSS
+title: Stacking context - the hidden layers in CSS
 description: How do you position an element on top of another element in CSS? Just use z-index, right? Right?? Turns out, there is a bit more to it.
 date: 2023-11-18
 ---
