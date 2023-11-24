@@ -50,7 +50,7 @@ function Box({ children, style }) {
         ...style,
       }}
     >
-      zIndex: {style.zIndex}
+      z-index: {style.zIndex}
     </div>
   );
 }
@@ -100,7 +100,7 @@ function Box({ children, style }) {
         ...style,
       }}
     >
-      zIndex: {style.zIndex}
+      z-index: {style.zIndex}
     </div>
   );
 }
