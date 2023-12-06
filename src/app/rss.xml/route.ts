@@ -1,10 +1,14 @@
+import { micromark } from 'micromark';
+import { frontmatter, frontmatterHtml } from 'micromark-extension-frontmatter';
+import { gfm, gfmHtml } from 'micromark-extension-gfm';
+import { mdx } from 'micromark-extension-mdx';
 import metadata from '../../metadata.json';
-import { postsByOffset } from '../../posts/_all';
+import { index } from '../../posts/_all';
 
 const url = process.env.NEXT_PUBLIC_SITE_URL;
 
 export async function GET() {
-  const posts = await postsByOffset(0, Infinity);
+  const posts = await index();
 
   const rss = `
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -14,18 +18,26 @@ export async function GET() {
     <description>${metadata.description}</description>
     <link>${url}</link>
     <atom:link href="${url}/rss.xml" rel="self" type="application/rss+xml" />
-${posts.items
-  .map((post) => {
-    return `
+${(
+  await Promise.all(
+    posts.map(async ({ load, text }) => {
+      const post = await load();
+      const html = micromark(await text(), {
+        extensions: [gfm(), mdx(), frontmatter()],
+        htmlExtensions: [gfmHtml(), frontmatterHtml()],
+      });
+
+      return `
     <item>
       <guid>${url}/posts/${post.id}</guid>
       <link>${url}/posts/${post.id}</link>
       <title>${post.frontmatter.title}</title>
-      <description>${post.frontmatter.description}</description>
       <pubDate>${new Date(post.frontmatter.date).toUTCString()}</pubDate>
+      <description><![CDATA[${html}]]></description>
     </item>`;
-  })
-  .join('\n')}
+    })
+  )
+).join('\n')}
   </channel>
 </rss>
   `;

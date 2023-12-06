@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+
 const context = require.context('.', true, /page\.mdx?$/, 'lazy');
 
 export type Frontmatter = {
@@ -18,6 +21,10 @@ type PostModule = {
   frontmatter: Frontmatter;
   readingTime: ReadingTime;
 };
+
+export async function index() {
+  return posts;
+}
 
 export async function postsByOffset(offset: number, limit: number) {
   const items = await Promise.all(
@@ -62,10 +69,23 @@ const posts = context
       throw new Error(`Invalid id in filename: ${filename}`);
     }
 
+    let text: string | undefined;
+
     return {
       id,
       index,
       filename,
+      async text() {
+        if (text == null) {
+          // eslint-disable-next-line require-atomic-updates
+          text = await fs.promises.readFile(
+            path.join(process.cwd(), 'src', 'posts', filename),
+            'utf8'
+          );
+        }
+
+        return text;
+      },
       async load() {
         const { default: Component, ...meta } = (await context(
           filename
