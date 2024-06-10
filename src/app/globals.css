@@ -1,8 +1,7 @@
 :root {
-  --color-primary: hsl(340, 82%, 60%);
   --color-primary-hue: 340;
   --color-primary-saturation: 82%;
-  --color-primary-lightness: 65%;
+  --color-primary-lightness: 60%;
 
   --color-primary: hsl(
     var(--color-primary-hue),
