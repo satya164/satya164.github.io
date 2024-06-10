@@ -194,6 +194,10 @@ pre code {
   }
 }
 
+[data-rehype-pretty-code-figure] {
+  margin: 0;
+}
+
 [data-rehype-pretty-code-title] {
   font-size: 0.86rem;
   margin-top: 1rem;
