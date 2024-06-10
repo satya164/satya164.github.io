@@ -10,6 +10,10 @@
   top: 0;
   right: 0;
   color: var(--color-text-dark);
+
+  [data-rehype-pretty-code-title] + pre & {
+    margin-top: -3rem;
+  }
 }
 
 .copy {
