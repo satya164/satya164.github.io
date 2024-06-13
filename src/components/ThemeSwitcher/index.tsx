@@ -89,9 +89,7 @@ function getCurrentTheme() {
 }
 
 export const script = `
-  ${getCurrentTheme.toString()}
-
-  const theme = getCurrentTheme();
+  const theme = (${getCurrentTheme.toString()})();
 
   document.documentElement.dataset.theme = theme;
 `;
