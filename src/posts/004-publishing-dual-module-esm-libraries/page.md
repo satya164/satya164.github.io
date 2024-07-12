@@ -157,7 +157,7 @@ However, this approach has a few downsides:
 
 This approach involves writing your library in ESM and CommonJS separately - or more commonly, authoring in ESM and using tooling to generate the CommonJS build.
 
-Then in your `package.json`, you'd specify the `exports` field to point to the ESM module for ESM environments and the CommonJS module for CommonJS environments, as well as fallbacks with `main` and `module` fields:
+Then in your `package.json`, you'd specify the `exports` field to point to the ES module for ESM environments and the CommonJS module for CommonJS environments, as well as fallbacks with `main` and `module` fields:
 
 ```json title="package.json"
 {
@@ -353,6 +353,6 @@ Writing dual module libraries can be complex, so here are some tools that can he
 
 ## Conclusion
 
-Writing dual module libraries has a lot of nuances and can be tricky. And some of the problems can take a lot of work to solve. I can only hope that soon Node.js will have [better interoperability between ESM and CommonJS](https://nodejs.org/api/esm.html#interoperability-with-commonjs) modules with synchronous `require` for ESM modules without a flag and all tools to support the new module system.
+Writing dual module libraries has a lot of nuances and can be tricky. And some of the problems can take a lot of work to solve. I can only hope that soon Node.js will have [better interoperability between ESM and CommonJS](https://nodejs.org/api/esm.html#interoperability-with-commonjs) modules with synchronous `require` for ES modules without a flag and all tools to support the new module system.
 
 But when writing libraries and wanting to support many environments, it's unfortunately necessary to deal with these complexities. I hope this post has helped you understand some of the challenges.
