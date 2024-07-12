@@ -72,7 +72,7 @@ There are a few ways to specify the module system:
 
 The `type` field in `package.json` can be used to specify the module system used by the package in `Node.js`. The value can be either `module` for ESM or `commonjs` for CommonJS:
 
-```json
+```json title="package.json"
 {
   "type": "module"
 }
@@ -176,65 +176,65 @@ This approach has the benefit of allowing you to write your code in ESM and get 
 
 When following this approach, you may encounter a few issues:
 
-- **[Dual package hazard](https://nodejs.org/api/packages.html#dual-package-hazard)**
+#### Dual package hazard
 
-  With this approach, the ESM and CommonJS versions of the package are treated as separate modules by Node.js as they are different files, leading to potential issues if the package is both imported and required in the same runtime environment.
+With this approach, the ESM and CommonJS versions of the package are treated as separate modules by Node.js as they are different files, leading to [potential issues](https://nodejs.org/api/packages.html#dual-package-hazard) if the package is both imported and required in the same runtime environment.
 
-  If the package relies on any state that can cause issues if 2 separate instances are loaded, it's necessary to isolate the state into a separate CommonJS module that can be shared between the ESM and CommonJS builds.
+If the package relies on any state that can cause issues if 2 separate instances are loaded, it's necessary to isolate the state into a separate CommonJS module that can be shared between the ESM and CommonJS builds.
 
-  This is not an issue if it's safe to have 2 separate instances of the package loaded in the same environment, which is often the case for most libraries.
+This is not an issue if it's safe to have 2 separate instances of the package loaded in the same environment, which is often the case for most libraries.
 
-- **Mismatched module type**
+#### Mismatched module type
 
-  The `import` and `require` conditions only tell Node.js which file to load when the package is imported or required, but they don't say which module system is used in the file. So it's possible to specify an ES module in the `require` condition and a CommonJS module in the `import` condition, which may not work as expected.
+The `import` and `require` conditions only tell Node.js which file to load when the package is imported or required, but they don't say which module system is used in the file. So it's possible to specify an ES module in the `require` condition and a CommonJS module in the `import` condition, which may not work as expected.
 
-  To avoid this footgun, you can do any of the following:
+To avoid this footgun, you can do any of the following:
 
-  - Avoid using `.js` files and use the `.cjs` and `.mjs` file extensions to specify the module system.
-  - Specify `type: 'commonjs'` in `package.json` to treat all `.js` files as CommonJS and use `.mjs` files for the ESM build.
-  - Specify `type: 'module'` in `package.json` to treat all `.js` files as ESM and use `.cjs` files for the CommonJS build.
+- Avoid using `.js` files and use the `.cjs` and `.mjs` file extensions to specify the module system.
+- Specify `type: 'commonjs'` in `package.json` to treat all `.js` files as CommonJS and use `.mjs` files for the ESM build.
+- Specify `type: 'module'` in `package.json` to treat all `.js` files as ESM and use `.cjs` files for the CommonJS build.
 
-- **Lack of support for `.mjs` or `.cjs`**
+#### Lack of support for `.mjs` or `.cjs`
 
-  Since we aim to support older environments that don't support the new ES module system, they may not recognize the `.mjs` or `.cjs` file extensions. Most modern tools and bundlers support the `.mjs` and `.cjs` file extensions, but they might also differ in how they treat these files. For example, [Vite](https://vitejs.dev) allows importing `.mjs` files without explicit file extensions, but Metro doesn't.
+Since we aim to support older environments that don't support the new ES module system, they may not recognize the `.mjs` or `.cjs` file extensions. Most modern tools and bundlers support the `.mjs` and `.cjs` file extensions, but they might also differ in how they treat these files. For example, [Vite](https://vitejs.dev) allows importing `.mjs` files without explicit file extensions, but Metro doesn't.
 
-  One way to avoid this issue is to use the `.js` file extension for both ESM and CommonJS files. But how do we specify the module system in this case? We can't use the `type` field in the project's `package.json` as it applies to all `.js` files. But we can create `package.json` files with a `type` field in each of the build folders:
+One way to avoid this issue is to use the `.js` file extension for both ESM and CommonJS files. But how do we specify the module system in this case? We can't use the `type` field in the project's `package.json` as it applies to all `.js` files. But we can create `package.json` files with a `type` field in each of the build folders:
 
-  ```sh
-  my-library/
-  ├── esm/
-  │   ├── index.js
-  │   └── package.json # { "type": "module" }
-  └── cjs/
-      ├── index.js
-      └── package.json # { "type": "commonjs" }
-  ```
+```sh
+my-library/
+├── esm/
+│   ├── index.js
+│   └── package.json # { "type": "module" }
+└── cjs/
+     ├── index.js
+     └── package.json # { "type": "commonjs" }
+```
 
-  And then in the main `package.json`, we point to the respective `.js` files:
+And then in the main `package.json`, we point to the respective `.js` files:
 
-  ```json title="package.json"
-  {
-    "main": "./cjs/index.js",
-    "module": "./esm/index.js",
-    "exports": {
-      ".": {
-        "import": "./esm/index.js",
-        "require": "./cjs/index.js"
-      }
+```json title="package.json"
+{
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./cjs/index.js"
     }
   }
-  ```
+}
+```
 
-- **Lack of support for Platform-specific extension**
+#### Lack of support for Platform-specific extension
 
-  When writing cross-platform code, such as code that supports React Native, we often use platform-specific extensions such as `.android.js`, `.ios.js`, `.native.js`, etc. However, this doesn't work with the explicit file extension requirement in ESM.
+When writing cross-platform code, such as code that supports React Native, we often use platform-specific extensions such as `.android.js`, `.ios.js`, `.native.js`, etc. However, this doesn't work with the explicit file extension requirement in ESM.
 
-  For example, let's say we have 2 files: `foo.android.js` and `foo.js`, and an import statement: `import foo from './foo'`. Normally the bundler would resolve `foo.android.js` for Android and `foo.js` for other platforms. But in ESM, the file extension is required, so the import statement would need to be `import foo from './foo.js'` - which would break the platform-specific resolution as now the bundler would always resolve `foo.js`.
+For example, let's say we have 2 files: `foo.android.js` and `foo.js`, and an import statement: `import foo from './foo'`. Normally the bundler would resolve `foo.android.js` for Android and `foo.js` for other platforms. But in ESM, the file extension is required, so the import statement would need to be `import foo from './foo.js'` - which would break the platform-specific resolution as now the bundler would always resolve `foo.js`.
 
-  Alternative approaches to handle this would be to:
+Alternative approaches to handle this would be to:
 
-  - Use a separate CommonJS build that contains the platform-specific files, and can import them without specifying the file extension.
-  - Instead of separate files, use a single file with platform-specific logic conditionally executed based on the platform.
+- Use a separate CommonJS build that contains the platform-specific files, and can import them without specifying the file extension.
+- Instead of separate files, use a single file with platform-specific logic conditionally executed based on the platform.
 
 ## TypeScript
 
