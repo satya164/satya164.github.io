@@ -7,6 +7,14 @@
     <atom:link href="https://satya164.page/rss.xml" rel="self" type="application/rss+xml" />
 
     <item>
+      <guid>https://satya164.page/posts/publishing-dual-module-esm-libraries</guid>
+      <link>https://satya164.page/posts/publishing-dual-module-esm-libraries</link>
+      <title>Publishing dual module ESM libraries</title>
+      <description>Dual module libraries containing both ESM and CommonJS modules can be tricky. Here's what I learned.</description>
+      <pubDate>Fri, 12 Jul 2024 00:00:00 GMT</pubDate>
+    </item>
+
+    <item>
       <guid>https://satya164.page/posts/stacking-context-in-css</guid>
       <link>https://satya164.page/posts/stacking-context-in-css</link>
       <title>Stacking context - the hidden layers in CSS</title>
