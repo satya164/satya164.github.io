@@ -44,7 +44,7 @@ const withMDX = createMDX({
       [rehypeCodeblockMeta, { match: { playground: true } }],
       [rehypeExternalLinks, { target: '_blank' }],
       rehypeSlug,
-      [rehypeAutolinkHeadings, { behavior: 'wrap', test: ['h2', 'h3'] }],
+      [rehypeAutolinkHeadings, { behavior: 'wrap', test: ['h2', 'h3', 'h4'] }],
       [rehypePrettyCode, rehypePrettyCodeOptions],
     ],
   },
