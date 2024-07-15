@@ -45,22 +45,129 @@ Essentially, providing both ESM and CommonJS modules is a way to move to ESM wit
 
 And of course, if you don't need to support CommonJS environments, you can publish your library as an ESM-only package which is much simpler.
 
-## Entrypoints in `package.json`
+## Entry points in `package.json`
 
 The `package.json` can contain various fields that point to the file that should be loaded when the package is imported or required.
 
 The most common fields are:
 
-- `main`: This field has been supported in Node.js for a long time and points to the CommonJS entrypoint. This is supported by the majority of tools and bundlers.
-- `module`: This field is used by bundlers like [webpack](https://webpack.js.org) or [Rollup](https://rollupjs.org/) to load the ESM entrypoint. This field is not supported in Node.js.
-- `exports`: This field is a newer addition to the `package.json` specification and allows specifying [multiple entrypoints for different environments conditionally](https://nodejs.org/api/packages.html#conditional-exports).
+- `main`: This field has been supported in Node.js for a long time and points to the CommonJS entry point. This is supported by the majority of tools and bundlers.
+- `module`: This field is used by bundlers like [webpack](https://webpack.js.org) or [Rollup](https://rollupjs.org/) to load the ESM entry point. This field is not supported in Node.js.
+- `exports`: This field is a newer addition to the `package.json` specification and allows specifying [multiple entry points for different environments conditionally](https://nodejs.org/api/packages.html#conditional-exports).
 
 In addition, if you're writing client-side code, you may have come across the following fields:
 
-- `browser`: This field is used to specify a different entrypoint for client-side code for the browser. This field is used by bundlers such as webpack and Rollup.
-- `react-native`: This field is used to specify a different entrypoint for React Native environments. This field is supported by bundlers like [Metro](https://metrobundler.dev).
+- `browser`: This field is used to specify a different entry point for client-side code for the browser. This field is used by bundlers such as webpack and Rollup.
+- `react-native`: This field is used to specify a different entry point for React Native environments. This field is supported by bundlers like [Metro](https://metrobundler.dev).
 
-When writing dual modules, we'd want to use the `exports` field to specify both ESM and CommonJS entrypoints, while also providing the `main` and `module` fields for backwards compatibility.
+When writing dual modules, we'd want to use the `exports` field to specify both ESM and CommonJS entry points, while also providing the `main` and `module` fields for backwards compatibility.
+
+## The `exports` field in `package.json`
+
+The `exports` field in `package.json` allows specifying multiple entry points for different environments conditionally. It can be used to specify ESM and CommonJS entry points for dual module libraries.
+
+Here we'll cover the 2 most common cases. You can find more information in the [official Node.js documentation for entry points](https://nodejs.org/api/packages.html#package-entry-points).
+
+### Conditional exports
+
+The `exports` field can have the following structure:
+
+```json title="package.json"
+{
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./cjs/index.js"
+    }
+  }
+}
+```
+
+Here, the condition is as follows:
+
+- When the package is imported, the `import` condition is used
+- When the package is required, the `require` condition is used
+
+In addition, the conditions can also specify a `default` for the fallback, which is used if none of the conditions match:
+
+```json title="package.json"
+{
+  "exports": {
+    ".": {
+      "browser": "./dist/browser.js",
+      "react-native": "./dist/react-native.js",
+      "default": "./dist/index.js"
+    }
+  }
+}
+```
+
+In the above example, the condition is as follows:
+
+- When the package is imported in a browser environment, the `browser` condition is used
+- When the package is imported in a React Native environment, the `react-native` condition is used
+- If neither of the conditions matches, the `default` condition is used
+
+What conditions are available depends on the environment and the tooling used for module resolution.
+
+**The order of the conditions is important**. Multiple conditions may match, e.g. if we have the conditions `node` and `require` - both would match when the package is required in Node.js. In this case, the first condition that matches is used.
+
+The conditions can also be nested. For example:
+
+```json title="package.json"
+{
+  "exports": {
+    ".": {
+      "node": {
+        "import": "./esm/index-node.js",
+        "require": "./cjs/index-node.js"
+      },
+      "default": "./esm/index.js"
+    }
+  }
+}
+```
+
+### Subpath exports
+
+When the `exports` field is defined, it's no longer possible import a subpath of the package directly. For example, if we have the following `exports` field:
+
+```json title="package.json"
+{
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./cjs/index.js"
+    }
+  }
+}
+```
+
+We can't import or require a subpath of the package directly:
+
+```js
+// This would not work
+require('my-package/foo.js');
+```
+
+Similar to how `.` points to the main entry point, subpaths can also be specified in the `exports` field:
+
+```json title="package.json"
+{
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./cjs/index.js"
+    },
+    "./foo.js": {
+      "import": "./esm/foo.js",
+      "require": "./cjs/foo.js"
+    }
+  }
+}
+```
+
+This will now allow importing or requiring `my-package/foo.js`.
 
 ## Ambiguity in ESM and CommonJS
 
