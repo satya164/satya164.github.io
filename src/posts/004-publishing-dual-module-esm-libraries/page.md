@@ -243,7 +243,6 @@ Then in your `package.json`, you'd specify the `exports` field to point to the E
 {
   "type": "commonjs",
   "main": "./my-module.js",
-  "module": "./esm-wrapper.mjs",
   "exports": {
     ".": {
       "import": "./esm-wrapper.mjs",
