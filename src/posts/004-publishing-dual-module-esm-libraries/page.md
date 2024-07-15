@@ -70,7 +70,9 @@ Here we'll cover the 2 most common cases. You can find more information in the [
 
 ### Conditional exports
 
-The `exports` field can have the following structure:
+The `exports` field specifies conditions for different environments. Think of it like an if-else statement - the module resolution goes through each of the conditions one by one and uses the first one that matches.
+
+A basic example of `exports` field would be:
 
 ```json title="package.json"
 {
@@ -110,7 +112,34 @@ In the above example, the condition is as follows:
 
 What conditions are available depends on the environment and the tooling used for module resolution.
 
-**The order of the conditions is important**. Multiple conditions may match, e.g. if we have the conditions `node` and `require` - both would match when the package is required in Node.js. In this case, the first condition that matches is used.
+**The order of the conditions is important**. Multiple conditions may match, e.g. if we have the conditions `node` and `require` - both would match when the package is required in Node.js. In this case, the first condition that matches is used:
+
+```json title="package.json"
+// This is not correct
+{
+  "exports": {
+    ".": {
+      "require": "./cjs/index-node.js",
+      "node": "./esm/index-node.js"
+    }
+  }
+}
+```
+
+In the above example, the `require` condition would always match first, so the `node` condition would never be used. The correct order would be:
+
+```json title="package.json"
+{
+  "exports": {
+    ".": {
+      "node": "./esm/index-node.js",
+      "require": "./cjs/index-node.js"
+    }
+  }
+}
+```
+
+It is recommended to use the most specific conditions first, and the most general conditions last.
 
 The conditions can also be nested. For example:
 
@@ -127,6 +156,8 @@ The conditions can also be nested. For example:
   }
 }
 ```
+
+This can be useful if you want to have more specific conditions for certain environments.
 
 ### Subpath exports
 
