@@ -5,6 +5,7 @@ import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
+import remarkGithubAdmonitions from 'remark-github-beta-blockquote-admonitions';
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
 import remarkMdxImages from 'remark-mdx-images';
 import readingTime from 'remark-reading-time';
@@ -39,6 +40,26 @@ const withMDX = createMDX({
       remarkMdxFrontmatter,
       readingTime,
       readingTimeMdx,
+      [
+        remarkGithubAdmonitions,
+        {
+          classNameMaps: {
+            block: (title) =>
+              `admonition admonition-${title.toLowerCase().replace(/\s+/g, '-')}`,
+            title: 'admonition-title',
+          },
+          titleTextMap: (text) => {
+            const title = text.substring(2, text.length - 1);
+
+            return {
+              // Capitalize the first letter of the title
+              displayTitle:
+                title.charAt(0).toUpperCase() + title.slice(1).toLowerCase(),
+              checkedTitle: title,
+            };
+          },
+        },
+      ],
     ],
     rehypePlugins: [
       [rehypeCodeblockMeta, { match: { playground: true } }],

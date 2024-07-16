@@ -294,3 +294,58 @@ article {
     margin-right: auto;
   }
 }
+
+.admonition {
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+  border-radius: 0.38rem;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: var(--admonition-color-light);
+
+  [data-theme='dark'] & {
+    background-color: var(--admonition-color-dark);
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .admonition-title {
+    font-weight: 700;
+
+    &::before {
+      content: var(--admonition-icon);
+      margin-right: 0.5rem;
+    }
+  }
+
+  &.admonition-note {
+    --admonition-icon: '📝';
+    --admonition-color-light: hsl(197deg, 100%, 92%);
+    --admonition-color-dark: hsl(197deg, 100%, 77%);
+  }
+
+  &.admonition-important {
+    --admonition-icon: '❗️';
+    --admonition-color-light: hsl(357deg, 87%, 95%);
+    --admonition-color-dark: hsl(357deg, 87%, 76%);
+  }
+
+  &.admonition-warning {
+    --admonition-icon: '⚠️';
+    --admonition-color-light: hsl(39deg, 100%, 91%);
+    --admonition-color-dark: hsl(39deg, 100%, 71%);
+  }
+
+  &.admonition-tip {
+    --admonition-icon: '💡';
+    --admonition-color-light: hsl(84deg, 66%, 88%);
+    --admonition-color-dark: hsl(84deg, 66%, 73%);
+  }
+
+  &.admonition-caution {
+    --admonition-icon: '🚨';
+    --admonition-color-light: hsl(357deg, 87%, 95%);
+    --admonition-color-dark: hsl(357deg, 87%, 76%);
+  }
+}
