@@ -18,6 +18,7 @@
     "@mdx-js/react": "^3.0.1",
     "@next/mdx": "^14.2.3",
     "clsx": "^2.1.1",
+    "github-slugger": "^2.0.0",
     "next": "14.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -48,6 +49,7 @@
     "remark-github-beta-blockquote-admonitions": "^3.1.1",
     "remark-mdx-frontmatter": "^4.0.0",
     "remark-mdx-images": "^3.0.0",
+    "remark-mdx-toc": "^0.3.1",
     "remark-reading-time": "^2.0.1",
     "shiki": "^1.6.3",
     "typescript": "^5.4.5"

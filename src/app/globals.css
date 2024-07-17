@@ -164,6 +164,18 @@ ul ul {
   list-style-type: circle;
 }
 
+ul ul ul {
+  list-style-type: square;
+}
+
+li ul, li ol {
+  margin-top: 0.5rem;
+}
+
+li:has(> ul, > ol) + li, ol:has(> ul, > ol) + li {
+  margin-top: 0.5rem;
+}
+
 ol {
   list-style-position: outside;
   margin-left: 2.5rem;
@@ -287,6 +299,7 @@ footer {
 }
 
 article {
+  position: relative;
   text-wrap: pretty;
 
   img {

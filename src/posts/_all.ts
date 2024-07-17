@@ -1,3 +1,5 @@
+import GithubSlugger from 'github-slugger';
+
 const context = require.context('.', true, /page\.mdx?$/, 'lazy');
 
 export type Frontmatter = {
@@ -13,9 +15,19 @@ export type ReadingTime = {
   words: number;
 };
 
+export type Toc = TocItem[];
+
+type TocItem = {
+  depth: number;
+  value: string;
+  slug: string;
+  children: TocItem[];
+};
+
 type PostModule = {
   default: React.ComponentType;
   frontmatter: Frontmatter;
+  toc: Toc;
   readingTime: ReadingTime;
 };
 
@@ -71,8 +83,20 @@ const posts = context
           filename
         )) as PostModule;
 
+        const slugger = new GithubSlugger();
+        const slugify = (toc: TocItem): TocItem => {
+          const slug = slugger.slug(toc.value);
+
+          return {
+            ...toc,
+            slug,
+            children: toc.children.map(slugify),
+          };
+        };
+
         return {
           ...meta,
+          toc: meta.toc.map(slugify),
           id,
           Component,
         };

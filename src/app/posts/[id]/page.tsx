@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { PostMeta } from '../../../components/PostMeta';
 import { SocialLinks } from '../../../components/SocialLinks';
+import { TableOfContent } from '../../../components/TableOfContent';
 import { allIds, postById } from '../../../posts/_all';
 
 type Props = {
@@ -13,12 +14,14 @@ export default async function PostPage({ params }: Props) {
   const {
     Component: PostContent,
     frontmatter,
+    toc,
     readingTime,
   } = await postById(params.id);
 
   return (
     <main>
       <article>
+        <TableOfContent toc={toc} />
         <h1>{frontmatter.title}</h1>
         <PostMeta date={frontmatter.date} readingTime={readingTime} />
         <PostContent />

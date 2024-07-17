@@ -8,6 +8,7 @@ import remarkGfm from 'remark-gfm';
 import remarkGithubAdmonitions from 'remark-github-beta-blockquote-admonitions';
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
 import remarkMdxImages from 'remark-mdx-images';
+import { remarkMdxToc } from 'remark-mdx-toc';
 import readingTime from 'remark-reading-time';
 import readingTimeMdx from 'remark-reading-time/mdx.js';
 import rehypeCodeblockMeta from './src/plugins/rehype-codeblock-meta.mjs';
@@ -38,6 +39,7 @@ const withMDX = createMDX({
       remarkMdxImages,
       remarkFrontmatter,
       remarkMdxFrontmatter,
+      remarkMdxToc,
       readingTime,
       readingTimeMdx,
       [
