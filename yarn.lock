@@ -973,6 +973,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@orama/orama@npm:2.0.21, @orama/orama@npm:^2.0.21":
+  version: 2.0.21
+  resolution: "@orama/orama@npm:2.0.21"
+  checksum: 6189e72bc940b20f0742fdb4397b32df5201c9ac93b2fa2de47856fc2959b6d7b11a70f5c8efcdc5a8fda8464e3f62df34f8bb6b45cca4bcb207dbe435af7fe8
+  languageName: node
+  linkType: hard
+
+"@orama/plugin-match-highlight@npm:^2.0.21":
+  version: 2.0.21
+  resolution: "@orama/plugin-match-highlight@npm:2.0.21"
+  dependencies:
+    "@orama/orama": "npm:2.0.21"
+  checksum: 2ec65bf20d76c7b808541004f54a2539a4adafaa3851919a82db48477beee16ded53dca0de3e8329bdeffe67ebb43f1afa101638c80ac48af50385824b41b4f6
+  languageName: node
+  linkType: hard
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -6260,6 +6276,8 @@ __metadata:
     "@mdx-js/loader": "npm:^3.0.1"
     "@mdx-js/react": "npm:^3.0.1"
     "@next/mdx": "npm:^14.2.3"
+    "@orama/orama": "npm:^2.0.21"
+    "@orama/plugin-match-highlight": "npm:^2.0.21"
     "@types/mdx": "npm:^2.0.13"
     "@types/node": "npm:^20.14.2"
     "@types/postcss-flexbugs-fixes": "npm:^5.0.3"
