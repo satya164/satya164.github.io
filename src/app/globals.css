@@ -73,6 +73,11 @@ body {
   }
 }
 
+::placeholder {
+  color: inherit;
+  opacity: 0.5;
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -175,11 +180,13 @@ ul ul ul {
   list-style-type: square;
 }
 
-li ul, li ol {
+li ul,
+li ol {
   margin-top: 0.5rem;
 }
 
-li:has(> ul, > ol) + li, ol:has(> ul, > ol) + li {
+li:has(> ul, > ol) + li,
+ol:has(> ul, > ol) + li {
   margin-top: 0.5rem;
 }
 
@@ -308,6 +315,10 @@ article {
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+mark {
+  background-color: hsla(38.92deg, 100%, 70.98%, 0.5);
 }
 
 .admonition {

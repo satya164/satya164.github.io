@@ -17,6 +17,8 @@
     "@codesandbox/sandpack-react": "^2.14.2",
     "@mdx-js/react": "^3.0.1",
     "@next/mdx": "^14.2.3",
+    "@orama/orama": "^2.0.21",
+    "@orama/plugin-match-highlight": "^2.0.21",
     "clsx": "^2.1.1",
     "github-slugger": "^2.0.0",
     "next": "14.2.3",
