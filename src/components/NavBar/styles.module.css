@@ -9,6 +9,7 @@
 .left, .right {
   flex: 1;
   display: flex;
+  gap: 1rem;
   align-items: center;
   padding: 0 1rem;
 }
@@ -27,12 +28,7 @@
   font-size: 1.14rem;
   text-decoration: none;
   color: inherit;
-  margin-right: 1rem;
   transition: color 0.15s ease-in-out;
-
-  &:last-of-type {
-    margin-right: 0;
-  }
 }
 
 .logo {
