@@ -5,8 +5,25 @@
 }
 
 .item {
+  border-bottom: 1px solid var(--color-border);
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  @media (max-width: 75ch) {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+.link {
+  display: block;
   text-decoration: none;
   color: inherit;
+  padding-bottom: 2rem;
 
   &:focus-visible,
   &:hover {

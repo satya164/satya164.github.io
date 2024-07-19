@@ -6,11 +6,12 @@
   padding: 0;
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--color-border);
 
-  [data-theme='dark'] & {
-    border-top-color: rgba(255, 255, 255, 0.05);
+  @media (max-width: 75ch) {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }

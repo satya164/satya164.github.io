@@ -10,8 +10,8 @@ export default async function PostsPage() {
     <main>
       <ul className={styles.posts}>
         {posts.items.map(({ id, frontmatter, readingTime }) => (
-          <li key={id}>
-            <Link href={`/posts/${id}`} className={styles.item}>
+          <li key={id} className={styles.item}>
+            <Link href={`/posts/${id}`} className={styles.link}>
               <h2>{frontmatter.title}</h2>
               <p>{frontmatter.description}</p>
               <PostMeta date={frontmatter.date} readingTime={readingTime} />

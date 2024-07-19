@@ -13,6 +13,9 @@
   --color-background-dark: hsl(231deg, 18%, 15%);
   --color-text-light: hsl(222deg, 22%, 5%);
   --color-text-dark: hsl(230deg, 18%, 72%);
+
+  --color-border-light: hsla(0deg, 0%, 0%, 0.1);
+  --color-border-dark: hsla(0deg, 0%, 100%, 0.1);
 }
 
 *,
@@ -38,8 +41,12 @@ ul {
 html {
   color-scheme: light;
 
+  --color-border: var(--color-border-light);
+
   &[data-theme='dark'] {
     color-scheme: dark;
+
+    --color-border: var(--color-border-dark);
   }
 }
 
@@ -276,7 +283,6 @@ a {
 }
 
 main,
-nav,
 footer {
   max-width: 75ch;
   margin: 0 auto;
@@ -292,10 +298,6 @@ main {
     padding-top: 3rem;
     padding-bottom: 6rem;
   }
-}
-
-footer {
-  margin-bottom: 3rem;
 }
 
 article {

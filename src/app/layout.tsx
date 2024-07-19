@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Arvo, Fira_Code, Lato } from 'next/font/google';
-import Link from 'next/link';
+import { Footer } from '../components/Footer';
 import { NavBar } from '../components/NavBar';
 import { script } from '../components/ThemeSwitcher';
 import meta from '../metadata.json';
@@ -52,10 +52,7 @@ export default function RootLayout({
       <body>
         <NavBar />
         {children}
-        <footer>
-          Copyright © 2023 <Link href="/about">Satyajit Sahoo</Link>. All
-          rights reserved.
-        </footer>
+        <Footer />
       </body>
     </html>
   );
