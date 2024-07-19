@@ -14,12 +14,6 @@
   font-size: 1rem;
   color: inherit;
   background-color: rgba(0, 0, 0, 0.05);
-  transition: outline 0.15s ease-in-out;
-  outline-color: transparent;
-
-  &:focus-visible {
-    outline-color: var(--color-primary);
-  }
 
   [data-theme='dark'] & {
     background-color: rgba(255, 255, 255, 0.05);

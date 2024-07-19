@@ -73,6 +73,10 @@ body {
   }
 }
 
+:focus {
+  outline-color: var(--color-primary);
+}
+
 ::placeholder {
   color: inherit;
   opacity: 0.5;
