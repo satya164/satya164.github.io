@@ -36,6 +36,11 @@ type DataStatus =
       error: unknown;
     };
 
+const ID = {
+  input: 'search-input',
+  results: 'search-results',
+};
+
 export function SearchBar({ className }: Props) {
   const [status, setStatus] = React.useState<DataStatus>({ type: 'idle' });
   const [query, setQuery] = React.useState('');
@@ -43,7 +48,7 @@ export function SearchBar({ className }: Props) {
     React.useState<SearchResultWithHighlight<DataItem> | null>(null);
   const [visible, setVisible] = React.useState(false);
   const [selection, setSelection] = React.useState<string | null>(null);
-  const formRef = React.useRef<HTMLFormElement>(null);
+  const searchRef = React.useRef<HTMLFormElement>(null);
 
   React.useEffect(() => {
     const controller = new AbortController();
@@ -134,13 +139,13 @@ export function SearchBar({ className }: Props) {
 
   React.useEffect(() => {
     if (visible) {
-      document.getElementById('search-results')?.focus();
+      document.getElementById(ID.results)?.focus();
     }
   }, [visible]);
 
   React.useEffect(() => {
     if (selection) {
-      const selected = document.getElementById(`search-result-${selection}`);
+      const selected = document.getElementById(`${ID.results}-${selection}`);
 
       if (selected) {
         selected.scrollIntoView({ block: 'nearest' });
@@ -150,8 +155,8 @@ export function SearchBar({ className }: Props) {
 
   React.useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      // Close the results if the user clicks outside the form
-      if (!formRef.current?.contains(e.target as Node)) {
+      // Close the results if the user clicks outside the search area
+      if (!searchRef.current?.contains(e.target as Node)) {
         setVisible(false);
       }
     };
@@ -162,7 +167,7 @@ export function SearchBar({ className }: Props) {
 
       if (e.code === 'KeyK' && comboKey) {
         e.preventDefault();
-        document.getElementById('search-input')?.focus();
+        document.getElementById(ID.input)?.focus();
       }
     };
 
@@ -176,6 +181,7 @@ export function SearchBar({ className }: Props) {
   }, []);
 
   const onInputKeyUp = (e: React.KeyboardEvent) => {
+    console.log(e.code);
     switch (e.code) {
       case 'ArrowUp':
       case 'ArrowDown':
@@ -192,6 +198,13 @@ export function SearchBar({ className }: Props) {
         }
 
         break;
+      case 'Enter':
+        e.preventDefault();
+
+        if (selection) {
+          document.getElementById(`${ID.results}-${selection}`)?.click();
+        }
+        break;
     }
   };
 
@@ -204,28 +217,15 @@ export function SearchBar({ className }: Props) {
         // Prevent from clearing the input
         e.preventDefault();
         setVisible(false);
-        document.getElementById('search-input')?.blur();
+        document.getElementById(ID.input)?.blur();
         break;
     }
   };
 
-  const onFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (selection) {
-      document.getElementById(`search-result-${selection}`)?.click();
-    }
-  };
-
   return (
-    <form
-      ref={formRef}
-      onSubmit={onFormSubmit}
-      className={clsx(styles.container, className)}
-    >
+    <search ref={searchRef} className={clsx(styles.container, className)}>
       <input
-        id="search-input"
-        aria-owns="search-results"
+        id={ID.input}
         autoCapitalize="none"
         autoComplete="off"
         aria-autocomplete="list"
@@ -239,9 +239,12 @@ export function SearchBar({ className }: Props) {
         onKeyDown={onInputKeyDown}
       />
       {status.type === 'loading' && <Spinner className={styles.loading} />}
-      <div className={clsx(styles.results, visible && styles.visible)}>
+      <div
+        aria-live="polite"
+        className={clsx(styles.results, visible && styles.visible)}
+      >
         {status.type === 'success' && results?.hits.length ? (
-          <ul id="search-results" role="listbox">
+          <ul id={ID.results} role="listbox">
             {results.hits.map(({ id, document: doc, positions }) => {
               let subtitle;
 
@@ -269,13 +272,13 @@ export function SearchBar({ className }: Props) {
                   className={selection === id ? styles.selected : ''}
                 >
                   <Link
-                    id={`search-result-${id}`}
+                    id={`${ID.results}-${id}`}
                     tabIndex={-1}
                     href={`/posts/${doc.id}`}
                     onClick={() => {
                       setQuery('');
                       setVisible(false);
-                      document.getElementById('search-input')?.blur();
+                      document.getElementById(ID.input)?.blur();
                     }}
                     onMouseOver={() => setSelection(id)}
                   >
@@ -287,12 +290,12 @@ export function SearchBar({ className }: Props) {
             })}
           </ul>
         ) : (
-          <p className={styles.blank} aria-live="polite" role="status">
+          <p className={styles.blank} role="status">
             {status.type === 'error' ? 'An error ocurred' : 'No results found'}
           </p>
         )}
       </div>
-    </form>
+    </search>
   );
 }
 

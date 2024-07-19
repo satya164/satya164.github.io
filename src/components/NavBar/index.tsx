@@ -46,7 +46,7 @@ export function NavBar() {
         <SearchBar />
       </div>
       <div className={styles.right}>
-        <Link href="/rss.xml" className={styles.item}>
+        <Link href="/rss.xml" title="RSS" className={styles.item}>
           <svg
             className={styles.icon}
             xmlns="http://www.w3.org/2000/svg"
