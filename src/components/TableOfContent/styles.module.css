@@ -12,7 +12,7 @@
   width: 40ch;
   max-height: calc(100vh - 1rem);
   overflow-y: auto;;
-  margin: 0.5rem 0 0 3rem;
+  margin: 0 0 0 3rem;
   box-shadow: inset 1px 0 0 0 var(--color-border);
 
   & > ul {
@@ -26,7 +26,11 @@
   }
 
   ul ul {
-    margin-left: 1rem;
+    margin: 0 0 0 1rem;
+  }
+
+  ul li {
+    margin: 0.25rem 0;
   }
 
   a {
