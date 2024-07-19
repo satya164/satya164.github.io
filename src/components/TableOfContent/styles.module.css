@@ -10,7 +10,7 @@
 .container {
   position: absolute;
   width: 40ch;
-  max-height: 100vh;
+  max-height: calc(100vh - 1rem);
   overflow-y: auto;;
   margin: 0.5rem 0 0 3rem;
   box-shadow: inset 1px 0 0 0 var(--color-border);
