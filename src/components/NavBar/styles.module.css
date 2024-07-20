@@ -57,7 +57,7 @@
 
 .searchbar {
   display: flex;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.5rem;
   min-width: 0;
   width: 75ch;
 
@@ -69,6 +69,5 @@
   @media (max-width: 75ch) {
     flex-basis: 100%;
     order: 99;
-    padding: 0.5rem 1rem 1rem 1rem;
   }
 }

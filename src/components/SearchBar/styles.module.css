@@ -38,7 +38,7 @@
   flex-direction: column;
   z-index: 1;
   top: 100%;
-  width: calc(75ch - 2rem);
+  width: calc(75ch - 3rem);
   max-height: calc(100vh - 10rem);
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
@@ -52,9 +52,9 @@
   display: none;
   opacity: 0;
 
-  @media (max-width: 115ch) {
-    left: 1rem;
-    width: calc(100% - 2rem);
+  @media (max-width: 130ch) {
+    left: 1.5rem;
+    width: calc(100% - 3rem);
   }
 
   ul {
