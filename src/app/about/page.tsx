@@ -59,7 +59,7 @@ export default function About() {
             ,{' '}
           </React.Fragment>
         ))}
-        etc. When not coding, I loves cooking and playing video games.
+        etc. When not coding, I love cooking and playing video games.
       </p>
       <ul className={styles.links}>
         {links.map((link) => (
