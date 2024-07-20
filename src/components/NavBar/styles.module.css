@@ -31,6 +31,8 @@
 }
 
 .logo {
+  margin-left: 0.5rem;
+
   & img {
     color: inherit !important;
     height: 2.25rem;
@@ -46,7 +48,7 @@
 }
 
 .back {
-  margin-left: -1rem;
+  margin-left: -0.5rem;
 }
 
 .icon {
