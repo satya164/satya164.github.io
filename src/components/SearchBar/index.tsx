@@ -130,10 +130,11 @@ export function SearchBar({ className }: Props) {
     };
   }, []);
 
-  const onInputKeyUp = (e: React.KeyboardEvent) => {
+  const onInputKeyDown = (e: React.KeyboardEvent) => {
     switch (e.code) {
       case 'ArrowUp':
       case 'ArrowDown':
+        // Prevent the default behavior of moving the cursor
         e.preventDefault();
 
         if (results?.hits.length) {
@@ -145,7 +146,6 @@ export function SearchBar({ className }: Props) {
             setSelection(nextId);
           }
         }
-
         break;
       case 'Enter':
         e.preventDefault();
@@ -154,19 +154,15 @@ export function SearchBar({ className }: Props) {
           document.getElementById(`${ID.results}-${selection}`)?.click();
         }
         break;
-    }
-  };
-
-  const onInputKeyDown = (e: React.KeyboardEvent) => {
-    switch (e.code) {
-      case 'Tab':
-        setVisible(false);
-        break;
       case 'Escape':
         // Prevent from clearing the input
         e.preventDefault();
         setVisible(false);
         document.getElementById(ID.input)?.blur();
+        break;
+      case 'Tab':
+        // Don't prevent default to allow tabbing through the page
+        setVisible(false);
         break;
     }
   };
@@ -229,7 +225,6 @@ export function SearchBar({ className }: Props) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={onInputFocus}
-          onKeyUp={onInputKeyUp}
           onKeyDown={onInputKeyDown}
         />
         {status.type === 'loading' && <Spinner className={styles.loading} />}
