@@ -71,8 +71,12 @@ body {
   }
 }
 
-:focus {
-  outline-color: var(--color-primary);
+/**
+ * Safari doesn't allow customizing only the color of the focus ring.
+ * So we can't use `outline-color` and have to use `outline` instead.
+ */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
 }
 
 ::placeholder {
