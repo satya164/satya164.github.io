@@ -1,11 +1,9 @@
 'use client';
 
-import { create, insert } from '@orama/orama';
-import {
-  afterInsert as highlightAfterInsert,
-  searchWithHighlight,
-  type Position,
-  type SearchResultWithHighlight,
+import type { create } from '@orama/orama';
+import type {
+  Position,
+  SearchResultWithHighlight,
 } from '@orama/plugin-match-highlight';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -51,69 +49,21 @@ export function SearchBar({ className }: Props) {
   const searchRef = React.useRef<HTMLFormElement>(null);
 
   React.useEffect(() => {
-    const controller = new AbortController();
-
-    const fetchData = async () => {
-      setStatus({ type: 'loading' });
-
-      try {
-        const response = await fetch('/data.json', {
-          signal: controller.signal,
-        });
-
-        const data: DataItem[] = await response.json();
-
-        const db = await create({
-          schema: {
-            id: 'string',
-            title: 'string',
-            description: 'string',
-            content: 'string',
-          },
-          plugins: [
-            {
-              name: 'highlight',
-              afterInsert: highlightAfterInsert,
-            },
-          ],
-        });
-
-        data.forEach((item) => {
-          // @ts-expect-error figure out how to type this
-          insert(db, item);
-        });
-
-        setStatus({ type: 'success', db });
-      } catch (error) {
-        console.error(error);
-
-        setStatus({ type: 'error', error });
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      controller.abort('Component unmounted');
-    };
-  }, []);
-
-  React.useEffect(() => {
     let cleanedUp = false;
 
     const search = async () => {
-      if (query.trim() === '') {
+      const db = status.type === 'success' ? status.db : null;
+
+      if (query.trim() === '' || !db) {
         setResults(null);
         setSelection(null);
         setVisible(false);
         return;
       }
 
-      const db = status.type === 'success' ? status.db : null;
-
-      if (!db) {
-        return;
-      }
+      const { searchWithHighlight } = await import(
+        '@orama/plugin-match-highlight'
+      );
 
       const results = await searchWithHighlight(db, {
         term: query,
@@ -221,6 +171,49 @@ export function SearchBar({ className }: Props) {
     }
   };
 
+  const onInputFocus = async () => {
+    if (status.type !== 'idle' && status.type !== 'error') {
+      return;
+    }
+
+    setStatus({ type: 'loading' });
+
+    try {
+      const response = await fetch('/data.json');
+
+      const data: DataItem[] = await response.json();
+
+      const { create, insert } = await import('@orama/orama');
+      const { afterInsert } = await import('@orama/plugin-match-highlight');
+
+      const db = await create({
+        schema: {
+          id: 'string',
+          title: 'string',
+          description: 'string',
+          content: 'string',
+        },
+        plugins: [
+          {
+            name: 'highlight',
+            afterInsert,
+          },
+        ],
+      });
+
+      data.forEach((item) => {
+        // @ts-expect-error figure out how to type this
+        insert(db, item);
+      });
+
+      setStatus({ type: 'success', db });
+    } catch (error) {
+      console.error(error);
+
+      setStatus({ type: 'error', error });
+    }
+  };
+
   return (
     <search ref={searchRef} className={clsx(styles.container, className)}>
       <input
@@ -234,6 +227,7 @@ export function SearchBar({ className }: Props) {
         placeholder="Type to search"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onFocus={onInputFocus}
         onKeyUp={onInputKeyUp}
         onKeyDown={onInputKeyDown}
       />
