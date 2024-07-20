@@ -246,8 +246,7 @@ export function SearchBar({ className }: Props) {
               if (
                 positions.description &&
                 (query.toLowerCase() in positions.description ||
-                  Object.keys(positions.description).length >
-                    Object.keys(positions.content ?? {}).length)
+                  Object.keys(positions.description).length)
               ) {
                 subtitle = highlight(
                   doc.description,
