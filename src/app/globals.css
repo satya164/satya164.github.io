@@ -133,7 +133,6 @@ h4 {
       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" transform="scale(0.67)"><path fill="none" d="M0 0h24v24H0Z"></path><path fill="black" d="M3.829 19.938a4.9 4.9 0 0 1 0-6.919l3.661-3.66a4.874 4.874 0 0 1 7.658.961l-1.371 1.371a3.051 3.051 0 0 0-4.984-1.029l-3.66 3.662a3.047 3.047 0 0 0 4.31 4.309l1.288-1.285a6.785 6.785 0 0 0 2.088.332c.065 0 .129-.007.194-.009l-2.267 2.268a4.9 4.9 0 0 1-6.917 0Zm5.766-5.53a4.892 4.892 0 0 1-.742-.961l1.371-1.371a3.052 3.052 0 0 0 4.985 1.029l3.661-3.661a3.049 3.049 0 0 0-4.312-4.311L13.273 6.42a6.741 6.741 0 0 0-2.09-.334c-.064 0-.129.008-.193.011l2.267-2.267a4.89 4.89 0 0 1 6.916 6.916l-3.661 3.661a4.9 4.9 0 0 1-6.917 0Z"></path></svg>');
       background-position: center;
       background-repeat: no-repeat;
-      transition: all 0.15s ease-in-out;
       opacity: 0;
 
       @media (max-width: 75ch) {
