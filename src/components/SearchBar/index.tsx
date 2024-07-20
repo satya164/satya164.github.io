@@ -181,7 +181,6 @@ export function SearchBar({ className }: Props) {
   }, []);
 
   const onInputKeyUp = (e: React.KeyboardEvent) => {
-    console.log(e.code);
     switch (e.code) {
       case 'ArrowUp':
       case 'ArrowDown':
@@ -250,7 +249,9 @@ export function SearchBar({ className }: Props) {
 
               if (
                 positions.description &&
-                query.toLowerCase() in positions.description
+                (query.toLowerCase() in positions.description ||
+                  Object.keys(positions.description).length >
+                    Object.keys(positions.content ?? {}).length)
               ) {
                 subtitle = highlight(
                   doc.description,
@@ -304,53 +305,55 @@ const highlight = (
   query: string,
   positions: Record<string, Position[]> | undefined
 ) => {
-  const position = positions?.[query.toLowerCase()];
-  const limit = 90;
+  const first = positions
+    ? positions[query.toLowerCase()] ?? Object.values(positions)[0]
+    : null;
+  const limit = 100;
 
-  if (position == null || !position[0]) {
+  if (positions == null || first == null || !first[0]) {
     return text.slice(0, limit).trim();
   }
 
   // Get characters around the first match
   const additional =
-    position[0].length > limit
-      ? 0
-      : Math.round((limit - position[0].length) / 2);
+    first[0].length > limit ? 0 : Math.round((limit - first[0].length) / 2);
 
-  const start = Math.max(position[0].start - additional, 0);
+  const start = Math.max(first[0].start - additional, 0);
   const matched = text
-    .slice(start, start + position[0].length + additional * 2)
+    .slice(start, start + first[0].length + additional * 2)
     .slice(0, limit);
 
-  const result = position.reduce<{
-    text: string;
-    offset: number;
-    highlighted: (string | JSX.Element)[];
-  }>(
-    (acc, { start, length }, index) => {
-      const matches = acc.text[start - acc.offset];
+  const result = Object.values(positions)
+    .reduce((acc, p) => [...acc, ...p], [])
+    .reduce<{
+      text: string;
+      offset: number;
+      highlighted: (string | JSX.Element)[];
+    }>(
+      (acc, { start, length }, index) => {
+        const matches = acc.text[start - acc.offset];
 
-      if (matches) {
-        acc.highlighted.push(
-          acc.text.slice(0, start - acc.offset),
-          // eslint-disable-next-line react/no-array-index-key
-          <mark key={index}>
-            {acc.text.slice(start - acc.offset, start - acc.offset + length)}
-          </mark>
-        );
-        acc.text = acc.text.slice(start - acc.offset + length);
-        acc.offset = start - acc.offset + length;
-      }
+        if (matches) {
+          acc.highlighted.push(
+            acc.text.slice(0, start - acc.offset),
+            // eslint-disable-next-line react/no-array-index-key
+            <mark key={index}>
+              {acc.text.slice(start - acc.offset, start - acc.offset + length)}
+            </mark>
+          );
+          acc.text = acc.text.slice(start - acc.offset + length);
+          acc.offset = start - acc.offset + length;
+        }
 
-      return acc;
-    },
-    { text: matched, offset: start, highlighted: [] }
-  );
+        return acc;
+      },
+      { text: matched, offset: start, highlighted: [] }
+    );
 
   const highlighted = result.highlighted.concat(result.text);
 
-  // If we cut the text, add an ellipsis
-  if (position[0].start - additional > 0) {
+  // If we cut the text from the beginning, add an ellipsis
+  if (start > 0) {
     highlighted.unshift('…');
   }
 
