@@ -17,7 +17,7 @@ export function NavBar() {
       <div className={styles.left}>
         {pathname === '/' ? (
           <Link href="/about" className={clsx(styles.logo, styles.item)}>
-            <Image src={avatar} alt="About" />
+            <Image src={avatar} alt="About" priority />
           </Link>
         ) : (
           <Link
