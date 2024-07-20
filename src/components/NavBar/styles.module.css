@@ -61,7 +61,7 @@
   min-width: 0;
   width: 75ch;
 
-  @media (max-width: 115ch) {
+  @media (max-width: 130ch) {
     flex-grow: 1;
     width: auto;
   }
@@ -69,6 +69,6 @@
   @media (max-width: 75ch) {
     flex-basis: 100%;
     order: 99;
-    padding-top: 0;
+    padding: 0.5rem 1rem 1rem 1rem;
   }
 }
