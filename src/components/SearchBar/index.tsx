@@ -301,50 +301,65 @@ const highlight = (
   query: string,
   positions: Record<string, Position[]> | undefined
 ) => {
-  const first = positions
-    ? positions[query.toLowerCase()] ?? Object.values(positions)[0]
-    : null;
   const limit = 100;
+  const all = positions
+    ? Object.values(positions).reduce((acc, p) => [...acc, ...p], [])
+    : [];
 
-  if (positions == null || first == null || !first[0]) {
+  let first = positions?.[query.toLowerCase()]?.[0];
+
+  if (first == null) {
+    // Sometimes positions don't include a match even though it's in the text
+    // So we check against the text itself directly
+    const index = text.toLowerCase().indexOf(query.toLowerCase());
+
+    if (index > -1) {
+      all.unshift({ start: index, length: query.length });
+    }
+  }
+
+  if (first == null) {
+    first = all[0];
+  }
+
+  if (first == null) {
     return text.slice(0, limit).trim();
   }
 
   // Get characters around the first match
   const additional =
-    first[0].length > limit ? 0 : Math.round((limit - first[0].length) / 2);
+    first.length > limit ? 0 : Math.round((limit - first.length) / 2);
 
-  const start = Math.max(first[0].start - additional, 0);
+  const start = Math.max(first.start - additional, 0);
   const matched = text
-    .slice(start, start + first[0].length + additional * 2)
+    .slice(start, start + first.length + additional * 2)
     .slice(0, limit);
 
-  const result = Object.values(positions)
-    .reduce((acc, p) => [...acc, ...p], [])
-    .reduce<{
-      text: string;
-      offset: number;
-      highlighted: (string | JSX.Element)[];
-    }>(
-      (acc, { start, length }, index) => {
-        const matches = acc.text[start - acc.offset];
+  const result = all.reduce<{
+    text: string;
+    offset: number;
+    highlighted: (string | JSX.Element)[];
+  }>(
+    (acc, { start, length }, index) => {
+      const matches = acc.text[start - acc.offset];
 
-        if (matches) {
-          acc.highlighted.push(
-            acc.text.slice(0, start - acc.offset),
-            // eslint-disable-next-line react/no-array-index-key
-            <mark key={index}>
-              {acc.text.slice(start - acc.offset, start - acc.offset + length)}
-            </mark>
-          );
-          acc.text = acc.text.slice(start - acc.offset + length);
-          acc.offset = start - acc.offset + length;
-        }
+      if (matches) {
+        const begin = start - acc.offset;
+        const end = begin + length;
 
-        return acc;
-      },
-      { text: matched, offset: start, highlighted: [] }
-    );
+        acc.highlighted.push(
+          acc.text.slice(0, begin),
+          // eslint-disable-next-line react/no-array-index-key
+          <mark key={index}>{acc.text.slice(begin, end)}</mark>
+        );
+        acc.text = acc.text.slice(end);
+        acc.offset += end;
+      }
+
+      return acc;
+    },
+    { text: matched, offset: start, highlighted: [] }
+  );
 
   const highlighted = result.highlighted.concat(result.text);
 
