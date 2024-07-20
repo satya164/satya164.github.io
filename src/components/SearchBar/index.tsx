@@ -67,6 +67,11 @@ export function SearchBar({ className }: Props) {
 
       const results = await searchWithHighlight(db, {
         term: query,
+        boost: {
+          title: 3,
+          description: 2,
+          content: 1,
+        },
       });
 
       if (cleanedUp) {
