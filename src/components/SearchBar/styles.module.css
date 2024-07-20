@@ -1,4 +1,11 @@
-.container {
+.search {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.wrapper {
+  position: relative;
   display: flex;
   flex: 1;
   min-width: 0;
@@ -22,8 +29,8 @@
 
 .loading {
   position: absolute;
-  right: 0.25rem;
-  top: 0.25rem;
+  right: 0.5rem;
+  top: 0.5rem;
 }
 
 .results {

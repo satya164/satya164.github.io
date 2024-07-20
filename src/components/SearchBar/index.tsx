@@ -215,23 +215,25 @@ export function SearchBar({ className }: Props) {
   };
 
   return (
-    <search ref={searchRef} className={clsx(styles.container, className)}>
-      <input
-        id={ID.input}
-        autoCapitalize="none"
-        autoComplete="off"
-        aria-autocomplete="list"
-        className={styles.input}
-        name="q"
-        type="search"
-        placeholder="Type to search"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onFocus={onInputFocus}
-        onKeyUp={onInputKeyUp}
-        onKeyDown={onInputKeyDown}
-      />
-      {status.type === 'loading' && <Spinner className={styles.loading} />}
+    <search ref={searchRef} className={clsx(styles.search, className)}>
+      <div className={styles.wrapper}>
+        <input
+          id={ID.input}
+          autoCapitalize="none"
+          autoComplete="off"
+          aria-autocomplete="list"
+          className={styles.input}
+          name="q"
+          type="search"
+          placeholder="Type to search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onFocus={onInputFocus}
+          onKeyUp={onInputKeyUp}
+          onKeyDown={onInputKeyDown}
+        />
+        {status.type === 'loading' && <Spinner className={styles.loading} />}
+      </div>
       <div
         aria-live="polite"
         className={clsx(styles.results, visible && styles.visible)}
