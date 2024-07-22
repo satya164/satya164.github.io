@@ -305,21 +305,19 @@ const highlight = (
     ? Object.values(positions).reduce((acc, p) => [...acc, ...p], [])
     : [];
 
-  let first = positions?.[query.toLowerCase()]?.[0];
-
-  if (first == null) {
+  if (positions?.[query.toLowerCase()] == null) {
     // Sometimes positions don't include a match even though it's in the text
     // So we check against the text itself directly
     const index = text.toLowerCase().indexOf(query.toLowerCase());
 
     if (index > -1) {
-      all.unshift({ start: index, length: query.length });
+      all.push({ start: index, length: query.length });
     }
   }
 
-  if (first == null) {
-    first = all[0];
-  }
+  all.sort((a, b) => a.start - b.start);
+
+  const first = all[0];
 
   if (first == null) {
     return text.slice(0, limit).trim();
