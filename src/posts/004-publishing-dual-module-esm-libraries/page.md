@@ -382,13 +382,13 @@ When writing ES modules in TypeScript, it's necessary to configure the `module` 
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "NodeNext",
     "moduleResolution": "NodeNext"
   }
 }
 ```
 
-When the `module` option is set to `ESNext`, TypeScript generates ES module syntax in the output. It also requires file extensions in `import` statements.
+When the `module` option is set to `NodeNext` (or `Node16`), TypeScript generates ES module syntax in the output. It also requires file extensions in `import` statements.
 
 ### File extensions in `import` statements
 
@@ -402,7 +402,7 @@ In this case, the authored file `module.ts` would have the `.ts` extension and n
 
 TypeScript has an option: `allowImportingTsExtensions: true` to write `./module.ts` instead of `./module.js` in the `import` statement. It's also possible to specify `moduleResolution: 'Bundler'` to allow omitting the file extension in the `import` statement. However, TypeScript compiler doesn't rewrite the imports to add the correct file extension, so unless they are added by another tool, the imports will fail at runtime.
 
-TypeScript also supports `.mts` and `.cts` file extensions. However, they would still need another tool to rewrite the imports to add the correct file extension. So there's no real benefit to using these extensions when writing dual modules.
+TypeScript also supports `.mts` and `.cts` file extensions. When these extensions are used in combination with `module: 'NodeNext'`, TypeScript generates ESM and CommonJS output accordingly. It can be useful if you explicitly want to generate a specific module system for a file. However, for our setup where we always author ESM and generate 2 builds with ESM and CommonJS, they are not necessary.
 
 ### Default exports
 
@@ -488,8 +488,43 @@ Writing dual module libraries can be complex, so here are some tools that can he
 - [`tshy`](https://github.com/isaacs/tshy) - A build tool that handles generating dual module builds and declaration files with minimal configuration.
 - [`react-native-builder-bob`](https://callstack.github.io/react-native-builder-bob/build) - A build tool for React Native libraries that can rewrite imports to add the correct file extension for ESM compatibility.
 
-## Conclusion
+## Wrapping up
 
-Writing dual module libraries has a lot of nuances and can be tricky. And some of the problems can take a lot of work to solve. I can only hope that soon Node.js will have [better interoperability between ESM and CommonJS](https://nodejs.org/api/esm.html#interoperability-with-commonjs) modules with synchronous `require` for ES modules without a flag and all tools to support the new module system.
+Writing dual module libraries has a lot of nuances and can be tricky. And some of the problems can take a lot of work to solve.
 
-But when writing libraries and wanting to support many environments, it's unfortunately necessary to deal with these complexities. I hope this post has helped you understand some of the challenges.
+Here are my recommendations:
+
+- Use `.js` extensions for both ESM and CommonJS with a `package.json` file in each build folder to specify the module system (`type: 'module'` for ESM and `type: 'commonjs'` for CommonJS).
+- Be mindful of the order of conditions in the `exports` field and use the most specific conditions first.
+- Use named exports instead of default exports to avoid inconsistent output between ESM and CommonJS builds when compiling with TypeScript or Babel.
+- Use `.js` extension when importing TypeScript files unless another tool rewrites the imports to add the correct file extension.
+- Use tools like `tshy` or `react-native-builder-bob` to simplify the build process instead of maintaining it manually.
+
+A typical `package.json` for such a setup would look like this:
+
+```json title="package.json"
+{
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./esm/index.d.ts",
+        "default": "./esm/index.js"
+      },
+      "require": {
+        "types": "./cjs/index.d.ts",
+        "default": "./cjs/index.js"
+      }
+    }
+  }
+}
+```
+
+In this setup:
+
+- The `esm` and `cjs` folders contain the ESM and CommonJS builds respectively.
+- The `esm` folder contains a `package.json` with the content `{ "type": "module" }`.
+- The `cjs` folder contains a `package.json` with the content `{ "type": "commonjs" }`.
+
+This should cover most of the issues you might encounter when writing dual module libraries. Unfortunately, you may still run into some edge cases in more specialized setups, but hopefully, this post has given you a good starting point.
