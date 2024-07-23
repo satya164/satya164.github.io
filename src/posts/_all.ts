@@ -1,6 +1,6 @@
 import GithubSlugger from 'github-slugger';
 
-const context = require.context('.', true, /page\.mdx?$/, 'lazy');
+const context = require.context('.', true, /page\.mdx?$/);
 
 export type Frontmatter = {
   title: string;
