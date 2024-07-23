@@ -372,6 +372,7 @@ Alternative approaches to handle this would be to:
 
 - Use a separate CommonJS build that contains the platform-specific files, and can import them without specifying the file extension.
 - Instead of separate files, use a single file with platform-specific logic conditionally executed based on the platform.
+- Omit the extension from the import statement - while this won't work on Node.js, bundlers such as Metro, Webpack etc. still support ESM without file extensions.
 
 ## TypeScript
 
@@ -498,6 +499,7 @@ Here are my recommendations:
 - Be mindful of the order of conditions in the `exports` field and use the most specific conditions first.
 - Use named exports instead of default exports to avoid inconsistent output between ESM and CommonJS builds when compiling with TypeScript or Babel.
 - Use `.js` extension when importing TypeScript files unless another tool rewrites the imports to add the correct file extension.
+- If you need to support platform-specific extensions, don't use `.js` extension for imports to avoid breaking platform-specific resolution.
 - Use tools like `tshy` or `react-native-builder-bob` to simplify the build process instead of maintaining it manually.
 
 A typical `package.json` for such a setup would look like this:
