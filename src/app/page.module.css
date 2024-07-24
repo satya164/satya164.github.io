@@ -11,7 +11,7 @@
     border-bottom: none;
   }
 
-  @media (max-width: 75ch) {
+  @media (--small-viewport) {
     margin-left: -1.5rem;
     margin-right: -1.5rem;
     padding-left: 1.5rem;

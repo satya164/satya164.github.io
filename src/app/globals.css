@@ -139,7 +139,7 @@ h4 {
       background-repeat: no-repeat;
       opacity: 0;
 
-      @media (max-width: 75ch) {
+      @media (--small-viewport) {
         left: -1.5rem;
       }
     }
@@ -232,7 +232,7 @@ code {
 pre {
   border-radius: 0.38rem;
 
-  @media (max-width: 75ch) {
+  @media (--small-viewport) {
     border-radius: 0;
     margin-left: -1.5rem;
     margin-right: -1.5rem;
@@ -277,7 +277,7 @@ pre code {
     border-top-right-radius: 0;
   }
 
-  @media (max-width: 75ch) {
+  @media (--small-viewport) {
     border-radius: 0;
     margin-left: -1.5rem;
     margin-right: -1.5rem;
@@ -306,7 +306,7 @@ main {
   padding-top: 5rem;
   padding-bottom: 8rem;
 
-  @media (max-width: 43rem) {
+  @media (--small-viewport) {
     padding-top: 3rem;
     padding-bottom: 6rem;
   }

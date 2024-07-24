@@ -63,12 +63,12 @@
   min-width: 0;
   width: 75ch;
 
-  @media (max-width: 130ch) {
+  @media (--medium-viewport) {
     flex-grow: 1;
     width: auto;
   }
 
-  @media (max-width: 75ch) {
+  @media (--small-viewport) {
     flex-basis: 100%;
     order: 99;
   }

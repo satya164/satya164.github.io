@@ -1,0 +1,2 @@
+@custom-media --small-viewport (max-width: 75ch);
+@custom-media --medium-viewport (max-width: 130ch);

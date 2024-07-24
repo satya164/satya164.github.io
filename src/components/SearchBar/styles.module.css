@@ -52,7 +52,7 @@
   display: none;
   opacity: 0;
 
-  @media (max-width: 130ch) {
+  @media (--medium-viewport) {
     left: 1.5rem;
     width: calc(100% - 3rem);
   }

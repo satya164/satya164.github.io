@@ -8,7 +8,7 @@
     background-image: linear-gradient(to bottom, #2a2d3d var(--editor-height), #eee var(--editor-height));
   }
 
-  @media (max-width: 75ch) {
+  @media (--small-viewport) {
     border-radius: 0 !important;
     margin-left: -1.5rem;
     margin-right: -1.5rem;
