@@ -18,41 +18,47 @@ export function TableOfContent({ toc }: Props) {
     const ids = Array.from(headings).map((heading) => heading.id);
     const visibleIds: string[] = [];
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        // Maintain a list of visible ids by adding or removing them based on the intersection state
-        if (entry.isIntersecting) {
-          if (!visibleIds.includes(entry.target.id)) {
-            visibleIds.push(entry.target.id);
-          }
-        } else {
-          if (visibleIds.includes(entry.target.id)) {
-            visibleIds.splice(visibleIds.indexOf(entry.target.id), 1);
-          }
-        }
-
-        // Get the first visible id so that we highlight the heading at the top of the viewport
-        // We get from the list of ids so that the order matches the order of the headings
-        const firstVisibleId =
-          ids.find((id) => visibleIds.includes(id)) ?? null;
-
-        // Only update the current id if it has changed
-        if (firstVisibleId) {
-          setCurrent(firstVisibleId);
-        } else {
-          // If no id is visible, try to get the last heading that is above the viewport
-          // This way we highlight the heading that the current section is in
-          const headingAboveViewport = Array.from(headings).findLast(
-            (heading) => {
-              const bounding = heading.getBoundingClientRect();
-              return bounding.top < 0;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Maintain a list of visible ids by adding or removing them based on the intersection state
+          if (entry.isIntersecting) {
+            if (!visibleIds.includes(entry.target.id)) {
+              visibleIds.push(entry.target.id);
             }
-          );
+          } else {
+            if (visibleIds.includes(entry.target.id)) {
+              visibleIds.splice(visibleIds.indexOf(entry.target.id), 1);
+            }
+          }
 
-          setCurrent(headingAboveViewport?.id ?? null);
-        }
-      });
-    });
+          // Get the first visible id so that we highlight the heading at the top of the viewport
+          // We get from the list of ids so that the order matches the order of the headings
+          const firstVisibleId =
+            ids.find((id) => visibleIds.includes(id)) ?? null;
+
+          // Only update the current id if it has changed
+          if (firstVisibleId) {
+            setCurrent(firstVisibleId);
+          } else {
+            // If no id is visible, try to get the last heading that is above the viewport
+            // This way we highlight the heading that the current section is in
+            const headingAboveViewport = Array.from(headings).findLast(
+              (heading) => {
+                const bounding = heading.getBoundingClientRect();
+                return bounding.top < 0;
+              }
+            );
+
+            setCurrent(headingAboveViewport?.id ?? null);
+          }
+        });
+      },
+      {
+        // Trigger when the heading is above halfway in the viewport
+        rootMargin: '0px 0px -50% 0px',
+      }
+    );
 
     headings.forEach((heading) => {
       observer.observe(heading);
