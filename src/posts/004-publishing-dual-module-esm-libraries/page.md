@@ -202,7 +202,7 @@ This will now allow importing or requiring `my-package/foo.js`.
 
 ## Ambiguity in ESM and CommonJS
 
-CommonJS and ESM have different semantics, with different sets of features and limitations. This means that we need to be explicit about which module system we're using.
+CommonJS and ESM have different semantics, with [different sets of features and limitations](https://nodejs.org/api/esm.html#differences-between-es-modules-and-commonjs). This means that we need to be explicit about which module system we're using.
 
 There are a few ways to specify the module system:
 
@@ -403,7 +403,7 @@ In this case, the authored file `module.ts` would have the `.ts` extension and n
 
 TypeScript has an option: `allowImportingTsExtensions: true` to write `./module.ts` instead of `./module.js` in the `import` statement. It's also possible to specify `moduleResolution: 'Bundler'` to allow omitting the file extension in the `import` statement. However, TypeScript compiler doesn't rewrite the imports to add the correct file extension, so unless they are added by another tool, the imports will fail at runtime.
 
-TypeScript also supports `.mts` and `.cts` file extensions. When these extensions are used in combination with `module: 'NodeNext'`, TypeScript generates ESM and CommonJS output accordingly. It can be useful if you explicitly want to generate a specific module system for a file. However, for our setup where we always author ESM and generate 2 builds with ESM and CommonJS, they are not necessary.
+TypeScript also supports `.mts` and `.cts` file extensions. When these extensions are used in combination with `module: 'NodeNext'`, TypeScript generates ESM and CommonJS output accordingly. It can be useful if you explicitly want to specify a module system for a file. However, for our setup where we always author ESM and generate 2 builds for ESM and CommonJS, using these extensions will complicate the build process.
 
 ### Default exports
 
@@ -462,24 +462,69 @@ To workaround this issue, there are a 2 options:
 
 ### Types in the `exports` field
 
-When publishing dual module libraries, it's necessary to provide declaration files for both ESM and CommonJS modules. Declaration files can be specified using the `types` condition in the `exports` field:
+When publishing dual module libraries, it's necessary to provide separate declaration files for both ESM and CommonJS modules. Declaration files can be specified using the `types` condition in the `exports` field:
 
 ```json
 {
   "exports": {
     ".": {
       "import": {
-        "types": "./esm/index.d.ts",
+        "types": "./esm/index.d.mts",
         "default": "./esm/index.mjs"
       },
       "require": {
-        "types": "./cjs/index.d.ts",
+        "types": "./cjs/index.d.cts",
         "default": "./cjs/index.cjs"
       }
     }
   }
 }
 ```
+
+In the above case, either the file extension (`.d.mts` or `.d.cts`) or a `package.json` in each build folder containing a `type` field can be used to specify the module system.
+
+If we don't have separate declaration files for each module system, it will cause issues:
+
+#### CommonJS types
+
+If the library's `package.json` has no `type` field or `type: 'commonjs'`, the types will be treated as CommonJS types, i.e. types representing a CommonJS build.
+
+This will result in incorrect types when the library is imported with `import`, as the ESM build will get imported which doesn't match the types. Consider the following example:
+
+```js title="my-library/esm/index.mjs"
+export const foo = 42;
+```
+
+Now, when the library is imported, TypeScript will allow the following:
+
+```ts
+import lib from 'my-library';
+
+console.log(lib.foo);
+```
+
+This would've worked if the CommonJS build was being used, however, since the ESM build is being used, the above code won't work during runtime as the library doesn't have a default export. The correct code would be:
+
+```ts
+import { foo } from 'my-library';
+
+console.log(foo);
+```
+
+#### ESM types
+
+If the library's `package.json` has `type: 'module'`, the types will be treated as ESM types, i.e. types representing an ESM build.
+
+In this case, TypeScript will produce an error when the library is imported with `require` or with `import` in a project with CommonJS output, as the CommonJS build will get imported which doesn't match the types:
+
+```sh
+The current file is a CommonJS module whose imports will produce 'require' calls;
+however, the referenced file is an ECMAScript module and cannot be imported with 'require'.
+Consider writing a dynamic 'import("my-library")' call instead.
+To convert this file to an ECMAScript module, create a local package.json file with `{ "type": "module" }`.
+```
+
+This happens because it's currently not possible to import ESM modules synchronously from CommonJS modules in Node.js. However, we're using the CommonJS build during runtime, so this error is incorrect.
 
 ## Useful tools
 
@@ -495,11 +540,12 @@ Writing dual module libraries has a lot of nuances and can be tricky. And some o
 
 Here are my recommendations:
 
-- Use `.js` extensions for both ESM and CommonJS with a `package.json` file in each build folder to specify the module system (`type: 'module'` for ESM and `type: 'commonjs'` for CommonJS).
-- Be mindful of the order of conditions in the `exports` field and use the most specific conditions first.
-- Use named exports instead of default exports to avoid inconsistent output between ESM and CommonJS builds when compiling with TypeScript or Babel.
-- Use `.js` extension when importing TypeScript files unless another tool rewrites the imports to add the correct file extension.
+- Use `.js` extensions for both ESM and CommonJS builds with a `package.json` file in each build folder to specify the module system (`type: 'module'` for ESM and `type: 'commonjs'` for CommonJS).
+- Use `.ts` extension for TypeScript files instead of `.mts` or `.cts` so that we get `.js` output files
+- Use `.js` extension in the import statements when importing TypeScript files, unless another tool rewrites the imports to add the correct file extension.
 - If you need to support platform-specific extensions, don't use `.js` extension for imports to avoid breaking platform-specific resolution.
+- Use named exports instead of default exports to avoid inconsistent output between ESM and CommonJS builds when compiling with TypeScript or Babel.
+- Be mindful of the order of conditions in the `exports` field and use the most specific conditions first.
 - Use tools like `tshy` or `react-native-builder-bob` to simplify the build process instead of maintaining it manually.
 
 A typical `package.json` for such a setup would look like this:
