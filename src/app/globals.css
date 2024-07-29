@@ -92,33 +92,33 @@ img {
 
 h1 {
   font-family: var(--font-arvo);
-  font-size: 2.28rem;
-  line-height: 1.53;
+  font-size: 2.618rem;
+  line-height: 1.618;
   margin-bottom: 0.5rem;
 }
 
 h2 {
   font-family: var(--font-arvo);
-  font-size: 1.64rem;
+  font-size: 1.618rem;
   font-weight: 700;
-  line-height: 1.53;
-  margin: 2.67rem 0 0 -0.09rem;
+  line-height: 1.618;
+  margin: 2.618rem 0 0 -0.09rem;
 }
 
 h3 {
   font-family: var(--font-arvo);
-  font-size: 1.43rem;
+  font-size: 1.382rem;
   font-weight: 700;
-  line-height: 1.53;
-  margin: 1.67rem 0 0 0;
+  line-height: 1.618;
+  margin: 1.618rem 0 0 0;
 }
 
 h4 {
   font-family: var(--font-arvo);
-  font-size: 1.28rem;
+  font-size: 1.145rem;
   font-weight: 700;
-  line-height: 1.53;
-  margin: 1.67rem 0 0 0;
+  line-height: 1.618;
+  margin: 1.618rem 0 0 0;
 }
 
 h2,
