@@ -86,7 +86,8 @@ Then the token needs to be added as a secret in the GitHub repository:
 
 A personal access token is necessary to be able to push the changes back to the repository if the release branch is protected. The user associated with the token needs to have admin access to the repository and be able to bypass branch protection rules.
 
-**Keep in mind that other collaborators on the repo can push actions that use this token and push commits acting as the user associated with the token.**
+> [!WARNING]
+> Other collaborators on the repo can push actions that use this token and push commits acting as the user associated with the token.
 
 If there are no branch protection rules in the repository, then the `GITHUB_TOKEN` secret can be used instead of a personal access token.
 
