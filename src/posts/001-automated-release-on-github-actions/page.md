@@ -68,7 +68,14 @@ This token will be used to authenticate with NPM to publish the package.
 
 ## Step 3
 
-Create a GitHub personal access token with the `repo` scope. You can create one [under **Developer settings** in your profile settings](https://github.com/settings/tokens/new?scopes=repo&description=release-it).
+Create a GitHub personal access token. You can create one at [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new):
+
+- Provide name, description, and expiration date as per your preference
+- Under **"Repository access"**, select **"Only select repositories"** and choose the repositories you want to set up the release workflow for
+- Under **"Permissions**", expand **"Repository permissions"** and set **"Contents"** to **"Access: Read & write"**
+- Click **"Generate token"** and copy the generated token
+
+Alternatively, you can create a classic token with the `repo` scope [under **Developer settings** in your profile settings](https://github.com/settings/tokens/new?scopes=repo&description=release-it). However, it is highly recommended to use granular access tokens with the least required permissions.
 
 Then the token needs to be added as a secret in the GitHub repository:
 
