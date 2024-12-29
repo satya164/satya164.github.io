@@ -1,6 +1,9 @@
 import GithubSlugger from 'github-slugger';
 
-const context = require.context('.', true, /page\.mdx?$/);
+const context = import.meta.webpackContext('.', {
+  regExp: /page\.mdx?$/,
+  recursive: true,
+});
 
 export type Frontmatter = {
   title: string;
