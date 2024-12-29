@@ -31,7 +31,7 @@ export function SocialLinks() {
       </li>
       <li>
         <a
-          href={`https://twitter.com/search?q=${encodeURIComponent(url)}`}
+          href={`https://x.com/search?q=${encodeURIComponent(url)}`}
           target="_blank"
           rel="noopener noreferrer"
         >

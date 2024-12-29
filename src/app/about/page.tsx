@@ -6,8 +6,12 @@ import * as React from 'react';
 
 const links = [
   {
+    title: 'Bluesky',
+    href: 'https://bsky.app/profile/satya164.page',
+  },
+  {
     title: 'Twitter',
-    href: 'https://twitter.com/satya164',
+    href: 'https://x.com/satya164',
   },
   {
     title: 'GitHub',
