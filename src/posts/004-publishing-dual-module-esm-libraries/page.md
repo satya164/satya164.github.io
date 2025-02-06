@@ -39,11 +39,14 @@ So depending on the environment, we'd need to use the appropriate module system.
 When publishing a library written with ES modules, we may want to provide both ESM and CommonJS modules. This can be necessary for a couple of reasons:
 
 1. Some tools or environments may not support ES modules yet, so providing a CommonJS version can be useful.
-2. Node.js code written with CommonJS modules can only import ESM code asynchronously with dynamic `import` syntax ([synchronous require is available for Node.js 22 behind a flag: `--experimental-require-module`](https://nodejs.org/api/esm.html#interoperability-with-commonjs)), so providing a CommonJS version is necessary for synchronous usage.
+2. Node.js code written with CommonJS modules can only import ESM code asynchronously with dynamic `import` syntax ([synchronous require is available for Node.js 22 behind a flag: `--experimental-require-module`](https://nodejs.org/api/esm.html#interoperability-with-commonjs) as of August 2024), so providing a CommonJS version is necessary for synchronous usage.
 
 Essentially, providing both ESM and CommonJS modules is a way to move to ESM without a breaking change.
 
 And of course, if you don't need to support CommonJS environments, you can publish your library as an ESM-only package which is much simpler.
+
+> [!NOTE]
+> Synchronous require for ESM is now [unflagged in Node.js 22](https://github.com/nodejs/node/pull/55085) and [in the process of being backported to Node.js 20](https://github.com/nodejs/node/pull/56927). So if you're targeting Node.js 20 or later, consumers still using CommonJS can seamlessly use your library without needing to publish a dual module setup.
 
 ## Entry points in `package.json`
 
