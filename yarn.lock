@@ -3127,6 +3127,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"file-loader@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "file-loader@npm:6.2.0"
+  dependencies:
+    loader-utils: "npm:^2.0.0"
+    schema-utils: "npm:^3.0.0"
+  peerDependencies:
+    webpack: ^4.0.0 || ^5.0.0
+  checksum: e176a57c2037ab0f78e5755dbf293a6b7f0f8392350a120bd03cc2ce2525bea017458ba28fea14ca535ff1848055e86d1a3a216bdb2561ef33395b27260a1dd3
+  languageName: node
+  linkType: hard
+
 "fill-range@npm:^7.0.1":
   version: 7.0.1
   resolution: "fill-range@npm:7.0.1"
@@ -3489,6 +3501,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hast-util-properties-to-mdx-jsx-attributes@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "hast-util-properties-to-mdx-jsx-attributes@npm:1.0.0"
+  dependencies:
+    "@types/estree": "npm:^1.0.0"
+    "@types/hast": "npm:^3.0.0"
+    comma-separated-tokens: "npm:^2.0.0"
+    estree-util-value-to-estree: "npm:^3.0.0"
+    mdast-util-mdx-jsx: "npm:^3.0.0"
+    property-information: "npm:^6.0.0"
+    space-separated-tokens: "npm:^2.0.0"
+    style-to-js: "npm:^1.0.0"
+  checksum: fdd453f7d0bb3572b79c59d40d78a70f6d07deef58458b6f52df1957b8d7f982abc5941e0963ec83eb2034181ddd6888b9edbe3030bea9f4c98fa6d2e574b5eb
+  languageName: node
+  linkType: hard
+
 "hast-util-to-estree@npm:^3.0.0":
   version: 3.1.0
   resolution: "hast-util-to-estree@npm:3.1.0"
@@ -3627,6 +3655,13 @@ __metadata:
   version: 0.1.1
   resolution: "inline-style-parser@npm:0.1.1"
   checksum: 08832a533f51a1e17619f2eabf2f5ec5e956d6dcba1896351285c65df022c9420de61d73256e1dca8015a52abf96cc84ddc3b73b898b22de6589d3962b5e501b
+  languageName: node
+  linkType: hard
+
+"inline-style-parser@npm:0.2.4":
+  version: 0.2.4
+  resolution: "inline-style-parser@npm:0.2.4"
+  checksum: ddc0b210eaa03e0f98d677b9836242c583c7c6051e84ce0e704ae4626e7871c5b78f8e30853480218b446355745775df318d4f82d33087ff7e393245efa9a881
   languageName: node
   linkType: hard
 
@@ -5324,6 +5359,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"parse-srcset@npm:^1.0.0":
+  version: 1.0.2
+  resolution: "parse-srcset@npm:1.0.2"
+  checksum: 2f268e3d110d4c53d06ed2a8e8ee61a7da0cee13bf150819a6da066a8ca9b8d15b5600d6e6cae8be940e2edc50ee7c1e1052934d6ec858324065ecef848f0497
+  languageName: node
+  linkType: hard
+
 "parse5@npm:^7.0.0":
   version: 7.1.2
   resolution: "parse5@npm:7.1.2"
@@ -6018,6 +6060,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rehype-mdx-import-media@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "rehype-mdx-import-media@npm:1.2.0"
+  dependencies:
+    "@types/hast": "npm:^3.0.0"
+    hast-util-properties-to-mdx-jsx-attributes: "npm:^1.0.0"
+    parse-srcset: "npm:^1.0.0"
+    unified: "npm:^11.0.0"
+    unist-util-visit: "npm:^5.0.0"
+  checksum: 41415a3d015f279391756839e0b728be17ccd8575ffb3a9baa8f5bd73e66089dbd6ff3d01816e6a5a6f3d4566ecb5770694696324185c68a5f58ec7cac722dfa
+  languageName: node
+  linkType: hard
+
 "rehype-parse@npm:^9.0.0":
   version: 9.0.0
   resolution: "rehype-parse@npm:9.0.0"
@@ -6104,17 +6159,6 @@ __metadata:
     unified: "npm:^11.0.0"
     yaml: "npm:^2.0.0"
   checksum: fba25d087b09135231826820afbc9de2f80850ede362b5435246774c204e0de892250165c8de7c313803470073285621ce11d7b8bf7515a4f9164688294119d7
-  languageName: node
-  linkType: hard
-
-"remark-mdx-images@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "remark-mdx-images@npm:3.0.0"
-  dependencies:
-    "@types/mdast": "npm:^4.0.0"
-    unified: "npm:^11.0.0"
-    unist-util-visit: "npm:^5.0.0"
-  checksum: 995e9bb5fcf0d18c2ce8caa7b548695eaab59d605947c814a6b3e84d7020c22ef469d14996c85a8cba1b45470ab1e5c7b8f9ddcb4a26c4c5a0a6f383520f8e38
   languageName: node
   linkType: hard
 
@@ -6348,6 +6392,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-config-next: "npm:14.2.3"
     eslint-config-satya164: "npm:^3.2.1"
+    file-loader: "npm:^6.2.0"
     github-slugger: "npm:^2.0.0"
     next: "npm:14.2.3"
     postcss-custom-media: "npm:^10.0.8"
@@ -6360,6 +6405,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     rehype-autolink-headings: "npm:^7.1.0"
     rehype-external-links: "npm:^3.0.0"
+    rehype-mdx-import-media: "npm:^1.2.0"
     rehype-pretty-code: "npm:^0.13.2"
     rehype-slug: "npm:^6.0.0"
     remark: "npm:^15.0.1"
@@ -6367,7 +6413,6 @@ __metadata:
     remark-gfm: "npm:^4.0.0"
     remark-github-beta-blockquote-admonitions: "npm:^3.1.1"
     remark-mdx-frontmatter: "npm:^5.0.0"
-    remark-mdx-images: "npm:^3.0.0"
     remark-mdx-toc: "npm:^0.3.1"
     remark-reading-time: "npm:^2.0.1"
     shiki: "npm:^1.6.3"
@@ -6685,6 +6730,24 @@ __metadata:
   version: 4.1.0
   resolution: "style-mod@npm:4.1.0"
   checksum: 1dce7b0f3d1a91c9e6c37200627b5a9ffa943916bb5879dfaa800c3929fcc11b9bfcc2a6097f49ec3462b254b7afcbcf63caeae6895f53c80122523dc9e5ddb7
+  languageName: node
+  linkType: hard
+
+"style-to-js@npm:^1.0.0":
+  version: 1.1.16
+  resolution: "style-to-js@npm:1.1.16"
+  dependencies:
+    style-to-object: "npm:1.0.8"
+  checksum: 578a4dff804539ec7e64d3cc8d327540befb9ad30e3cd0b6b0392f93f793f3a028f90084a9aaff088bffb87818fa2c6c153f0df576f61f9ab0b0938b582bcac7
+  languageName: node
+  linkType: hard
+
+"style-to-object@npm:1.0.8":
+  version: 1.0.8
+  resolution: "style-to-object@npm:1.0.8"
+  dependencies:
+    inline-style-parser: "npm:0.2.4"
+  checksum: daa6646b1ff18258c0ca33ed281fbe73485c8391192db1b56ce89d40c93ea64507a41e8701d0dadfe771bc2f540c46c9b295135f71584c8e5cb23d6a19be9430
   languageName: node
   linkType: hard
 
