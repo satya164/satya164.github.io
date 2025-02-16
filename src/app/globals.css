@@ -205,6 +205,10 @@ li::marker {
   color: var(--color-primary);
 }
 
+video.window {
+  border-radius: 10px;
+}
+
 blockquote {
   font-family: var(--font-arvo);
   font-size: 1.43rem;

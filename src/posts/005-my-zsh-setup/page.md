@@ -101,7 +101,7 @@ setopt always_to_end # move cursor to end if word had one match
 
 Now when we type a command and press `Tab`, we can cycle through the completions with the arrow keys and select one with `Enter`, instead of cycling through them with `Tab`.
 
-<video autoplay loop muted playsinline src="./completions.mp4" />
+<video class="window" autoplay loop muted playsinline src="./completions.mp4" />
 
 In addition, we can also add the [zsh-users/zsh-completions](https://github.com/zsh-users/zsh-completions) plugin to get additional completions. To use it, add it to the `plugins` array:
 
@@ -115,7 +115,7 @@ plugins=(
 
 The [zdharma-continuum/fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting) plugin can add syntax highlighting the commands as you type them. In addition, when typing a command, it’ll be highlighted in red if it’s invalid and in green if it’s valid.
 
-<video autoplay loop muted playsinline src="./syntax-highlighting.mp4" />
+<video class="window" autoplay loop muted playsinline src="./syntax-highlighting.mp4" />
 
 To use it, add it to the `plugins` array:
 
@@ -129,7 +129,7 @@ plugins=(
 
 The [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) plugin can suggest completions based on your command history. which you can select with the right arrow key (➡).
 
-<video autoplay loop muted playsinline src="./autosuggestions.mp4" />
+<video class="window" autoplay loop muted playsinline src="./autosuggestions.mp4" />
 
 To set it up, first we need to configure Zsh to store the history in a file since it's not enabled by default:
 
@@ -169,7 +169,7 @@ The plugin depends on the [zdharma-continuum/fast-syntax-highlighting](https://g
 
 The [zsh-users/zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) lets type part of a command which exists in the history, and then select the matching command with a keybinding.
 
-<video autoplay loop muted playsinline src="./substring-search.mp4" />
+<video class="window" autoplay loop muted playsinline src="./substring-search.mp4" />
 
 To use it, add it to the `plugins` array:
 
@@ -229,7 +229,7 @@ Make sure to remove the previous completion configuration (starting with `zstyle
 
 Now when you type a command and press `Tab`, you'll see a fuzzy search menu instead of the regular completion menu.
 
-<video autoplay loop muted playsinline src="./fzf-tab.mp4" />
+<video class="window" autoplay loop muted playsinline src="./fzf-tab.mp4" />
 
 ## Custom Prompt
 
