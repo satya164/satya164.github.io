@@ -198,7 +198,9 @@ To use it, first make sure to install it using your package manager. Then add th
 if [[ -x $(command -v fzf) ]]; then eval "$(fzf --zsh)"; fi
 ```
 
-I also have a color scheme for fzf to match [Palenight](https://marketplace.visualstudio.com/items?itemName=whizkydee.material-palenight-theme). You can set it using the `FZF_DEFAULT_OPTS` environment variable:
+Now when you typ `Ctrl + R`, it'll bring up a fuzzy search menu to search through the history, and when you press `Ctrl + T`, it'll bring up a fuzzy search menu to search through the files in the current directory.
+
+I also have a color scheme for fzf to match [Palenight](https://marketplace.visualstudio.com/items?itemName=whizkydee.material-palenight-theme) since it doesn't use the shell colors. You can set it using the `FZF_DEFAULT_OPTS` environment variable:
 
 ```zsh
 export FZF_DEFAULT_OPTS=" \
