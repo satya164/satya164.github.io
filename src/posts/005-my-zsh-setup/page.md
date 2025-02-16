@@ -77,6 +77,8 @@ else
 fi
 ```
 
+The first part in `updated_at` in the above snippet is for Linux, and the second part is for MacOS.
+
 Then we need to load the `complist` module that provides a list of completions to select from:
 
 ```zsh
@@ -199,7 +201,7 @@ if [[ -x $(command -v fzf) ]]; then eval "$(fzf --zsh)"; fi
 I also have a color scheme for fzf to match [Palenight](https://marketplace.visualstudio.com/items?itemName=whizkydee.material-palenight-theme). You can set it using the `FZF_DEFAULT_OPTS` environment variable:
 
 ```zsh
-FZF_DEFAULT_OPTS=" \
+export FZF_DEFAULT_OPTS=" \
 --color=bg+:#424762,spinner:#b0bec5,hl:#f78c6c \
 --color=fg:#bfc7d5,header:#ff9e80,info:#82aaff,pointer:#a5adce \
 --color=marker:#89ddff,fg+:#eeffff,prompt:#c792ea,hl+:#ff9e80 \
@@ -355,12 +357,6 @@ SPACESHIP_PROMPT_ADD_NEWLINE=false
 SPACESHIP_CHAR_SYMBOL="❯"
 SPACESHIP_CHAR_SUFFIX=" "
 
-FZF_DEFAULT_OPTS=" \
---color=bg+:#424762,spinner:#b0bec5,hl:#f78c6c \
---color=fg:#bfc7d5,header:#ff9e80,info:#82aaff,pointer:#a5adce \
---color=marker:#89ddff,fg+:#eeffff,prompt:#c792ea,hl+:#ff9e80 \
---color=selected-bg:#424762"
-
 # Enable zsh recompilation
 autoload -Uz zrecompile
 
@@ -458,6 +454,12 @@ if [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
 fi
 
 # Setup fuzzy finder
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#424762,spinner:#b0bec5,hl:#f78c6c \
+--color=fg:#bfc7d5,header:#ff9e80,info:#82aaff,pointer:#a5adce \
+--color=marker:#89ddff,fg+:#eeffff,prompt:#c792ea,hl+:#ff9e80 \
+--color=selected-bg:#424762"
+
 if [[ -x $(command -v fzf) ]]; then eval "$(fzf --zsh)"; fi
 ```
 
