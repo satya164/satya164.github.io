@@ -127,6 +127,12 @@ plugins=(
 )
 ```
 
+One thing I disable is the paste highlighting. When I paste a command, the plugin adds a background to the pasted text to add a highlight. It makes it hard for me to see the cursor to edit the pasted text. So I disable it with the following:
+
+```zsh
+zle_highlight+=(paste:none)
+```
+
 ## Autosuggestions
 
 The [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) plugin can suggest completions based on your command history. which you can select with the right arrow key (➡).
@@ -445,6 +451,9 @@ zstyle ':fzf-tab:*' use-fzf-default-opts yes # use FZF_DEFAULT_OPTS for fzf-tab
 bindkey '^[[A' history-substring-search-up # up arrow
 bindkey '^[[B' history-substring-search-down # down arrow
 bindkey '^[[3~' delete-char # delete key
+
+# Disable paste highlighting for syntax-highlighting plugin
+zle_highlight+=(paste:none)
 
 # Open new tabs in same directory
 if [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
