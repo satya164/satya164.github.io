@@ -123,7 +123,7 @@ To use it, add it to the `plugins` array:
 
 ```zsh
 plugins=(
-  zdharma/fast-syntax-highlighting
+  zdharma-continuum/fast-syntax-highlighting
 )
 ```
 
