@@ -175,7 +175,7 @@ The plugin depends on the [zdharma-continuum/fast-syntax-highlighting](https://g
 
 ## Substring Search
 
-The [zsh-users/zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) lets type part of a command which exists in the history, and then select the matching command with a keybinding.
+The [zsh-users/zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) lets us type part of a command that exists in the history, and then select the matching command with a keybinding.
 
 <video class="window" autoplay loop muted playsinline src="./substring-search.mp4" />
 
@@ -243,7 +243,7 @@ Now when you type a command and press `Tab`, you'll see a fuzzy search menu inst
 
 ## Custom Prompt
 
-For my setup, I use the [spaceship prompt](https://spaceship-prompt.sh/). It shows various information like the current directory, git status, and more.
+I use the [spaceship prompt](https://spaceship-prompt.sh/) for my setup. It shows various information like the current directory, git status, and more. It loads information such as git status asynchronously by default, so the prompt is available immediately.
 
 ![Spaceship Prompt](./spaceship-prompt.png)
 
@@ -288,7 +288,7 @@ source $PLUGIN_DIR/spaceship-prompt/spaceship.zsh
 
 It's also necessary to install [Nerd Fonts](https://www.nerdfonts.com/) font so that icons in the prompt are displayed correctly. I use the `FiraCode Nerd Font`.
 
-Few other popular prompts you may want to check out are:
+I'm happy with the spaceship prompt as it loads quite fast, simple to customize, and provides the information I want. But if you're looking for something else, there are many other prompts available. Some of the popular ones are:
 
 - [Oh My Posh](https://ohmyposh.dev/)
 - [Starship](https://starship.rs/)
