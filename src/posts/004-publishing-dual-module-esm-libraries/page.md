@@ -39,14 +39,15 @@ So depending on the environment, we'd need to use the appropriate module system.
 When publishing a library written with ES modules, we may want to provide both ESM and CommonJS modules. This can be necessary for a couple of reasons:
 
 1. Some tools or environments may not support ES modules yet, so providing a CommonJS version can be useful.
-2. Node.js code written with CommonJS modules can only import ESM code asynchronously with dynamic `import` syntax ([synchronous require is available for Node.js 22 behind a flag: `--experimental-require-module`](https://nodejs.org/api/esm.html#interoperability-with-commonjs) as of August 2024), so providing a CommonJS version is necessary for synchronous usage.
+2. Node.js code written with CommonJS modules can only import ESM code asynchronously with dynamic `import` syntax on older versions of Node.js (< 20.19.0), so providing a CommonJS version is necessary for synchronous usage.
 
-Essentially, providing both ESM and CommonJS modules is a way to move to ESM without a breaking change.
+Essentially, providing both ESM and CommonJS modules is a way to move to ESM without a breaking change when supporting older environments.
 
-And of course, if you don't need to support CommonJS environments, you can publish your library as an ESM-only package which is much simpler.
+If you don't need to support legacy environments, you can publish your library as an ESM-only package which is much simpler.
 
 > [!NOTE]
-> Synchronous require for ESM is now [unflagged in Node.js 22](https://github.com/nodejs/node/pull/55085) and [in the process of being backported to Node.js 20](https://github.com/nodejs/node/pull/56927). So if you're targeting Node.js 20 or later, consumers still using CommonJS can seamlessly use your library without needing to publish a dual module setup.
+>
+> [Synchronous require for ESM](https://nodejs.org/api/esm.html#interoperability-with-commonjs) is now [unflagged in Node.js 22](https://github.com/nodejs/node/pull/55085) and [has been backported to Node.js 20.19.0](https://github.com/nodejs/node/pull/56927). So if you're targeting Node.js 20 or later, consumers still using CommonJS can seamlessly use your library without needing to publish a dual module setup - unless you use [top-level `await`](https://v8.dev/features/top-level-await).
 
 ## Entry points in `package.json`
 
@@ -100,6 +101,7 @@ In addition, the conditions can also specify a `default` for the fallback, which
   "exports": {
     ".": {
       "browser": "./dist/browser.js",
+      "module": "./dist/module.js",
       "react-native": "./dist/react-native.js",
       "default": "./dist/index.js"
     }
@@ -107,11 +109,12 @@ In addition, the conditions can also specify a `default` for the fallback, which
 }
 ```
 
-In the above example, the condition is as follows:
+In the above example, the conditions are matched as follows:
 
 - When the package is imported in a browser environment, the `browser` condition is used
+- When the package is imported in a bundler environment (e.g. [webpack](https://webpack.js.org/), [rollup.js](https://rollupjs.org/)), the `module` condition is used
 - When the package is imported in a React Native environment, the `react-native` condition is used
-- If neither of the conditions matches, the `default` condition is used
+- If none of the above conditions matches, the `default` condition is used
 
 What conditions are available depends on the environment and the tooling used for module resolution.
 
@@ -269,7 +272,36 @@ import myModule from './my-module.js';
 // Export the individual exports from the CommonJS module
 export const foo = myModule.foo;
 export const bar = myModule.bar;
+
+// Export as default export to simulate CommonJS behavior
+export default myModule;
 ```
+
+Here the wrapper imports the CommonJS module and exports the individual properties as named exports so that they can be individually imported in ESM:
+
+```js
+import { foo, bar } from 'my-module';
+
+console.log(foo, bar);
+```
+
+Or with namespace import:
+
+```js
+import * as myModule from 'my-module';
+
+console.log(myModule.foo, myModule.bar);
+```
+
+It also exports the entire module as a default export which lets us import the module as follows:
+
+```js
+import myModule from 'my-module';
+
+console.log(myModule.foo, myModule.bar);
+```
+
+A CommonJS module can be imported as a default import as well as namespace import when imported in a ESM environment. So this approach emulates this behavior in the ESM wrapper.
 
 Then in your `package.json`, you'd specify the `exports` field to point to the ESM wrapper for ESM environments and the CommonJS module for CommonJS environments, as well as fallbacks with `main` and `module` fields:
 
@@ -286,11 +318,11 @@ Then in your `package.json`, you'd specify the `exports` field to point to the E
 }
 ```
 
-This avoids the need to refactor your code to ESM.
+This avoids the need to refactor all of your code to ESM, and gradually migrate to ESM over time by adding ESM-only exports in the wrapper. This also avoids [the dual package hazard](#dual-package-hazard).
 
 However, this approach has a few downsides:
 
-- The ESM wrapper needs to be maintained manually, so it can be error-prone.
+- The ESM wrapper needs to be maintained manually, so it can be error-prone to keep it in sync with the CommonJS code.
 - Since our code is still written in CommonJS, we don't get the benefits of ESM like tree-shaking with bundlers.
 
 ### Separate ESM and CommonJS builds
@@ -318,7 +350,7 @@ When following this approach, you may encounter a few issues:
 
 #### Dual package hazard
 
-With this approach, the ESM and CommonJS versions of the package are treated as separate modules by Node.js as they are different files, leading to [potential issues](https://nodejs.org/api/packages.html#dual-package-hazard) if the package is both imported and required in the same runtime environment.
+With this approach, the ESM and CommonJS versions of the package are treated as separate modules by Node.js as they are different files, leading to [potential issues](https://nodejs.org/docs/latest-v19.x/api/packages.html#dual-package-hazard) if the package is both imported and required in the same runtime environment.
 
 If the package relies on any state that can cause issues if 2 separate instances are loaded, it's necessary to isolate the state into a separate CommonJS module that can be shared between the ESM and CommonJS builds.
 
@@ -326,7 +358,9 @@ This is not an issue if it's safe to have 2 separate instances of the package lo
 
 #### Mismatched module type
 
-The `import` and `require` conditions only tell Node.js which file to load when the package is imported or required, but they don't say which module system is used in the file. So it's possible to specify an ES module in the `require` condition and a CommonJS module in the `import` condition, which may not work as expected.
+The `import` and `require` conditions only tell Node.js which file to load when the package is imported or required, but they don't say which module system is used in the file. In Node.js, the module system is determined by the file extension or the `type` field in `package.json`. By default, all `.js` files are treated as CommonJS files unless the `type` field is set to `module`.
+
+So it's possible to specify an ES module in the `require` condition and a CommonJS module in the `import` condition, which may not work as expected.
 
 To avoid this footgun, you can do any of the following:
 
@@ -336,7 +370,7 @@ To avoid this footgun, you can do any of the following:
 
 #### Lack of support for `.mjs` or `.cjs`
 
-Since we aim to support older environments that don't support the new ES module system, they may not recognize the `.mjs` or `.cjs` file extensions. Most modern tools and bundlers support the `.mjs` and `.cjs` file extensions, but they might also differ in how they treat these files. For example, [Vite](https://vitejs.dev) allows importing `.mjs` files without explicit file extensions, but Metro doesn't.
+Since we aim to support older environments that don't support the new ES module system, they may not recognize the `.mjs` or `.cjs` file extensions. Most modern tools and bundlers support the `.mjs` and `.cjs` file extensions, but they might also differ in how they treat these files. For example, [Vite](https://vitejs.dev) allows importing `.mjs` files without explicit file extensions, but [Metro](https://metrobundler.dev) doesn't.
 
 One way to avoid this issue is to use the `.js` file extension for both ESM and CommonJS files. But how do we specify the module system in this case? We can't use the `type` field in the project's `package.json` as it applies to all `.js` files. But we can create `package.json` files with a `type` field in each of the build folders:
 
@@ -386,13 +420,13 @@ When writing ES modules in TypeScript, it's necessary to configure the `module` 
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext"
+    "module": "nodenext",
+    "moduleResolution": "nodenext"
   }
 }
 ```
 
-When the `module` option is set to `NodeNext` (or `Node16`), TypeScript generates ES module syntax in the output. It also requires file extensions in `import` statements.
+When the `module` option is set to `nodenext` (or `node16`), TypeScript generates ES module syntax in the output. It also requires file extensions in `import` statements.
 
 ### File extensions in `import` statements
 
@@ -404,7 +438,7 @@ import { foo } from './module.js';
 
 In this case, the authored file `module.ts` would have the `.ts` extension and not `.js`, however, we need to specify the `.js` extension in the `import` statement to match the output file extension.
 
-TypeScript has an option: `allowImportingTsExtensions: true` to write `./module.ts` instead of `./module.js` in the `import` statement. It's also possible to specify `moduleResolution: 'Bundler'` to allow omitting the file extension in the `import` statement. However, TypeScript compiler doesn't rewrite the imports to add the correct file extension, so unless they are added by another tool, the imports will fail at runtime.
+TypeScript has an option: `allowImportingTsExtensions: true` to write `./module.ts` instead of `./module.js` in the `import` statement. It's also possible to specify `moduleResolution: 'bundler'` to allow omitting the file extension in the `import` statement. However, TypeScript compiler doesn't rewrite the imports to add the correct file extension, so unless they are added by another tool, the imports will fail at runtime.
 
 TypeScript also supports `.mts` and `.cts` file extensions. When these extensions are used in combination with `module: 'NodeNext'`, TypeScript generates ESM and CommonJS output accordingly. It can be useful if you explicitly want to specify a module system for a file. However, for our setup where we always author ESM and generate 2 builds for ESM and CommonJS, using these extensions will complicate the build process.
 
