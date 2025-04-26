@@ -100,9 +100,9 @@ In addition, the conditions can also specify a `default` for the fallback, which
 {
   "exports": {
     ".": {
+      "react-native": "./dist/react-native.js",
       "browser": "./dist/browser.js",
       "module": "./dist/module.js",
-      "react-native": "./dist/react-native.js",
       "default": "./dist/index.js"
     }
   }
@@ -442,8 +442,8 @@ For example, here is a setup that uses ESM for Webpack, Vite, Rollup, Metro (Rea
   "exports": {
     ".": {
       "react-native": "./esm/index.js",
-      "module": "./esm/index.js",
       "node": "./esm/index.js",
+      "module": "./esm/index.js",
       "default": "./cjs/index.js"
     }
   }
@@ -453,8 +453,8 @@ For example, here is a setup that uses ESM for Webpack, Vite, Rollup, Metro (Rea
 Here, we specify 4 conditions:
 
 - `react-native`: Used when the library is imported in a React Native environment with Metro.
-- `module`: Used when the library is imported in a bundler such as Webpack, Vite or Rollup.
 - `node`: Used when the library is imported in Node.js.
+- `module`: Used when the library is imported in a bundler such as Webpack, Vite or Rollup.
 - `default`: Fallback used when the library is imported in an environment that doesn't support the other conditions.
 
 This way, we can specify the appropriate conditions based on the tools we want to support. This is more verbose than a classic dual module setup, but it avoids the dual package hazard, so it's worth considering for libraries where this is a concern.
