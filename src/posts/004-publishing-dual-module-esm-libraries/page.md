@@ -62,7 +62,7 @@ The most common fields are:
 In addition, if you're writing client-side code, you may have come across the following fields:
 
 - `browser`: This field is used to specify a different entry point for client-side code for the browser. This field is used by bundlers such as webpack and Rollup.
-- `react-native`: This field is used to specify a different entry point for React Native environments. This field is supported by bundlers like [Metro](https://metrobundler.dev).
+- `react-native`: This field is used to specify a different entry point for React Native environments. This field is supported by bundlers like [Metro](https://metrobundler.dev) on versions older than 0.82.0 (newer versions use the `exports` field).
 
 When writing dual modules, we'd want to use the `exports` field to specify both ESM and CommonJS entry points, while also providing the `main` and `module` fields for backwards compatibility.
 
@@ -411,6 +411,40 @@ Alternative approaches to handle this would be to:
 - Instead of separate files, use a single file with platform-specific logic conditionally executed based on the platform.
 - Omit the extension from the import statement - while this won't work on Node.js, bundlers such as Metro, Webpack etc. still support ESM without file extensions.
 
+#### Tool specific conditions
+
+An alternative approach to specifying `import` and `require` conditions is to use tool-specific conditions instead to specify different builds for different tools.
+
+This has the benefit of avoiding [dual package hazard](#dual-package-hazard) entirely since each tool would only load the version of the module that it supports, and not based on whether `import` or `require` is used to load the module.
+
+For example, here is a setup that uses ESM for Webpack, Vite, Rollup, Metro (React Native) and Node.js, and CommonJS for the rest:
+
+```json title="package.json"
+{
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "exports": {
+    ".": {
+      "react-native": "./esm/index.js",
+      "module": "./esm/index.js",
+      "node": "./esm/index.js",
+      "default": "./cjs/index.js"
+    }
+  }
+}
+```
+
+Here, we specify 4 conditions:
+
+- `react-native`: Used when the library is imported in a React Native environment with Metro.
+- `module`: Used when the library is imported in a bundler such as Webpack, Vite or Rollup.
+- `node`: Used when the library is imported in Node.js.
+- `default`: Fallback used when the library is imported in an environment that doesn't support the other conditions.
+
+This way, we can specify the appropriate conditions based on the tools we want to support. This is more verbose than a classic dual module setup, but it avoids the dual package hazard, so it's worth considering for libraries where this is a concern.
+
+A list of conditions supported in various tools can be found in the [Runtime Keys proposal specification](https://runtime-keys.proposal.wintercg.org/), [Node.js documentation](https://nodejs.org/docs/latest/api/packages.html#community-conditions-definitions) and [Webpack documentation](https://webpack.js.org/guides/package-exports/#conditions).
+
 ## TypeScript
 
 ### Configuration
@@ -506,19 +540,19 @@ When publishing dual module libraries, it's necessary to provide separate declar
   "exports": {
     ".": {
       "import": {
-        "types": "./esm/index.d.mts",
-        "default": "./esm/index.mjs"
+        "types": "./esm/index.d.ts",
+        "default": "./esm/index.js"
       },
       "require": {
-        "types": "./cjs/index.d.cts",
-        "default": "./cjs/index.cjs"
+        "types": "./cjs/index.d.ts",
+        "default": "./cjs/index.js"
       }
     }
   }
 }
 ```
 
-In the above case, either the file extension (`.d.mts` or `.d.cts`) or a `package.json` in each build folder containing a `type` field can be used to specify the module system.
+In the above case, either a `package.json` in each build folder containing a `type` field, or the file extension (`.d.mts` or `.d.cts`) can be used to specify the module system.
 
 If we don't have separate declaration files for each module system, it will cause issues:
 
@@ -563,6 +597,46 @@ To convert this file to an ECMAScript module, create a local package.json file w
 
 This happens because it's currently not possible to import ESM modules synchronously from CommonJS modules in Node.js. However, we're using the CommonJS build during runtime, so this error is incorrect.
 
+### Custom conditions
+
+When using conditions other than `import` and `require`, such as the ones shown in the [Tool specific conditions](#tool-specific-conditions) section, TypeScript may need additional configuration to recognize the conditions.
+
+For example, let's say we have a `module` condition in the `exports` field:
+
+```json title="package.json"
+{
+  "exports": {
+    ".": {
+      "module": {
+        "types": "./esm/index.d.ts",
+        "default": "./esm/index.js"
+      },
+      "default": {
+        "types": "./cjs/index.d.ts",
+        "default": "./cjs/index.js"
+      }
+    }
+  }
+}
+```
+
+Here, we'd also want to specify a `types` field for the `module` condition due to the reasons we outlined in the [Types in the `exports` field](#types-in-the-exports-field) section.
+
+For TypeScript to recognize the `module` condition, we need to specify it in the [`customConditions`](https://www.typescriptlang.org/tsconfig/#customConditions) field under `compilerOptions` in `tsconfig.json`:
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "customConditions": ["module"]
+  }
+}
+```
+
+When publishing a library, it's also crucial to document that consumers need to add the `customConditions` field to their `tsconfig.json` file.
+
+In some environments such as React Native, the default TypeScript configuration is already set up to recognize conditions such as `react-native`, so no additional configuration is needed.
+
 ## Useful tools
 
 Writing dual module libraries can be complex, so here are some tools that can help:
@@ -583,6 +657,7 @@ Here are my recommendations:
 - If you need to support platform-specific extensions, don't use `.js` extension for imports to avoid breaking platform-specific resolution.
 - Use named exports instead of default exports to avoid inconsistent output between ESM and CommonJS builds when compiling with TypeScript or Babel.
 - Be mindful of the order of conditions in the `exports` field and use the most specific conditions first.
+- Consider using [tool-specific conditions](#tool-specific-conditions) with [custom conditions in TypeScript](#custom-conditions) instead of a classic dual module setup to avoid dual package hazard.
 - Use tools like `tshy` or `react-native-builder-bob` to simplify the build process instead of maintaining it manually.
 
 A typical `package.json` for such a setup would look like this:
