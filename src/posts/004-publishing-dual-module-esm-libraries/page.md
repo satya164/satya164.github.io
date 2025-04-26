@@ -257,6 +257,22 @@ import { foo } from './module.js';
 
 While explicit file extensions are not required in browsers - as the import specifier is a URL and the server can be configured to serve the correct file, it can still be simpler to use file extensions to avoid additional logic on the server.
 
+## The `import.meta` object
+
+The `import.meta` object is a special object with null-prototype that contains metadata about the module. As per the [specification](https://tc39.es/proposal-import-meta/), each tool can add its own properties to the `import.meta` object. This means that the `import.meta` object is not guaranteed to be the same across different tools and environments.
+
+For example, most tools support the `import.meta.url` property, which is a URL string representing the module's location, whereas there are many properties only supported by specific tools:
+
+- Node.js adds [`import.meta.resolve`](https://nodejs.org/api/esm.html#importmetaresolvespecifier) and more
+- Webpack adds [`import.meta.webpackHot`](https://webpack.js.org/api/module-variables/#importmetawebpackhot), [`import.meta.webpackContext`](https://webpack.js.org/api/module-variables/#importmetawebpackcontext) and more
+- Vite adds [`import.meta.env`](https://vite.dev/guide/env-and-mode) and more
+
+Additionally, the `import.meta` syntax is currently not supported in [Metro](https://metrobundler.dev/) (React Native) and will result in a syntax error.
+
+So relying on properties from `import.meta` may lock your library into supporting only those specific tools.
+
+More importantly, it is only available in ES modules and will result in a syntax error if used in CommonJS modules. So it's not appropriate to use `import.meta` when writing dual module libraries.
+
 ## Approaches
 
 There are [2 main approaches](https://nodejs.org/api/packages.html#dual-commonjses-module-packages) to publishing dual module libraries:
@@ -656,6 +672,7 @@ Here are my recommendations:
 - Use `.js` extension in the import statements when importing TypeScript files, unless another tool rewrites the imports to add the correct file extension.
 - If you need to support platform-specific extensions, don't use `.js` extension for imports to avoid breaking platform-specific resolution.
 - Use named exports instead of default exports to avoid inconsistent output between ESM and CommonJS builds when compiling with TypeScript or Babel.
+- Don't use `import.meta` in dual module libraries as it will result in a syntax error in the CommonJS build.
 - Be mindful of the order of conditions in the `exports` field and use the most specific conditions first.
 - Consider using [tool-specific conditions](#tool-specific-conditions) with [custom conditions in TypeScript](#custom-conditions) instead of a classic dual module setup to avoid dual package hazard.
 - Use tools like `tshy` or `react-native-builder-bob` to simplify the build process instead of maintaining it manually.
