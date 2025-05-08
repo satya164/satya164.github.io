@@ -442,8 +442,8 @@ For example, here is a setup that uses ESM for Webpack, Vite, Rollup, Metro (Rea
   "exports": {
     ".": {
       "react-native": "./esm/index.js",
-      "node": "./esm/index.js",
       "module": "./esm/index.js",
+      "module-sync": "./esm/index.js",
       "default": "./cjs/index.js"
     }
   }
@@ -453,13 +453,17 @@ For example, here is a setup that uses ESM for Webpack, Vite, Rollup, Metro (Rea
 Here, we specify 4 conditions:
 
 - `react-native`: Used when the library is imported in a React Native environment with Metro.
-- `node`: Used when the library is imported in Node.js.
-- `module`: Used when the library is imported in a bundler such as Webpack, Vite or Rollup.
+- `module`: Used when the library is imported in some bundlers such as Webpack, Vite or Rollup.
+- `module-sync`: Used when the library is imported on Node.js 22.10.0+ - regardless of whether it's imported with `import` or `require`.
 - `default`: Fallback used when the library is imported in an environment that doesn't support the other conditions.
 
 This way, we can specify the appropriate conditions based on the tools we want to support. This is more verbose than a classic dual module setup, but it avoids the dual package hazard, so it's worth considering for libraries where this is a concern.
 
-A list of conditions supported in various tools can be found in the [Runtime Keys proposal specification](https://runtime-keys.proposal.wintercg.org/), [Node.js documentation](https://nodejs.org/docs/latest/api/packages.html#community-conditions-definitions) and [Webpack documentation](https://webpack.js.org/guides/package-exports/#conditions).
+A list of conditions supported in various tools can be found in the following resources:
+
+- [Runtime Keys proposal specification](https://runtime-keys.proposal.wintercg.org/)
+- [Webpack documentation](https://webpack.js.org/guides/package-exports/#conditions)
+- [Node.js documentation](https://nodejs.org/docs/latest/api/packages.html#community-conditions-definitions)
 
 ## TypeScript
 
