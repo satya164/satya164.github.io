@@ -66,6 +66,9 @@ Then the token needs to be added as a secret in the GitHub repository:
 
 This token will be used to authenticate with NPM to publish the package.
 
+> [!WARNING]
+> Other collaborators on the repo can push actions that use this token and update the npm package acting as the user associated with the token. Make sure to use this only if you trust the collaborators on the repository.
+
 ## Step 3
 
 Create a GitHub personal access token. You can create one at [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new):
@@ -87,9 +90,9 @@ Then the token needs to be added as a secret in the GitHub repository:
 A personal access token is necessary to be able to push the changes back to the repository if the release branch is protected. The user associated with the token needs to have admin access to the repository and be able to bypass branch protection rules.
 
 > [!WARNING]
-> Other collaborators on the repo can push actions that use this token and push commits acting as the user associated with the token.
+> Other collaborators on the repo can push actions that use this token and push commits acting as the user associated with the token. Make sure to use this only if you trust the collaborators on the repository.
 
-If there are no branch protection rules in the repository, then the `GITHUB_TOKEN` secret can be used instead of a personal access token.
+If there are no branch protection rules in the repository, then the [`GITHUB_TOKEN`](https://docs.github.com/en/actions/concepts/security/github_token) secret can be used instead of a personal access token. Note that commits made by using `GITHUB_TOKEN` won't trigger other workflows.
 
 ## Step 4
 
