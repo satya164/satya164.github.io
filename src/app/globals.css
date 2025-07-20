@@ -88,6 +88,7 @@ img, video {
   max-width: 100%;
   height: auto;
   display: block;
+  font-style: italic; /* for alt text if image fails to load */
 }
 
 h1 {
