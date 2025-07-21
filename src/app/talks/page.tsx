@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import styles from './page.module.css';
 
 const talks = [
@@ -54,6 +55,8 @@ export default async function TalksPage() {
               {talk.title} - {talk.conference}
             </h3>
             <iframe
+              // eslint-disable-next-line @eslint-react/dom/no-unsafe-iframe-sandbox
+              sandbox="allow-scripts allow-same-origin"
               className={styles.embed}
               src={`https://www.youtube.com/embed/${talk.videoId}`}
               title={talk.title}
@@ -66,7 +69,7 @@ export default async function TalksPage() {
   );
 }
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Talks',
   description: 'Talks and panel discussions featuring Satyajit Sahoo',
 };

@@ -11,6 +11,7 @@ export function SocialLinks() {
   useEffect(() => {
     const title = document.title.split(' · ')[0];
 
+    // eslint-disable-next-line @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
     setTitle(title);
   }, []);
 

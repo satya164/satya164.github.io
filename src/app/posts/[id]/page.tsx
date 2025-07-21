@@ -5,18 +5,20 @@ import { TableOfContent } from '../../../components/TableOfContent';
 import { allIds, postById } from '../../../posts/_all';
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export default async function PostPage({ params }: Props) {
+  const { id } = await params;
+
   const {
     Component: PostContent,
     frontmatter,
     toc,
     readingTime,
-  } = await postById(params.id);
+  } = await postById(id);
 
   return (
     <main>
@@ -32,7 +34,8 @@ export default async function PostPage({ params }: Props) {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { frontmatter } = await postById(params.id);
+  const { id } = await params;
+  const { frontmatter } = await postById(id);
 
   return {
     ...frontmatter,

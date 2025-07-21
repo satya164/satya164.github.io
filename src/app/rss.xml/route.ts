@@ -36,3 +36,5 @@ ${posts.items
     },
   });
 }
+
+export const dynamic = 'force-static';

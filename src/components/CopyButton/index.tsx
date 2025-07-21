@@ -5,7 +5,7 @@ import { useState } from 'react';
 import styles from './styles.module.css';
 
 type Props = {
-  preRef: React.RefObject<HTMLPreElement>;
+  preRef: React.RefObject<HTMLPreElement | null>;
 };
 
 export function CopyButton({ preRef }: Props) {

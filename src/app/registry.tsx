@@ -7,7 +7,7 @@ export default function StyleRegistry() {
   useServerInsertedHTML(() => {
     return (
       <style
-        // eslint-disable-next-line react/no-danger
+        // eslint-disable-next-line @eslint-react/dom/no-dangerously-set-innerhtml
         dangerouslySetInnerHTML={{ __html: getSandpackCssText() }}
         id="sandpack"
       />
