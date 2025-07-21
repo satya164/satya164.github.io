@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import metadata from '../../metadata.json';
 import styles from './styles.module.css';
 
 export function SocialLinks() {
@@ -22,8 +23,8 @@ export function SocialLinks() {
       <li>
         <a
           href={`https://x.com/intent/tweet?text=${encodeURIComponent(
-            title ?? "satya164's blog"
-          )}&url=${encodeURIComponent(url)}&via=satya164`}
+            title ?? metadata.title
+          )}&url=${encodeURIComponent(url)}&via=${metadata.author.slug}`}
           target="_blank"
           rel="noopener noreferrer"
         >

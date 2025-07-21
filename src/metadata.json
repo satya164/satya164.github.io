@@ -1,4 +1,8 @@
 {
   "title": "satya164's blog",
-  "description": "A blog about web development and open source"
+  "description": "A blog about web development and open source",
+  "author": {
+    "name": "Satyajit Sahoo",
+    "slug": "satya164"
+  }
 }
