@@ -22,12 +22,19 @@ type DataItem = {
   content: string;
 };
 
+type DataItemSchema = {
+  id: 'string';
+  title: 'string';
+  description: 'string';
+  content: 'string';
+};
+
 type DataStatus =
   | { type: 'idle' }
   | { type: 'loading' }
   | {
       type: 'success';
-      db: Awaited<ReturnType<typeof create<DataItem>>>;
+      db: Awaited<ReturnType<typeof create<DataItemSchema>>>;
     }
   | {
       type: 'error';

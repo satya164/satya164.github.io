@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import type { Metadata } from 'next';
 import { Arvo, Fira_Code, Lato } from 'next/font/google';
 import { Footer } from '../components/Footer';
 import { NavBar } from '../components/NavBar';
@@ -58,7 +59,7 @@ export default function RootLayout({
   );
 }
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL!),
   title: {
     template: `%s · ${meta.title}`,

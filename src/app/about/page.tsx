@@ -1,8 +1,8 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
+import * as React from 'react';
 import avatar from '../../assets/images/avatar.jpg';
 import styles from './page.module.css';
-
-import * as React from 'react';
 
 const links = [
   {
@@ -78,7 +78,7 @@ export default function About() {
   );
 }
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'About',
   description: 'More about Satyajit Sahoo and social links',
 };
