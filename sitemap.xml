@@ -1,36 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  <url>
-    <loc>https://satya164.page/</loc>
-  </url>
-    
-  <url>
-    <loc>https://satya164.page/about</loc>
-  </url>
-    
-  <url>
-    <loc>https://satya164.page/talks</loc>
-  </url>
-    
-  <url>
-    <loc>https://satya164.page/posts/my-zsh-setup</loc>
-  </url>
-    
-  <url>
-    <loc>https://satya164.page/posts/publishing-dual-module-esm-libraries</loc>
-  </url>
-    
-  <url>
-    <loc>https://satya164.page/posts/stacking-context-in-css</loc>
-  </url>
-    
-  <url>
-    <loc>https://satya164.page/posts/how-to-write-a-minimal-code-editor</loc>
-  </url>
-    
-  <url>
-    <loc>https://satya164.page/posts/automated-release-on-github-actions</loc>
-  </url>
-    
+<url>
+<loc>https://satya164.page/posts/my-zsh-setup</loc>
+<lastmod>2025-02-15T00:00:00.000Z</lastmod>
+</url>
+<url>
+<loc>https://satya164.page/posts/publishing-dual-module-esm-libraries</loc>
+<lastmod>2024-07-12T00:00:00.000Z</lastmod>
+</url>
+<url>
+<loc>https://satya164.page/posts/stacking-context-in-css</loc>
+<lastmod>2023-11-18T00:00:00.000Z</lastmod>
+</url>
+<url>
+<loc>https://satya164.page/posts/how-to-write-a-minimal-code-editor</loc>
+<lastmod>2023-11-16T00:00:00.000Z</lastmod>
+</url>
+<url>
+<loc>https://satya164.page/posts/automated-release-on-github-actions</loc>
+<lastmod>2023-11-02T00:00:00.000Z</lastmod>
+</url>
 </urlset>
