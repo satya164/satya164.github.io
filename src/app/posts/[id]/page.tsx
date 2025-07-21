@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { PostMeta } from '../../../components/PostMeta';
 import { SocialLinks } from '../../../components/SocialLinks';
 import { TableOfContent } from '../../../components/TableOfContent';
+import metadata from '../../../metadata.json';
 import { allIds, postById } from '../../../posts/_all';
 
 type Props = {
@@ -44,13 +45,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: frontmatter.title,
       description: frontmatter.description,
       publishedTime: new Date(frontmatter.date).toISOString(),
-      authors: ['Satyajit Sahoo'],
+      authors: [metadata.author.name],
     },
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       title: frontmatter.title,
       description: frontmatter.description,
-      creator: '@satya164',
+      creator: `@${metadata.author.slug}`,
     },
   };
 }
