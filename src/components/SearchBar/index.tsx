@@ -203,7 +203,6 @@ export function SearchBar({ className }: Props) {
       });
 
       data.forEach((item) => {
-        // @ts-expect-error figure out how to type this
         insert(db, item);
       });
 
@@ -335,7 +334,7 @@ const highlight = (
   const result = all.reduce<{
     text: string;
     offset: number;
-    highlighted: (string | JSX.Element)[];
+    highlighted: (string | React.JSX.Element)[];
   }>(
     (acc, { start, length }, index) => {
       const matches = acc.text[start - acc.offset];
@@ -346,7 +345,7 @@ const highlight = (
 
         acc.highlighted.push(
           acc.text.slice(0, begin),
-          // eslint-disable-next-line react/no-array-index-key
+          // eslint-disable-next-line @eslint-react/no-array-index-key
           <mark key={index}>{acc.text.slice(begin, end)}</mark>
         );
         acc.text = acc.text.slice(end);

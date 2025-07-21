@@ -44,7 +44,7 @@ export default function RootLayout({
     >
       <head>
         <script
-          // eslint-disable-next-line react/no-danger
+          // eslint-disable-next-line @eslint-react/dom/no-dangerously-set-innerhtml
           dangerouslySetInnerHTML={{ __html: script }}
         />
         <StyleRegistry />

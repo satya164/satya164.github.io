@@ -54,6 +54,7 @@ export default async function TalksPage() {
               {talk.title} - {talk.conference}
             </h3>
             <iframe
+              sandbox=""
               className={styles.embed}
               src={`https://www.youtube.com/embed/${talk.videoId}`}
               title={talk.title}
