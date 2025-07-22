@@ -95,6 +95,7 @@ const styles = {
     fontSize: 96,
     fontFamily: 'Arvo',
     fontWeight: 'bold',
+    textWrap: 'balance',
     // Twitter overlaps the title on top of the image
     // So we add some margin to the bottom to avoid that
     marginBottom: 96,

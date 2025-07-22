@@ -91,6 +91,10 @@ img, video {
   font-style: italic; /* for alt text if image fails to load */
 }
 
+h1, h2, h3, h4 {
+  text-wrap: balance;
+}
+
 h1 {
   font-family: var(--font-arvo);
   font-size: 2.618rem;
