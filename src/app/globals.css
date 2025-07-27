@@ -51,6 +51,8 @@ html {
     --color-background: var(--color-background-dark);
     --color-border: var(--color-border-dark);
   }
+
+  accent-color: var(--color-primary);
 }
 
 body {
