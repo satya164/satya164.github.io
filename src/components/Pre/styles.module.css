@@ -1,3 +1,30 @@
 .pre {
   position: relative;
+
+  /**
+   * If the figure has a caption, it's the title.
+   * Then the copy button in the title bar.
+   * So we only add padding when there is no title.
+   */
+  &:not(figure:has(figcaption) > &) {
+    & > code {
+      padding-right: 3rem; /* Space for the copy button */
+    }
+
+    /* Gradient to show scrollable area */
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 4rem;
+      border-radius: 0 .38rem .38rem 0;
+      background: linear-gradient(
+        to right,
+        hsla(229, 20%, 20%, 0) 0%,
+        hsla(229, 20%, 20%, 1) 25%
+      );
+    }
+  }
 }
