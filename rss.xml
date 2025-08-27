@@ -9,7 +9,7 @@
     <item>
       <guid>https://satya164.page/posts/macos-like-shortcuts-in-hyprland</guid>
       <link>https://satya164.page/posts/macos-like-shortcuts-in-hyprland</link>
-      <title>macOS-like Shortcuts in Hyprland</title>
+      <title>macOS-like shortcuts in Hyprland</title>
       <description>I have been using a MacBook for a while. Here is how I managed to make common shortcuts like copy & paste use the same keys as macOS in Hyprland.</description>
       <pubDate>Wed, 27 Aug 2025 00:00:00 GMT</pubDate>
     </item>
@@ -17,7 +17,7 @@
     <item>
       <guid>https://satya164.page/posts/my-zsh-setup</guid>
       <link>https://satya164.page/posts/my-zsh-setup</link>
-      <title>My Zsh Setup</title>
+      <title>My Zsh setup</title>
       <description>Zsh is super-customizable, and provides a great experience once configured properly. Here's how I set up my Zsh shell.</description>
       <pubDate>Sat, 15 Feb 2025 00:00:00 GMT</pubDate>
     </item>
@@ -49,7 +49,7 @@
     <item>
       <guid>https://satya164.page/posts/automated-release-on-github-actions</guid>
       <link>https://satya164.page/posts/automated-release-on-github-actions</link>
-      <title>Automated Release on GitHub Actions</title>
+      <title>Automated release on GitHub Actions</title>
       <description>Releasing an npm package usually has a lot of steps. This is a guide to setting up automated releases for npm packages on GitHub Actions using release-it.</description>
       <pubDate>Thu, 02 Nov 2023 00:00:00 GMT</pubDate>
     </item>
