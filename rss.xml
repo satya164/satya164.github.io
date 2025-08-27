@@ -7,6 +7,14 @@
     <atom:link href="https://satya164.page/rss.xml" rel="self" type="application/rss+xml" />
 
     <item>
+      <guid>https://satya164.page/posts/macos-like-shortcuts-in-hyprland</guid>
+      <link>https://satya164.page/posts/macos-like-shortcuts-in-hyprland</link>
+      <title>macOS-like Shortcuts in Hyprland</title>
+      <description>I have been using a MacBook for a while. Here is how I managed to make common shortcuts like copy & paste use the same keys as macOS in Hyprland.</description>
+      <pubDate>Wed, 27 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+
+    <item>
       <guid>https://satya164.page/posts/my-zsh-setup</guid>
       <link>https://satya164.page/posts/my-zsh-setup</link>
       <title>My Zsh Setup</title>
