@@ -10,7 +10,7 @@ I still need to use MacBook for work, so I don't want to get used to different s
 
 ## Keybindings
 
-It's already quite straightforward to set up [custom keybindings](https://wiki.hypr.land/Configuring/Binds) in Hyprland to do specific actions, like opening an app launcher, quitting an app etc.
+It's already quite straightforward to set up [custom keybindings](https://wiki.hypr.land/Configuring/Binds) in Hyprland to do specific actions, like opening an app launcher, quitting an app etc. It can be done using the `bind` directive in the config file at `$XDG_CONFIG_HOME/hypr/hyprland.conf` (usually `~/.config/hypr/hyprland.conf`).
 
 For the `$mainMod` key, I use <kbd>Alt</kbd>, since it's in the same location as the <kbd>⌘</kbd> key on a MacBook:
 
