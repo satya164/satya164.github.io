@@ -86,14 +86,18 @@ body {
   opacity: 0.5;
 }
 
-img, video {
+img,
+video {
   max-width: 100%;
   height: auto;
   display: block;
   font-style: italic; /* for alt text if image fails to load */
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   text-wrap: balance;
 }
 
@@ -228,16 +232,31 @@ blockquote {
   padding: 0 0 0 2.38rem;
 }
 
-code {
+code,
+kbd {
   font-family: var(--font-fira-code);
   font-size: 0.86em; /* Use `em` to adapt to the context, e.g. `p` or `h2` */
   font-weight: 700;
-  border-radius: 0.1rem;
-  padding: 0.14rem 0.24rem;
+  border-radius: 0.2rem;
+  padding: 0.08rem 0.24rem;
   background-color: rgba(0, 0, 0, 0.04);
 
   [data-theme='dark'] & {
     background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+kbd {
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
+  margin: 0 1px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.24);
+
+  [data-theme='dark'] & {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.24);
   }
 }
 
@@ -328,7 +347,8 @@ article {
   position: relative;
   text-wrap: pretty;
 
-  img, video {
+  img,
+  video {
     margin-left: auto;
     margin-right: auto;
   }
