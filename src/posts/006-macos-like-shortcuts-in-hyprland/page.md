@@ -1,5 +1,5 @@
 ---
-title: macOS-like Shortcuts in Hyprland
+title: macOS-like shortcuts in Hyprland
 description: I have been using a MacBook for a while. Here is how I managed to make common shortcuts like copy & paste use the same keys as macOS in Hyprland.
 date: 2025-08-27
 ---

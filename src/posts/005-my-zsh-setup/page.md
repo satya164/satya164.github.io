@@ -1,5 +1,5 @@
 ---
-title: My Zsh Setup
+title: My Zsh setup
 description: Zsh is super-customizable, and provides a great experience once configured properly. Here's how I set up my Zsh shell.
 date: 2025-02-15
 ---
