@@ -16,8 +16,8 @@
       content: '';
       position: absolute;
       top: 0;
-      bottom: 0;
       right: 0;
+      height: 2.5rem;
       width: 4rem;
       border-radius: 0 .38rem .38rem 0;
       background: linear-gradient(
