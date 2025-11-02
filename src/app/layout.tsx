@@ -49,6 +49,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: script }}
         />
         <StyleRegistry />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`${meta.title} RSS Feed`}
+          href="/rss.xml"
+        />
       </head>
       <body>
         <NavBar />
