@@ -358,6 +358,14 @@ mark {
   background-color: hsla(38.92deg, 100%, 70.98%, 0.5);
 }
 
+summary {
+  font-weight: 700;
+}
+
+summary::marker {
+  color: var(--color-primary);
+}
+
 .admonition {
   padding: 0.75rem 1rem;
   margin-top: 1rem;
