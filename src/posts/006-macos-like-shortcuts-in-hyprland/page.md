@@ -102,9 +102,22 @@ Unfortunately this doesn't seem to consistently work for me. If you have any ide
 
 ### Copy & Paste in Terminal
 
-It's great that copy & paste use the same shortcuts as in other applications on macOS. However, since Linux uses <kbd>Ctrl</kbd> + <kbd>C</kbd> for copy, Terminal apps need to use a different shortcut as <kbd>Ctrl</kbd> + <kbd>C</kbd> is already used for killing processes in terminals. So our remapping for copy & paste won't work.
+It's great that copy & paste use the same shortcuts as in other applications on macOS. However, since Linux uses <kbd>Ctrl</kbd> + <kbd>C</kbd> for copy, Terminal apps need to use a different shortcut as <kbd>Ctrl</kbd> + <kbd>C</kbd> is already used for killing processes in terminals. So if we remap <kbd>⌘</kbd><kbd>C</kbd> to <kbd>Ctrl</kbd> + <kbd>C</kbd>, it won't work as expected in terminal apps. Similarly, <kbd>Ctrl</kbd> + <kbd>V</kbd> also has a [special behavior](https://superuser.com/a/421468/2275229) in terminals.
 
-Luckily, we can also add custom logic for our keybindings, where we can check whether the active window is a terminal or not using [hyprctl](https://wiki.hypr.land/Configuring/Using-hyprctl/). Then we can dispatch <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd> and <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd> instead.
+Luckily, I found that there are different shortcuts for copy & paste as well, <kbd>Ctrl</kbd> + <kbd>Insert</kbd> for copy and <kbd>Shift</kbd> + <kbd>Insert</kbd> for paste. So we can remap to those instead:
+
+```ini
+binde = $mainMod, C, sendshortcut, CTRL, INSERT,
+binde = $mainMod, V, sendshortcut, SHIFT, INSERT,
+```
+
+<details>
+
+<summary>Alternative approach</summary>
+
+Before discovering the above shortcuts, I tried another approach. So this section is for historical purposes.
+
+We can also add custom logic for our keybindings, where we can check whether the active window is a terminal or not using [hyprctl](https://wiki.hypr.land/Configuring/Using-hyprctl/). Then we can dispatch <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd> and <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd> instead.
 
 I use [Ghostty](https://ghostty.org/) for my Terminal, so I wrote the binding by checking if the active window class matches Ghostty:
 
@@ -116,6 +129,10 @@ binde = $mainMod, V, exec, hyprctl activewindow | grep -q "class: com.mitchellh.
 This way, I send <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd> to Ghostty and <kbd>Ctrl</kbd> + <kbd>C</kbd> to other applications using the same shortcuts.
 
 You can find the class of your terminal app by running `hyprctl activewindow` in the terminal, then look for the line that starts with `class:`.
+
+A major downside of this approach is that it won't work for apps with integrated terminals, such as VSCode, since the integrated terminal is not a separate window.
+
+</details>
 
 ### Text-editing shortcuts
 
@@ -173,8 +190,8 @@ binde = $mainMod, Y, sendshortcut, CTRL, Y,
 binde = $mainMod, Z, sendshortcut, CTRL, Z,
 binde = $mainMod SHIFT, Z, sendshortcut, CTRL, Y,
 
-binde = $mainMod, C, exec, hyprctl activewindow | grep -q "class: com.mitchellh.ghostty" && hyprctl dispatch sendshortcut "CTRL SHIFT, C," || hyprctl dispatch sendshortcut "CTRL, C,"
-binde = $mainMod, V, exec, hyprctl activewindow | grep -q "class: com.mitchellh.ghostty" && hyprctl dispatch sendshortcut "CTRL SHIFT, V," || hyprctl dispatch sendshortcut "CTRL, V,"
+binde = $mainMod, C, sendshortcut, CTRL, INSERT,
+binde = $mainMod, V, sendshortcut, SHIFT, INSERT,
 
 binde = CTRL, A, sendshortcut, , home,
 binde = CTRL, E, sendshortcut, , end,
