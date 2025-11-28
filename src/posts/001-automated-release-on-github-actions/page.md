@@ -29,7 +29,8 @@ Configure `release-it` in the `package.json` file:
       "tagName": "v${version}"
     },
     "npm": {
-      "publish": true
+      "publish": true,
+      "skipChecks": true
     },
     "github": {
       "release": true
@@ -47,9 +48,24 @@ Configure `release-it` in the `package.json` file:
 }
 ```
 
+The `npm.skipChecks` option is set to `true` to skip authentication checks done by `release-it`, since it will be handled by GitHub Actions using "Trusted Publisher". Not setting this option will lead to authentication error when running the release workflow.
+
 ## Step 2
 
-Create a NPM token with publish access. You can create one at `https://www.npmjs.com/settings/[username]/tokens` (replace `[username]` with your username):
+Setup your GitHub workflow as a "Trusted Publisher" on npm. You need to do it for each package at `https://www.npmjs.com/package/[package-name]/access` (replace `[package-name]` with your package name):
+
+- Select **"GitHub Actions"** under **"Trusted Publishers"**
+- Fill in the organization and repository name
+- Fill in the workflow file path, in our case we will use [`release.yml`](#step-4)
+
+This allows you to publish packages using [OpenID Connect (OIDC)](https://openid.net/developers/how-connect-works/) authentication without needing an npm token.
+
+<details>
+<summary>Legacy setup with npm token</summary>
+
+It is recommended to use the trusted publisher feature if possible instead of npm tokens for better security. In addition, [npm tokens are only valid for 90 days](https://github.blog/changelog/2025-11-05-npm-security-update-classic-token-creation-disabled-and-granular-token-changes/), making it quite inconvenient for automated workflows.
+
+To use npm tokens for authentication instead, create a npm token with publish access. You can create one at `https://www.npmjs.com/settings/[username]/tokens` (replace `[username]` with your username):
 
 - Click on **"Generate New Token"** and select **"Granular Access Token"**
 - Provide a token name and expiration date
@@ -61,13 +77,15 @@ Then the token needs to be added as a secret in the GitHub repository:
 
 - Go to the repository and click on **"Settings"**
 - Click on **"Secrets and variables"** and choose **"Actions"**
-- Click **"New repository secret"** and add the token as `NPM_PUBLISH_TOKEN`
+- Click **"New repository secret"** and add the token as `npm_PUBLISH_TOKEN`
 - Click on **"Add secret"** to save the token
 
-This token will be used to authenticate with NPM to publish the package.
+This token will be used to authenticate with npm to publish the package.
 
 > [!WARNING]
 > Other collaborators on the repo can push actions that use this token and update the npm package acting as the user associated with the token. Make sure to use this only if you trust the collaborators on the repository.
+
+</details>
 
 ## Step 3
 
@@ -78,7 +96,10 @@ Create a GitHub personal access token. You can create one at [github.com/setting
 - Under **"Permissions**", expand **"Repository permissions"** and set **"Contents"** to **"Access: Read & write"**
 - Click **"Generate token"** and copy the generated token
 
-Alternatively, you can create a classic token with the `repo` scope [under **Developer settings** in your profile settings](https://github.com/settings/tokens/new?scopes=repo&description=release-it). However, it is highly recommended to use granular access tokens with the least required permissions.
+<details>
+<summary>Legacy setup with classic token</summary>
+
+Alternatively, you can create a classic token with the `repo` scope [under **Developer settings** in your profile settings](https://github.com/settings/tokens/new?scopes=repo&description=release-it). However, it is highly recommended to use granular access tokens with the least required permissions for better security.
 
 Then the token needs to be added as a secret in the GitHub repository:
 
@@ -86,6 +107,8 @@ Then the token needs to be added as a secret in the GitHub repository:
 - Click on **"Secrets and variables"** and choose **"Actions"**
 - Click **"New repository secret"** and add the token as `PERSONAL_ACCESS_TOKEN`
 - Click on **"Add secret"** to save the token
+
+</details>
 
 A personal access token is necessary to be able to push the changes back to the repository if the release branch is protected. The user associated with the token needs to have admin access to the repository and be able to bypass branch protection rules.
 
@@ -162,14 +185,14 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
+      - name: Update npm
+        run: npm install -g npm@latest
+
       - name: Create release
         run: |
-          npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
           yarn release-it --ci
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
 ```
 
 There are 2 important things to note in this workflow:
@@ -177,7 +200,29 @@ There are 2 important things to note in this workflow:
 - The workflow runs on the `workflow_run` event. This event is triggered when another workflow is run. In this case, the `CI` workflow is run on every commit to the `main` branch. The `release` workflow is triggered when the `CI` workflow is completed. You may need to change the name according to the name of the workflow that runs tests, linting, etc. in your repository.
 - There are 2 jobs in the workflow. The first job checks if the commit message is a release commit. If it is, then the second job is skipped. This is to prevent an infinite loop of releases. The second job runs `release-it` to publish the package.
 
-Additionally, setting `NPM_CONFIG_PROVENANCE` to `true` will generate a [provenance statement](https://docs.npmjs.com/generating-provenance-statements) when publishing the package. This lets others verify where and how your package was built. This also needs the `id-token: write` permission in the `permissions` section of the job.
+The "Update npm" step is included to ensure that the latest version of npm is used, which is necessary for the trusted publisher feature.
+
+<details>
+<summary>Legacy setup with npm token</summary>
+
+If you are using npm token instead of setting up a trusted publisher, then replace the `Create release` step with the following:
+
+```yml title=".github/workflows/release.yml"
+- name: Create release
+  run: |
+    npm config set //registry.npmjs.org/:_authToken $npm_PUBLISH_TOKEN
+    yarn release-it --ci
+  env:
+    GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+    npm_PUBLISH_TOKEN: ${{ secrets.npm_PUBLISH_TOKEN }}
+    npm_CONFIG_PROVENANCE: true
+```
+
+Setting `npm_CONFIG_PROVENANCE` to `true` will generate a [provenance statement](https://docs.npmjs.com/generating-provenance-statements) when publishing the package. This lets others verify where and how your package was built. This also needs the `id-token: write` permission in the `permissions` section of the job.
+
+You can also remove the "Update npm" step since we only need it to use the trusted publisher feature.
+
+</details>
 
 After configuring, this workflow automatically publishes a new version of the package on every commit to the `main` branch after the `CI` workflow is successful.
 
