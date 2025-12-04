@@ -101,6 +101,8 @@ Create a GitHub personal access token. You can create one at [github.com/setting
 
 Alternatively, you can create a classic token with the `repo` scope [under **Developer settings** in your profile settings](https://github.com/settings/tokens/new?scopes=repo&description=release-it). However, it is highly recommended to use granular access tokens with the least required permissions for better security.
 
+</details>
+
 Then the token needs to be added as a secret in the GitHub repository:
 
 - Go to the repository and click on **"Settings"**
@@ -108,14 +110,12 @@ Then the token needs to be added as a secret in the GitHub repository:
 - Click **"New repository secret"** and add the token as `PERSONAL_ACCESS_TOKEN`
 - Click on **"Add secret"** to save the token
 
-</details>
-
 A personal access token is necessary to be able to push the changes back to the repository if the release branch is protected. The user associated with the token needs to have admin access to the repository and be able to bypass branch protection rules.
 
 > [!WARNING]
 > Other collaborators on the repo can push actions that use this token and push commits acting as the user associated with the token. Make sure to use this only if you trust the collaborators on the repository.
 
-If there are no branch protection rules in the repository, then the [`GITHUB_TOKEN`](https://docs.github.com/en/actions/concepts/security/github_token) secret can be used instead of a personal access token. Note that commits made by using `GITHUB_TOKEN` won't trigger other workflows.
+If there are no branch protection rules in the repository, then the [`GITHUB_TOKEN`](https://docs.github.com/en/actions/concepts/security/github_token) secret (available by default) can be used instead of a personal access token. Note that commits made by using `GITHUB_TOKEN` won't trigger other workflows.
 
 ## Step 4
 
