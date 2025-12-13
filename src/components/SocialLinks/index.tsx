@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+
 import metadata from '../../metadata.json';
 import styles from './styles.module.css';
 

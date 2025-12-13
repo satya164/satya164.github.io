@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import metadata from '../../metadata.json';
 import styles from './styles.module.css';
 

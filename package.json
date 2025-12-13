@@ -7,47 +7,48 @@
   "author": "Satyajit Sahoo <satyajit.happy@gmail.com>",
   "license": "CC BY-NC-SA",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "lint": "eslint \"**/*.{mjs,js,ts,tsx}\"",
     "typecheck": "tsc --noEmit"
   },
   "packageManager": "yarn@4.0.2",
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.20.0",
-    "@mdx-js/react": "^3.1.0",
-    "@next/mdx": "^15.4.2",
-    "@orama/orama": "^3.1.11",
-    "@orama/plugin-match-highlight": "^3.1.11",
+    "@mdx-js/react": "^3.1.1",
+    "@next/mdx": "^16.0.10",
+    "@orama/orama": "^3.1.16",
+    "@orama/plugin-match-highlight": "^3.1.16",
     "clsx": "^2.1.1",
     "github-slugger": "^2.0.0",
-    "next": "15.4.2",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "next": "16.0.10",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "rehype-external-links": "^3.0.0",
     "remark": "^15.0.1",
     "strip-markdown": "^6.0.0",
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "@csstools/postcss-global-data": "^3.0.0",
-    "@evilmartians/lefthook": "^1.12.2",
-    "@mdx-js/loader": "^3.1.0",
+    "@csstools/postcss-global-data": "^3.1.0",
+    "@evilmartians/lefthook": "^2.0.11",
+    "@mdx-js/loader": "^3.1.1",
+    "@next/eslint-plugin-next": "^16.0.10",
     "@types/mdx": "^2.0.13",
-    "@types/node": "^24.0.15",
+    "@types/node": "^25.0.1",
     "@types/postcss-flexbugs-fixes": "^5.0.3",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "@types/webpack-env": "^1.18.8",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.3",
-    "eslint-config-satya164": "^3.2.1",
+    "eslint": "^9.39.2",
+    "eslint-config-satya164": "^5.1.6",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "file-loader": "^6.2.0",
     "postcss-custom-media": "^11.0.6",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-nesting": "^13.0.2",
-    "postcss-preset-env": "^10.2.4",
-    "prettier": "^3.6.2",
+    "postcss-preset-env": "^10.5.0",
+    "prettier": "^3.7.4",
     "raw-loader": "^4.0.2",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-mdx-import-media": "^1.2.0",
@@ -59,27 +60,9 @@
     "remark-mdx-frontmatter": "^5.2.0",
     "remark-mdx-toc": "^0.3.1",
     "remark-reading-time": "^2.0.2",
-    "shiki": "^3.8.1",
-    "typescript": "^5.8.3"
+    "shiki": "^3.20.0",
+    "typescript": "^5.9.3"
   },
-  "resolutions": {
-    "eslint-plugin-react-hooks": "5.0.0-canary-7118f5dd7-20230705"
-  },
-  "eslintConfig": {
-    "extends": [
-      "next/core-web-vitals",
-      "satya164"
-    ],
-    "rules": {
-      "react/react-in-jsx-scope": "off"
-    }
-  },
-  "eslintIgnore": [
-    ".next/",
-    ".yarn/",
-    "node_modules/",
-    "out/"
-  ],
   "prettier": {
     "quoteProps": "consistent",
     "tabWidth": 2,

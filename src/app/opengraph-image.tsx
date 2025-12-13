@@ -1,8 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { readFile } from 'fs/promises';
 import { ImageResponse } from 'next/og';
 import { join } from 'path';
+
 import { loadGoogleFont } from '../helpers/loadGoogleFont';
 import metadata from '../metadata.json';
 
@@ -16,17 +15,15 @@ export default async function Image() {
   const arvo = await loadGoogleFont('Arvo');
 
   return new ImageResponse(
-    (
-      <div style={styles.container}>
-        <img
-          style={styles.avatar}
-          alt={metadata.author.name}
-          // @ts-expect-error we need to pass array buffer for og preview
-          src={avatarSrc}
-        />
-        <div style={styles.title}>{metadata.title}</div>
-      </div>
-    ),
+    <div style={styles.container}>
+      <img
+        style={styles.avatar}
+        alt={metadata.author.name}
+        // @ts-expect-error we need to pass array buffer for og preview
+        src={avatarSrc}
+      />
+      <div style={styles.title}>{metadata.title}</div>
+    </div>,
     {
       ...size,
       fonts: [arvo],

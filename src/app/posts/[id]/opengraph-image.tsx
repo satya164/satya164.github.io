@@ -1,8 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { readFile } from 'fs/promises';
 import { ImageResponse } from 'next/og';
 import { join } from 'path';
+
 import { loadGoogleFont } from '../../../helpers/loadGoogleFont';
 import metadata from '../../../metadata.json';
 import { allIds, postById } from '../../../posts/_all';
@@ -29,21 +28,19 @@ export default async function Image({ params }: Props) {
   ]);
 
   return new ImageResponse(
-    (
-      <div style={styles.container}>
-        <div style={styles.header}>
-          <div style={styles.blog}>{metadata.title}</div>
-          <img
-            style={styles.avatar}
-            alt={metadata.author.name}
-            // @ts-expect-error we need to pass array buffer for og preview
-            src={avatarSrc}
-          />
-        </div>
-        <div style={styles.spacer} />
-        <div style={styles.title}>{frontmatter.title}</div>
+    <div style={styles.container}>
+      <div style={styles.header}>
+        <div style={styles.blog}>{metadata.title}</div>
+        <img
+          style={styles.avatar}
+          alt={metadata.author.name}
+          // @ts-expect-error we need to pass array buffer for og preview
+          src={avatarSrc}
+        />
       </div>
-    ),
+      <div style={styles.spacer} />
+      <div style={styles.title}>{frontmatter.title}</div>
+    </div>,
     {
       ...size,
       fonts: [arvo, lato],

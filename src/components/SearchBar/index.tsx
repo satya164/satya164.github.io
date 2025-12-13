@@ -8,6 +8,7 @@ import type {
 import clsx from 'clsx';
 import Link from 'next/link';
 import * as React from 'react';
+
 import { Spinner } from '../Spinner';
 import styles from './styles.module.css';
 
@@ -68,9 +69,8 @@ export function SearchBar({ className }: Props) {
         return;
       }
 
-      const { searchWithHighlight } = await import(
-        '@orama/plugin-match-highlight'
-      );
+      const { searchWithHighlight } =
+        await import('@orama/plugin-match-highlight');
 
       const results = await searchWithHighlight(db, {
         term: query,

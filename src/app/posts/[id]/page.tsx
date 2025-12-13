@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+
 import { PostMeta } from '../../../components/PostMeta';
 import { SocialLinks } from '../../../components/SocialLinks';
 import { TableOfContent } from '../../../components/TableOfContent';

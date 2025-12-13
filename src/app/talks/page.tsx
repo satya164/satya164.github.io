@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+
 import styles from './page.module.css';
 
 const talks = [

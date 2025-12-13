@@ -12,6 +12,7 @@ import { remarkMdxToc } from 'remark-mdx-toc';
 import readingTime from 'remark-reading-time';
 import readingTimeMdx from 'remark-reading-time/mdx.js';
 import { visit } from 'unist-util-visit';
+
 import rehypeCodeblockMeta from './src/plugins/rehype-codeblock-meta.mjs';
 
 /** @type {import('next').NextConfig} */
@@ -21,9 +22,7 @@ const nextConfig = {
   images: { unoptimized: true },
   cleanDistDir: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-  experimental: {
-    typedRoutes: true,
-  },
+  typedRoutes: true,
   webpack: (webpackConfig, { dev, isServer }) => {
     webpackConfig.module.rules.push({
       test: /\.mp4$/,

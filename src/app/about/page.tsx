@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import * as React from 'react';
+
 import avatar from '../../assets/images/avatar.jpg';
 import styles from './page.module.css';
 

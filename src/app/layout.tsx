@@ -1,11 +1,13 @@
+import './globals.css';
+
 import clsx from 'clsx';
 import type { Metadata } from 'next';
 import { Arvo, Fira_Code, Lato } from 'next/font/google';
+
 import { Footer } from '../components/Footer';
 import { NavBar } from '../components/NavBar';
 import { script } from '../components/ThemeSwitcher';
 import meta from '../metadata.json';
-import './globals.css';
 import StyleRegistry from './registry';
 
 const arvo = Arvo({

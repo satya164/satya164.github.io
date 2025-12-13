@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+
 import { postsByOffset } from '../posts/_all';
 
 const url = process.env.NEXT_PUBLIC_SITE_URL;

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+
 import type { Toc } from '../../posts/_all';
 import styles from './styles.module.css';
 

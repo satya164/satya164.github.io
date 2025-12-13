@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
 import avatar from '../../assets/images/avatar-small.jpg';
 import { SearchBar } from '../SearchBar';
 import { ThemeSwitcher } from '../ThemeSwitcher';
