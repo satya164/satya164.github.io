@@ -1,11 +1,9 @@
 'use client';
 
 import clsx from 'clsx';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import avatar from '../../assets/images/avatar-small.jpg';
 import { SearchBar } from '../SearchBar';
 import { ThemeSwitcher } from '../ThemeSwitcher';
 import styles from './styles.module.css';
@@ -16,11 +14,7 @@ export function NavBar() {
   return (
     <nav className={styles.container}>
       <div className={styles.left}>
-        {pathname === '/' ? (
-          <Link href="/about" className={clsx(styles.logo, styles.item)}>
-            <Image src={avatar} alt="About" priority />
-          </Link>
-        ) : (
+        {pathname !== '/' && (
           <Link
             href="/"
             className={clsx(styles.item, styles.back)}

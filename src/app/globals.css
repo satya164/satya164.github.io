@@ -229,8 +229,12 @@ blockquote {
   line-height: 2.11rem;
   overflow-wrap: break-word;
   margin: 2.62rem 0 1.57rem 0;
-  color: rgba(0, 0, 0, 0.68);
   padding: 0 0 0 2.38rem;
+  color: hsla(222deg, 22%, 5%, 0.68);
+
+  [data-theme='dark'] & {
+    color: hsla(230deg, 18%, 72%, 0.68);
+  }
 }
 
 code,

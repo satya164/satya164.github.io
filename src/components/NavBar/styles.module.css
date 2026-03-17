@@ -6,7 +6,8 @@
   position: relative;
 }
 
-.left, .right {
+.left,
+.right {
   flex: 1;
   display: flex;
   gap: 1rem;
@@ -28,23 +29,6 @@
   font-size: 1.14rem;
   text-decoration: none;
   color: inherit;
-}
-
-.logo {
-  margin-left: 0.5rem;
-
-  & img {
-    color: inherit !important;
-    height: 2.25rem;
-    width: 2.25rem;
-    margin: 0.125rem;
-    border: 2px solid currentColor;
-    border-radius: 50%;
-  }
-
-  &:hover img {
-    filter: saturate(120%);
-  }
 }
 
 .back {

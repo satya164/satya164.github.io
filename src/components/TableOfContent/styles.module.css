@@ -11,7 +11,7 @@
   position: absolute;
   width: 35ch;
   max-height: 100vh;
-  overflow-y: auto;;
+  overflow-y: auto;
   margin: 0 0 0 3rem;
   box-shadow: inset 1px 0 0 0 var(--color-border);
 

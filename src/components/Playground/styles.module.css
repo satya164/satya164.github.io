@@ -3,9 +3,13 @@
   background-origin: border-box;
   gap: 0 !important;
 
-  html:not([data-theme="dark"]) & {
+  html:not([data-theme='dark']) & {
     border: 1px solid transparent !important;
-    background-image: linear-gradient(to bottom, #2a2d3d var(--editor-height), #eee var(--editor-height));
+    background-image: linear-gradient(
+      to bottom,
+      #2a2d3d var(--editor-height),
+      #eee var(--editor-height)
+    );
   }
 
   @media (--small-viewport) {
