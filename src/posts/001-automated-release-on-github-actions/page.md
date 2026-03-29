@@ -228,6 +228,9 @@ After configuring, this workflow automatically publishes a new version of the pa
 
 ![Release workflow](./release-workflow.png)
 
+> [!NOTE]
+> If you're publishing a new package, make sure to publish it from your local machine first. Trusted publishing only works for publishing new versions of existing packages.
+
 Instead of publishing on every commit, an alternative way could be to have the release workflow configured, and run the workflow manually from the **Actions** tab in the repository when a new release is needed. This can be done by using the `workflow_dispatch` event to the `on` section:
 
 ```yml title=".github/workflows/release.yml"
