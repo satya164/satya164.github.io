@@ -10,7 +10,9 @@ Generally, the release process is triggered manually by running a command on loc
 
 This guide documents how to configure GitHub Actions to automatically release npm packages on every commit using `release-it`. However, these steps can be adapted to other similar tools as well.
 
-## Step 1
+## Setting up workflows
+
+### Step 1
 
 Install `release-it` and `@release-it/conventional-changelog` as dev dependencies:
 
@@ -50,7 +52,7 @@ Configure `release-it` in the `package.json` file:
 
 The `npm.skipChecks` option is set to `true` to skip authentication checks done by `release-it`, since it will be handled by GitHub Actions using "Trusted Publisher". Not setting this option will lead to authentication error when running the release workflow.
 
-## Step 2
+### Step 2
 
 Setup your GitHub workflow as a "Trusted Publisher" on npm. You need to do it for each package at `https://www.npmjs.com/package/[package-name]/access` (replace `[package-name]` with your package name):
 
@@ -87,7 +89,7 @@ This token will be used to authenticate with npm to publish the package.
 
 </details>
 
-## Step 3
+### Step 3
 
 Create a GitHub personal access token. You can create one at [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new):
 
@@ -110,14 +112,14 @@ Then the token needs to be added as a secret in the GitHub repository:
 - Click **"New repository secret"** and add the token as `PERSONAL_ACCESS_TOKEN`
 - Click on **"Add secret"** to save the token
 
-A personal access token is necessary to be able to push the changes back to the repository if the release branch is protected. The user associated with the token needs to have admin access to the repository and be able to bypass branch protection rules.
+A personal access token is necessary to push the release commit and tag back to the repository if the release branch is protected. The user associated with the token needs to have admin access to the repository and be able to bypass branch protection rules.
 
 > [!WARNING]
-> Other collaborators on the repo can push actions that use this token and push commits acting as the user associated with the token. Make sure to use this only if you trust the collaborators on the repository.
+> Anyone who can push workflow changes to the repository can make a workflow use this token. Package scripts and compromised dependencies running in the release workflow can also access it. To minimize risk, scope it to this repository with the minimum required permissions, and prefer a dedicated bot account with an expiration date and regular rotation.
 
 If there are no branch protection rules in the repository, then the [`GITHUB_TOKEN`](https://docs.github.com/en/actions/concepts/security/github_token) secret (available by default) can be used instead of a personal access token. Note that commits made by using `GITHUB_TOKEN` won't trigger other workflows.
 
-## Step 4
+### Step 4
 
 Create a GitHub Actions workflow file in `.github/workflows/release.yml` with the following contents:
 
@@ -137,14 +139,20 @@ on:
 jobs:
   check-commit:
     runs-on: ubuntu-latest
-    # Skip if the workflow run for tests, linting etc. is not successful
-    # Without this, the release will be triggered after the previous workflow run even if it failed.
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # Only run for successful pushes from this repository.
+    # - Skip failed runs of the previous workflow, otherwise the release will be triggered even if tests, linting etc. failed.
+    # - Skip runs not triggered by a push (e.g. pull_request, schedule), otherwise a fork's pull request could trigger a release.
+    # - Skip runs from forks, otherwise a fork branch named "main" could match the `branches` filter and trigger a release.
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
     outputs:
       skip: ${{ steps.commit-message.outputs.skip }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        # actions/checkout@v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
       # Check if the commit message is a release commit
       # Without this, there will be an infinite loop of releases
@@ -167,14 +175,16 @@ jobs:
     if: ${{ needs.check-commit.outputs.skip != 'true' }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        # actions/checkout@v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           # This is needed to generate the changelog from commit messages
           fetch-depth: 0
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        # actions/setup-node@v6.4.0
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
 
       - name: Install dependencies
         run: yarn install --immutable
@@ -186,7 +196,7 @@ jobs:
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
       - name: Update npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@11.14.1
 
       - name: Create release
         run: |
@@ -246,3 +256,25 @@ jobs:
 ```
 
 See the GitHub documentation for [Manually running a workflow](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow) for more details.
+
+## Security considerations
+
+Using trusted publishing is safer than storing a long-lived npm publish token in GitHub Actions, but it doesn't make the whole workflow safe by itself.
+
+Here are some recommended practices to minimize the risk:
+
+- Grant `id-token: write` only to the job that publishes to npm. Avoid running unrelated work such as tests, linting etc. in the same job.
+- Don't use dependency or build caches in the release job. A poisoned cache can carry compromised code from a less-trusted workflow into the publishing workflow.
+- Use a fine-grained repo-scoped GitHub token, preferably from a bot account, with expiration and rotation.
+- Avoid `pull_request_target` unless the workflow needs write access for metadata-only tasks such as labeling or commenting on pull requests. Never use it to check out, install, build, test or run code from an untrusted pull request.
+- Treat `workflow_run` as privileged. It can access secrets even if the workflow that triggered it could not. For release workflows, check that the triggering run came from a successful `push` to the same repository, and don't use artifacts from untrusted runs as release inputs.
+- Pin third-party actions and reusable workflows to full-length commit SHAs instead of tags such as `@v3` or branches such as `@main`.
+- Monitor published versions, package contents, and provenance attestations so unexpected publishes are detected quickly.
+
+References:
+
+- [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/)
+- [GitHub `pull_request_target` documentation](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#pull_request_target)
+- [GitHub Security Lab: Preventing pwn requests](https://securitylab.github.com/resources/github-actions-preventing-pwn-requests/)
+- [GitHub secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions)
+- [TanStack npm supply-chain compromise postmortem](https://tanstack.com/blog/npm-supply-chain-compromise-postmortem)
