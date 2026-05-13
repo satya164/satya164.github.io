@@ -1,12 +1,13 @@
+/// <reference types="webpack-env" />
+
 import { remark } from 'remark';
 import strip from 'strip-markdown';
 
-const context = require.context(
-  '!!raw-loader!../../posts',
-  true,
-  /page\.mdx?$/,
-  'lazy'
-);
+const context = import.meta.webpackContext('!!raw-loader!../../posts', {
+  regExp: /page\.mdx?$/,
+  recursive: true,
+  mode: 'lazy',
+});
 
 export async function GET() {
   const posts = await Promise.all(

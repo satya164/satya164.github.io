@@ -1,3 +1,5 @@
+/// <reference types="webpack-env" />
+
 import GithubSlugger from 'github-slugger';
 
 const context = import.meta.webpackContext('.', {
