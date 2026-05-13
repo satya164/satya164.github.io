@@ -12,7 +12,7 @@ This guide documents how to configure GitHub Actions to automatically release np
 
 ## Setting up workflows
 
-### Step 1
+### Step 1: Configure `release-it`
 
 Install `release-it` and `@release-it/conventional-changelog` as dev dependencies:
 
@@ -52,9 +52,9 @@ Configure `release-it` in the `package.json` file:
 
 The `npm.skipChecks` option is set to `true` to skip authentication checks done by `release-it`, since it will be handled by GitHub Actions using "Trusted Publisher". Not setting this option will lead to authentication error when running the release workflow.
 
-### Step 2
+### Step 2: Set up npm authentication
 
-Setup your GitHub workflow as a "Trusted Publisher" on npm. You need to do it for each package at `https://www.npmjs.com/package/[package-name]/access` (replace `[package-name]` with your package name):
+Set up your GitHub workflow as a "Trusted Publisher" on npm. You need to do it for each package at `https://www.npmjs.com/package/[package-name]/access` (replace `[package-name]` with your package name):
 
 - Select **"GitHub Actions"** under **"Trusted Publishers"**
 - Fill in the organization and repository name
@@ -89,7 +89,7 @@ This token will be used to authenticate with npm to publish the package.
 
 </details>
 
-### Step 3
+### Step 3: Set up GitHub token
 
 Create a GitHub personal access token. You can create one at [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new):
 
@@ -105,12 +105,30 @@ Alternatively, you can create a classic token with the `repo` scope [under **Dev
 
 </details>
 
-Then the token needs to be added as a secret in the GitHub repository:
+Then the token needs to be added as a secret in the GitHub repository. We'll set up [environments](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments) so we can restrict the token to be used only on the `main` branch:
+
+- Go to the repository and click on **"Settings"**
+- Click on **"Environments"**
+- Click **"New environment"** and give it a name, we'll use `release` for this example
+- Click **"Configure environment"**
+- Under **"Deployment branches and tags"**, select **"Selected branches and tags"**
+- Click **"Add deployment branch or tag rule"**, set **"Ref type"** to **"Branch"** and enter `main` as the value under **"Name pattern"**, then click **"Add rule"**
+- Under **"Environment secrets"**, click **"Add environment secret"** and add the token as `PERSONAL_ACCESS_TOKEN`
+- Click on **"Add secret"** to save the token
+
+<details>
+<summary>Setup without environments</summary>
+
+Environments are not available on private repositories on the free plan. So in this case, you can add the token as a repository secret without setting up environments:
 
 - Go to the repository and click on **"Settings"**
 - Click on **"Secrets and variables"** and choose **"Actions"**
 - Click **"New repository secret"** and add the token as `PERSONAL_ACCESS_TOKEN`
 - Click on **"Add secret"** to save the token
+
+Note that this means the token can be used in workflows running on any branch, even for the ones created by other collaborators.
+
+</details>
 
 A personal access token is necessary to push the release commit and tag back to the repository if the release branch is protected. The user associated with the token needs to have admin access to the repository and be able to bypass branch protection rules.
 
@@ -119,7 +137,7 @@ A personal access token is necessary to push the release commit and tag back to 
 
 If there are no branch protection rules in the repository, then the [`GITHUB_TOKEN`](https://docs.github.com/en/actions/concepts/security/github_token) secret (available by default) can be used instead of a personal access token. Note that commits made by using `GITHUB_TOKEN` won't trigger other workflows.
 
-### Step 4
+### Step 4: Configure GitHub Actions
 
 Create a GitHub Actions workflow file in `.github/workflows/release.yml` with the following contents:
 
@@ -171,6 +189,9 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    environment:
+      name: release
+      url: https://www.npmjs.com/package/[package-name] # replace with your package url
     # Skip if the commit message is a release commit
     if: ${{ needs.check-commit.outputs.skip != 'true' }}
     steps:
@@ -231,6 +252,27 @@ If you are using npm token instead of setting up a trusted publisher, then repla
 Setting `npm_CONFIG_PROVENANCE` to `true` will generate a [provenance statement](https://docs.npmjs.com/generating-provenance-statements) when publishing the package. This lets others verify where and how your package was built. This also needs the `id-token: write` permission in the `permissions` section of the job.
 
 You can also remove the "Update npm" step since we only need it to use the trusted publisher feature.
+
+</details>
+
+<details>
+<summary>Setup without environments</summary>
+
+If you didn't set up the `PERSONAL_ACCESS_TOKEN` secret using environments, then omit the `environment` block in the workflow file:
+
+```diff title=".github/workflows/release.yml"
+   release:
+     runs-on: ubuntu-latest
+     needs: check-commit
+     permissions:
+       contents: read
+       id-token: write
+-    environment:
+-      name: release
+-      url: https://www.npmjs.com/package/[package-name] # replace with your package url
+     # Skip if the commit message is a release commit
+     if: ${{ needs.check-commit.outputs.skip != 'true' }}
+```
 
 </details>
 
