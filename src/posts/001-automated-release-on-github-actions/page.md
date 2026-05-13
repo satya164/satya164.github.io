@@ -17,7 +17,7 @@ This guide documents how to configure GitHub Actions to automatically release np
 Install `release-it` and `@release-it/conventional-changelog` as dev dependencies:
 
 ```bash
-yarn add --dev release-it @release-it/conventional-changelog
+npm install --save-dev release-it @release-it/conventional-changelog
 ```
 
 Configure `release-it` in the `package.json` file:
@@ -206,22 +206,25 @@ jobs:
       - name: Setup Node.js
         # actions/setup-node@v6.4.0
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        with:
+          # Avoid using dependency caches in the release job.
+          package-manager-cache: false
+
+      # Use a newer version for the trusted publisher feature
+      - name: Update npm
+        run: npm install -g npm@11.14.1
 
       - name: Install dependencies
-        run: yarn install --immutable
-        shell: bash
+        run: npm ci
 
       - name: Configure Git
         run: |
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
-      - name: Update npm
-        run: npm install -g npm@11.14.1
-
       - name: Create release
         run: |
-          yarn release-it --ci
+          npm exec -- release-it --ci
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 ```
@@ -242,7 +245,7 @@ If you are using npm token instead of setting up a trusted publisher, then repla
 - name: Create release
   run: |
     npm config set //registry.npmjs.org/:_authToken $npm_PUBLISH_TOKEN
-    yarn release-it --ci
+    npm exec -- release-it --ci
   env:
     GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
     npm_PUBLISH_TOKEN: ${{ secrets.npm_PUBLISH_TOKEN }}
